@@ -32,7 +32,10 @@ public class SplashPresenter extends BasePresenter {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                //mSplashView.showError(R.string.app_name);
+                //mSplas
+                //
+                //
+                // hView.showError(R.string.app_name);
                 Log.d("SplashPresenter", t.getMessage(), t);
             }
         });
