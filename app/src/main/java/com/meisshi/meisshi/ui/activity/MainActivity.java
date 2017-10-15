@@ -1,0 +1,118 @@
+package com.meisshi.meisshi.ui.activity;
+
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.MenuItem;
+
+import com.meisshi.meisshi.R;
+import com.meisshi.meisshi.ui.fragment.CardHolderFragment;
+import com.meisshi.meisshi.ui.fragment.MyCardFragment;
+import com.meisshi.meisshi.ui.fragment.ProfileFragment;
+import com.meisshi.meisshi.ui.fragment.QrFragment;
+import com.meisshi.meisshi.ui.fragment.SearchFragment;
+import com.meisshi.meisshi.view.IMainView;
+
+/**
+ * Created by DevAg on 02/09/2017.
+ */
+
+public class MainActivity extends BaseActivity
+    implements IMainView {
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        setup();
+    }
+
+    @Override
+    public void setup() {
+        BottomNavigationView navigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation_view);
+
+        if (navigationView != null) {
+
+            navigationView.setOnNavigationItemSelectedListener(
+                    new BottomNavigationView.OnNavigationItemSelectedListener() {
+                        @Override
+                        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                            onSelectMenuItem(item);
+                            return false;
+                        }
+                    });
+
+        }
+    }
+
+    private void onSelectMenuItem(MenuItem item) {
+        item.setChecked(true);
+
+        switch (item.getItemId()) {
+            case R.id.action_qr:
+                showQrView();
+                break;
+            case R.id.action_search:
+                showSearchView();
+                break;
+            case R.id.action_my_card:
+                showMyCardView();
+                break;
+            case R.id.action_cardholder:
+                showCardHolderView();
+                break;
+            case R.id.action_profile:
+                showProfileView();
+                break;
+        }
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+
+    }
+
+    @Override
+    public void showQrView() {
+        pushFragment(new QrFragment());
+    }
+
+    @Override
+    public void showSearchView() {
+        pushFragment(new SearchFragment());
+    }
+
+    @Override
+    public void showMyCardView() {
+        pushFragment(new MyCardFragment());
+    }
+
+    @Override
+    public void showCardHolderView() {
+        pushFragment(new CardHolderFragment());
+    }
+
+    @Override
+    public void showProfileView() {
+        pushFragment(new ProfileFragment());
+    }
+
+    protected void pushFragment(Fragment fragment) {
+        if (fragment == null)
+            return;
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager != null) {
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            if (ft != null) {
+                ft.replace(R.id.fragment_container, fragment);
+                ft.commit();
+            }
+        }
+    }
+}

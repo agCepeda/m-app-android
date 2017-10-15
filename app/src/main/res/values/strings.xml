@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Meisshi</string>
+    <string name="splash_login">LOG IN</string>
+    <string name="splash_are_you_new">R U NEW?</string>
+    <string name="login_login">Login</string>
+    <string name="login_password">Password</string>
+    <string name="login_username">Username</string>
+    <string name="login_or">Or</string>
+    <string name="login_facebook">Log in with Facebook</string>
+    <string name="login_enter">Enter</string>
+    <string name="register_email">Email</string>
+    <string name="register_name">Name</string>
+    <string name="register_last_name">Last name</string>
+    <string name="register_password">Password</string>
+    <string name="register_sign_in">Sign in</string>
+    <string name="main_menu_option_qr">Qr</string>
+    <string name="main_menu_option_search">Search</string>
+    <string name="main_menu_option_my_card">My Card</string>
+    <string name="main_menu_option_cardholder">Cardholder</string>
+    <string name="main_menu_option_profile">Profile</string>
+    <string name="search_title">Search</string>
+</resources>
