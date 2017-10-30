@@ -70,10 +70,11 @@ public class MeisshiCard extends RelativeLayout {
 
     private void init() {
         mViewCard = new RelativeLayout(this.getContext());
-        mViewCard.setBackgroundColor(Color.RED);
+        //mViewCard.setBackgroundColor(Color.RED);
 
         mViewQr = new RelativeLayout(this.getContext());
-        mViewQr.setBackgroundColor(Color.GREEN);
+        //mViewQr.setBackgroundColor(Color.GREEN);
+        mViewQr.setBackgroundColor(Color.WHITE);
 
         mBtFlip = new ImageButton(this.getContext());
         mBtFlip.setBackgroundColor(Color.BLUE);
@@ -208,6 +209,9 @@ public class MeisshiCard extends RelativeLayout {
             mPiInstance
                     .load(mUser.getLogo())
                     .into(mIvLogo);
+            mPiInstance
+                    .load(mUser.getQrImage())
+                    .into(mIvQr);
         }
 
         mPiInstance

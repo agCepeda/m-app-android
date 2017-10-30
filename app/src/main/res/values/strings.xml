@@ -19,4 +19,7 @@
     <string name="main_menu_option_cardholder">Cardholder</string>
     <string name="main_menu_option_profile">Profile</string>
     <string name="search_title">Search</string>
+    <string name="profile_remove_contact">Remove</string>
+    <string name="profile_add_contact">Add</string>
+    <string name="test_paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc venenatis ipsum felis, non finibus ante blandit at. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum faucibus porttitor dolor a feugiat. Ut metus nunc, fringilla ut pretium id, scelerisque consequat turpis. Aenean nec cursus magna. Integer ac sem ex. Ut laoreet dolor at consectetur tempor. Pellentesque congue diam a accumsan facilisis. Fusce metus ante, commodo non dui vel, tristique tempor est. Phasellus sed facilisis tortor. Morbi a tortor mattis, laoreet ante quis, sagittis ex.</string>
 </resources>

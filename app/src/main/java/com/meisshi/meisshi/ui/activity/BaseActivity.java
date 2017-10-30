@@ -10,11 +10,12 @@ import com.meisshi.meisshi.di.ApplicationComponent;
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected ApplicationComponent mApplicationComponent;
+    protected MeisshiApp mApplication;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mApplicationComponent = ((MeisshiApp) getApplication()).getApplicationComponent();
+        mApplication = (MeisshiApp) getApplication();
+        mApplicationComponent = mApplication.getApplicationComponent();
     }
 }

@@ -3,6 +3,7 @@ package com.meisshi.meisshi.model.deserializer;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.meisshi.meisshi.model.Card;
@@ -29,11 +30,20 @@ public class UserDeserializer
         if (jsonObject.has("logo")) {
             user.setLogo(jsonObject.get("logo").getAsString());
         }
+        if (jsonObject.has("profile_picture")) {
+            user.setProfilePicture(jsonObject.get("profile_picture").getAsString());
+        }
+        if (jsonObject.has("qr_image")) {
+            user.setQrImage(jsonObject.get("qr_image").getAsString());
+        }
         if (jsonObject.has("show_name")) {
             user.setShowName(jsonObject.get("show_name").getAsString());
         }
-        if (jsonObject.has("first_name")) {
-            user.setFirstName(jsonObject.get("first_name").getAsString());
+        if (jsonObject.has("name")) {
+            user.setFirstName(jsonObject.get("name").getAsString());
+        }
+        if (jsonObject.has("bio")) {
+            user.setBio(jsonObject.get("bio").getAsString());
         }
         if (jsonObject.has("last_name")) {
             user.setLastName(jsonObject.get("last_name").getAsString());
@@ -98,10 +108,14 @@ public class UserDeserializer
             user.setFacebook(jsonObject.get("facebook").getAsString());
         }
         if (jsonObject.has("followers_count")) {
-            user.setFollowersCount(jsonObject.get("followers_count").getAsInt());
+            if (! (jsonObject.get("followers_count") instanceof JsonNull)) {
+                user.setFollowersCount(jsonObject.get("followers_count").getAsInt());
+            }
         }
         if (jsonObject.has("following_count")) {
-            user.setFollowingCount(jsonObject.get("following_count").getAsInt());
+            if (! (jsonObject.get("following_count") instanceof JsonNull)) {
+                user.setFollowingCount(jsonObject.get("following_count").getAsInt());
+            }
         }
 
         if (jsonObject.has("card")) {

@@ -11,10 +11,12 @@ import com.meisshi.meisshi.MeisshiApp;
 import com.meisshi.meisshi.api.MeisshiApi;
 import com.meisshi.meisshi.model.Card;
 import com.meisshi.meisshi.model.CardField;
+import com.meisshi.meisshi.model.Review;
 import com.meisshi.meisshi.model.Session;
 import com.meisshi.meisshi.model.User;
 import com.meisshi.meisshi.model.deserializer.CardDeserializer;
 import com.meisshi.meisshi.model.deserializer.CardFieldDeserializer;
+import com.meisshi.meisshi.model.deserializer.ReviewDeserializer;
 import com.meisshi.meisshi.model.deserializer.SessionDeserializer;
 import com.meisshi.meisshi.model.deserializer.UserDeserializer;
 import com.meisshi.meisshi.model.serializer.CardSerializer;
@@ -99,6 +101,7 @@ public class NetworkModule {
                 .registerTypeAdapter(User.class, new UserDeserializer())
                 .registerTypeAdapter(Card.class, new CardDeserializer())
                 .registerTypeAdapter(CardField.class, new CardFieldDeserializer())
+                .registerTypeAdapter(Review.class, new ReviewDeserializer())
                 .create();
     }
 

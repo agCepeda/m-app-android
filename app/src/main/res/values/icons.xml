@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fa_icon_areachart">&#xf1fe;</string>
+    <string name="fa_icon_piechart">&#xf200;</string>
+    <string name="fa_icon_linechart">&#xf201;</string>
+    <string name="fa_icon_mobile_phone">&#xf10b;</string>
+    <string name="fa_icon_envelope">&#xf003;</string>
+    <string name="fa_icon_marker">&#xf041;</string>
+    <string name="fa_icon_globe">&#xf0ac;</string>
+</resources>

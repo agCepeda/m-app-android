@@ -6,7 +6,16 @@
     <com.meisshi.meisshi.ui.view.MeisshiCard
         android:id="@+id/meisshi_card"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="400px"
+        android:background="#0fffff">
     </com.meisshi.meisshi.ui.view.MeisshiCard>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imvProfile"
+            android:layout_width="100px"
+            android:layout_height="100px" />
+    </LinearLayout>
 
 </LinearLayout>

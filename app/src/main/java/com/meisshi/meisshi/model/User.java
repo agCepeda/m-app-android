@@ -1,10 +1,11 @@
 package com.meisshi.meisshi.model;
 
+import java.io.Serializable;
+
 /**
  * Created by DevAg on 21/08/2017.
  */
-
-public class User {
+public class User implements Serializable {
     private String id;
     private String email;
     private String lastName;
@@ -32,6 +33,18 @@ public class User {
     private String profession;
     private String showName;
     private String logo;
+    private String profilePicture;
+    private String bio;
+
+    public String getQrImage() {
+        return qrImage;
+    }
+
+    public void setQrImage(String qrImage) {
+        this.qrImage = qrImage;
+    }
+
+    private String qrImage;
 
     public Card getCard() {
         return card;
@@ -226,7 +239,7 @@ public class User {
     }
 
     public String getShowName() {
-        return showName;
+        return firstName + " " + lastName;
     }
 
     public String getAddress() {
@@ -258,5 +271,21 @@ public class User {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }

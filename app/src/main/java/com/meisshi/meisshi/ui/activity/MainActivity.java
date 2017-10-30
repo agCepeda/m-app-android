@@ -99,7 +99,15 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void showProfileView() {
-        pushFragment(new ProfileFragment());
+        Bundle args = new Bundle();
+
+        args.putBoolean(ProfileFragment.ARG_IS_OWN, true);
+        args.putSerializable(ProfileFragment.ARG_USER, mApplication.getUser());
+
+        Fragment fragment = new ProfileFragment();
+        fragment.setArguments(args);
+
+        pushFragment(fragment);
     }
 
     protected void pushFragment(Fragment fragment) {
