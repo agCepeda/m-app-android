@@ -42,7 +42,7 @@ public class SearchPresenter extends BasePresenter {
             }
         });
         */
-
+        /*
         mApi.search(q).enqueue(new Callback<HashMap<String, Object>>() {
             @Override
             public void onResponse(Call<HashMap<String, Object>> call, Response<HashMap<String, Object>> response) {
@@ -58,5 +58,6 @@ public class SearchPresenter extends BasePresenter {
 
             }
         });
+        */
     }
 }

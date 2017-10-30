@@ -68,7 +68,7 @@ public class UserDeserializer
             user.setPosition(jsonObject.get("position").getAsString());
         }
         */
-        if (jsonObject.has("profession")) {
+        if (jsonObject.has("profession") && jsonObject.get("profession").isJsonObject()) {
             user.setProfession(
                     jsonObject
                             .get("profession")
@@ -107,18 +107,14 @@ public class UserDeserializer
         if (jsonObject.has("facebook")) {
             user.setFacebook(jsonObject.get("facebook").getAsString());
         }
-        if (jsonObject.has("followers_count")) {
-            if (! (jsonObject.get("followers_count") instanceof JsonNull)) {
+        if (jsonObject.has("followers_count") && jsonObject.get("followers_count").isJsonPrimitive()) {
                 user.setFollowersCount(jsonObject.get("followers_count").getAsInt());
-            }
         }
-        if (jsonObject.has("following_count")) {
-            if (! (jsonObject.get("following_count") instanceof JsonNull)) {
+        if (jsonObject.has("following_count") && jsonObject.get("following_count").isJsonPrimitive()) {
                 user.setFollowingCount(jsonObject.get("following_count").getAsInt());
-            }
         }
 
-        if (jsonObject.has("card")) {
+        if (jsonObject.has("card") && jsonObject.get("card").isJsonObject()) {
             user.setCard(
                     (Card) context.deserialize(jsonObject.get("card"), Card.class)
             );

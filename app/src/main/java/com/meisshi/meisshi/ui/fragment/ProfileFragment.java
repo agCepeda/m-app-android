@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -66,7 +67,7 @@ public class ProfileFragment extends BaseFragment
     private View mViewEmail;
     private View mViewAddress;
 
-    private ListView mLvReviews;
+    private LinearLayout mLvReviews;
     private List<Review> mListReviews = new ArrayList<>();
 
     private ReviewsAdapter mReviewsAdapter;
@@ -105,7 +106,7 @@ public class ProfileFragment extends BaseFragment
         mTvIconWebsite = (TextView) view.findViewById(R.id.tvIconWebsite);
         mTvWebsite = (TextView) view.findViewById(R.id.tvWebsite);
 
-        mLvReviews = (ListView) view.findViewById(R.id.lvReviews);
+        mLvReviews = (LinearLayout) view.findViewById(R.id.lvReviews);
 
         return view;
     }
@@ -126,7 +127,7 @@ public class ProfileFragment extends BaseFragment
         mPresenter = new ProfilePresenter(this);
         mApplicationComponent.inject(mPresenter);
 
-        mReviewsAdapter = new ReviewsAdapter(mListReviews, getContext());
+        // mReviewsAdapter = new ReviewsAdapter(mListReviews, getContext());
 
         mPresenter.loadProfile();
     }
@@ -144,7 +145,18 @@ public class ProfileFragment extends BaseFragment
     @Override
     public void addReviews(Review[] items) {
         mListReviews.addAll(Arrays.asList(items));
-        mReviewsAdapter.notifyDataSetChanged();
+
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        for(Review r : items) {
+            View view = inflater.inflate(R.layout.item_review, null);
+            TextView tvUsername = (TextView) view.findViewById(R.id.tvUsername);
+            TextView tvComment  = (TextView) view.findViewById(R.id.tvComment);
+
+            tvComment.setText(r.getComment());
+            //tvUsername.setText(r.getReviewer().getShowName());
+
+            mLvReviews.addView(view);
+        }
     }
 
     @Override
