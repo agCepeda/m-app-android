@@ -26,10 +26,10 @@ public class ReviewDeserializer implements JsonDeserializer<Review> {
         //Type userType = new TypeToken<User>(){}.getType();
 
         if (jsonObject.has("reviewer")) {
-            //review.setReviewer((User) context.deserialize(jsonObject.get("reviewer"), User.class));
+            // review.setReviewer((User) context.deserialize(jsonObject.get("reviewer"), User.class));
         }
         if (jsonObject.has("user")) {
-            //review.setUser((User) context.deserialize(jsonObject.get("user"), User.class));
+            // review.setUser((User) context.deserialize(jsonObject.get("user"), User.class));
         }
         if (jsonObject.has("comment")) {
             review.setComment(jsonObject.get("comment").getAsString());

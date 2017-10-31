@@ -7,6 +7,7 @@ import com.meisshi.meisshi.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -39,7 +40,10 @@ public interface MeisshiApi {
     );
 
     @GET("user")
-    Call<HashMap<String, Object>> search(@Query("q") String q);
+    Call<Pagination<User>> search(@Query("q") String q);
+
+    @GET("contact")
+    Call<ArrayList<User>> getContacts();
 
     @GET("user/{user_id}")
     Call<User> getUser(@Path("user_id") String id);
