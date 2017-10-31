@@ -127,6 +127,7 @@ public class ProfileFragment extends BaseFragment
         mApplicationComponent.inject(mPresenter);
 
         mReviewsAdapter = new ReviewsAdapter(mListReviews, getContext());
+        mLvReviews.setAdapter(mReviewsAdapter);
 
         mPresenter.loadProfile();
     }

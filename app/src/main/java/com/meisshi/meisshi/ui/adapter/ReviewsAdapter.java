@@ -56,7 +56,7 @@ public class ReviewsAdapter extends BaseAdapter {
 
         Review review = mReviewList.get(i);
 
-        holder.tvUsername.setText(review.getReviewer().getShowName());
+        //holder.tvUsername.setText(review.getReviewer().getShowName());
         holder.tvComment.setText(review.getComment());
 
         return view;

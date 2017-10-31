@@ -118,7 +118,7 @@ public class UserDeserializer
             }
         }
 
-        if (jsonObject.has("card")) {
+        if (jsonObject.has("card") && !jsonObject.get("card").isJsonNull()) {
             user.setCard(
                     (Card) context.deserialize(jsonObject.get("card"), Card.class)
             );
