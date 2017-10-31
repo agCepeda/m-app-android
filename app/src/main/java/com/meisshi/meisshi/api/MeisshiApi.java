@@ -40,7 +40,11 @@ public interface MeisshiApi {
     );
 
     @GET("user")
-    Call<Pagination<User>> search(@Query("q") String q);
+    Call<Pagination<User>> search(
+            @Query("q") String q,
+            @Query("size") int size,
+            @Query("page") int page
+    );
 
     @GET("contact")
     Call<ArrayList<User>> getContacts();

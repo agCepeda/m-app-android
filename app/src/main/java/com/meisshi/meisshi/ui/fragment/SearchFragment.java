@@ -2,7 +2,6 @@ package com.meisshi.meisshi.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,12 @@ import android.widget.ListView;
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.model.User;
 import com.meisshi.meisshi.presenter.SearchPresenter;
-import com.meisshi.meisshi.ui.adapter.UsersAdapter;
+import com.meisshi.meisshi.ui.adapter.UserCardAdapter;
 import com.meisshi.meisshi.view.ISearchView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by DevAg on 05/09/2017.
@@ -27,6 +28,8 @@ public class SearchFragment extends BaseFragment
     private EditText mEtSearch;
 
     private SearchPresenter mPresenter;
+    private List<User> mListUsers;
+    private UserCardAdapter mAdapter;
 
     @Nullable
     @Override
@@ -51,6 +54,11 @@ public class SearchFragment extends BaseFragment
         mPresenter = new SearchPresenter(this);
         mApplicationComponent.inject(mPresenter);
 
+        mListUsers = new ArrayList<>();
+        mAdapter = new UserCardAdapter(mListUsers, this.getContext());
+
+        mLvCards.setAdapter(mAdapter);
+
         mPresenter.search();
     }
 
@@ -65,9 +73,8 @@ public class SearchFragment extends BaseFragment
     }
 
     @Override
-    public void setUsersList(ArrayList<User> usersList) {
-        UsersAdapter adapter = new UsersAdapter(usersList, this.getContext());
-
-        mLvCards.setAdapter(adapter);
+    public void addUsers(User[] users) {
+        mListUsers.addAll(Arrays.asList(users));
+        mAdapter.notifyDataSetChanged();
     }
 }

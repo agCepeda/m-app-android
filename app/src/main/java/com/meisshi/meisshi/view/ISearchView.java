@@ -10,6 +10,5 @@ import java.util.ArrayList;
 
 public interface ISearchView extends IView {
     String getFilter();
-
-    void setUsersList(ArrayList<User> usersList);
+    void addUsers(User[] users);
 }
