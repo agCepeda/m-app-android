@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.model.User;
 import com.meisshi.meisshi.ui.view.MeisshiCard;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -21,10 +23,12 @@ public class UserCardAdapter extends BaseAdapter {
 
     private List<User> mUserList;
     private LayoutInflater mInflater;
+    private Picasso mImageLoader;
 
     public UserCardAdapter(List<User> userList, Context context) {
         mUserList = userList;
         mInflater = LayoutInflater.from(context);
+        mImageLoader = Picasso.with(context);
     }
 
     @Override
@@ -58,6 +62,7 @@ public class UserCardAdapter extends BaseAdapter {
 
         viewHolder.mTvUsername.setText(user.getShowName());
         viewHolder.mTvProfession.setText(user.getProfession());
+        mImageLoader.load(user.getProfilePicture()).into(viewHolder.mImvProfile);
         viewHolder.mCard.setCardData(user.getCard(), user);
 
         return view;
@@ -66,11 +71,13 @@ public class UserCardAdapter extends BaseAdapter {
     private class ViewHolder {
         TextView mTvUsername;
         TextView mTvProfession;
+        ImageView mImvProfile;
         MeisshiCard mCard;
 
         public ViewHolder(View view) {
             mTvUsername = (TextView) view.findViewById(R.id.tvUsername);
             mTvProfession = (TextView) view.findViewById(R.id.tvProfession);
+            mImvProfile = (ImageView) view.findViewById(R.id.imvProfile);
             mCard = (MeisshiCard) view.findViewById(R.id.meisshiCard);
         }
     }

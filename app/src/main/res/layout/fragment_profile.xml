@@ -141,7 +141,7 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/tvIconPhone"
-                        android:text="@string/fa_icon_areachart"
+                        android:text="@string/fa_icon_mobile_phone"
                         android:textSize="22sp"
                         android:textColor="#fff"
                         android:textAlignment="center"

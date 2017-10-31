@@ -153,7 +153,7 @@ public class ProfileFragment extends BaseFragment
             TextView tvComment  = (TextView) view.findViewById(R.id.tvComment);
 
             tvComment.setText(r.getComment());
-            //tvUsername.setText(r.getReviewer().getShowName());
+            tvUsername.setText(r.getReviewer().getShowName());
 
             mLvReviews.addView(view);
         }
