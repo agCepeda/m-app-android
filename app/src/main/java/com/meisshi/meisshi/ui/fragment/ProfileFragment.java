@@ -108,6 +108,20 @@ public class ProfileFragment extends BaseFragment
 
         mLvReviews = (LinearLayout) view.findViewById(R.id.lvReviews);
 
+        mBtnFollowed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showFollowed();
+            }
+        });
+
+        mBtnFollowers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showFollowers();
+            }
+        });
+
         return view;
     }
 
@@ -193,12 +207,22 @@ public class ProfileFragment extends BaseFragment
         mTvIconEmail.setTypeface(font, Typeface.BOLD);
         mTvEmail.setText(user.getWorkEmail());
 
-        //mBtnFollowed.setText(user.getFollowingCount());
-        //mBtnFollowers.setText(user.getFollowersCount());
+        mBtnFollowed.setText(user.getFollowingCount() + "\nFollowed");
+        mBtnFollowers.setText(user.getFollowersCount() + "\nFollowers");
     }
 
     @Override
     public void setToolText(int resourceString) {
+
+    }
+
+    @Override
+    public void showFollowers() {
+
+    }
+
+    @Override
+    public void showFollowed() {
 
     }
 }

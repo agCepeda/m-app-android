@@ -46,6 +46,12 @@ public interface MeisshiApi {
             @Query("page") int page
     );
 
+    @GET("user/{user_id}/follower")
+    Call<ArrayList<User>> getFollowers(@Path("user_id") String userId);
+
+    @GET("user/{user_id}/following")
+    Call<ArrayList<User>> getFollowed(@Path("user_id") String userId);
+
     @GET("contact")
     Call<ArrayList<User>> getContacts();
 

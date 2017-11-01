@@ -15,4 +15,7 @@ public interface IProfileView extends IView {
     void setUser(User body);
 
     void setToolText(int resourceString);
+
+    void showFollowers();
+    void showFollowed();
 }
