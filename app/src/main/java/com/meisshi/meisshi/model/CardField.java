@@ -1,10 +1,12 @@
 package com.meisshi.meisshi.model;
 
+import java.io.Serializable;
+
 /**
  * Created by DevAg on 04/09/2017.
  */
 
-public class CardField {
+public class CardField implements Serializable {
 
     private int x;
     private int y;

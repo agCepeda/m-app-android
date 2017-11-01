@@ -25,11 +25,11 @@ public class CardDeserializer
 
         Card card = new Card();
 
-        if (jsonObject.has("path")) {
+        if (jsonObject.has("path") && !jsonObject.get("path").isJsonNull()) {
             card.setImageUrl(jsonObject.get("path").getAsString());
         }
 
-        if (jsonObject.has("fields")) {
+        if (jsonObject.has("fields") && ! jsonObject.get("fields").isJsonNull()) {
             for(JsonElement element: jsonObject.get("fields").getAsJsonArray()) {
                 CardField field = context.deserialize(element, CardField.class);
 

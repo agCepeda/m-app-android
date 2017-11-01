@@ -1,5 +1,6 @@
 package com.meisshi.meisshi.ui.fragment;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.model.Review;
 import com.meisshi.meisshi.model.User;
 import com.meisshi.meisshi.presenter.ProfilePresenter;
+import com.meisshi.meisshi.ui.activity.FollowersActivity;
 import com.meisshi.meisshi.ui.adapter.ReviewsAdapter;
 import com.meisshi.meisshi.ui.view.MeisshiCard;
 import com.meisshi.meisshi.util.FontManager;
@@ -158,7 +160,7 @@ public class ProfileFragment extends BaseFragment
 
     @Override
     public void addReviews(Review[] items) {
-        mListReviews.addAll(Arrays.asList(items));
+        mListReviews = Arrays.asList(items);
 
         LayoutInflater inflater = LayoutInflater.from(getContext());
         for(Review r : items) {
@@ -218,11 +220,25 @@ public class ProfileFragment extends BaseFragment
 
     @Override
     public void showFollowers() {
+        Intent i = new Intent(getContext(), FollowersActivity.class);
 
+        Bundle args = new Bundle();
+        args.putString(FollowersActivity.OPTION_FOLLOW_TYPE, FollowersActivity.FOLLOW_TYPE_FOLLOWER);
+
+        i.putExtras(args);
+
+        startActivity(i);
     }
 
     @Override
     public void showFollowed() {
+        Intent i = new Intent(getContext(), FollowersActivity.class);
 
+        Bundle args = new Bundle();
+        args.putString(FollowersActivity.OPTION_FOLLOW_TYPE, FollowersActivity.FOLLOW_TYPE_FOLLOWED);
+
+        i.putExtras(args);
+
+        startActivity(i);
     }
 }
