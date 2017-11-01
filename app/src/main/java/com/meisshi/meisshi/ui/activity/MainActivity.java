@@ -1,5 +1,6 @@
 package com.meisshi.meisshi.ui.activity;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,13 +9,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import com.google.android.gms.vision.text.Text;
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.ui.fragment.CardHolderFragment;
 import com.meisshi.meisshi.ui.fragment.MyCardFragment;
 import com.meisshi.meisshi.ui.fragment.ProfileFragment;
 import com.meisshi.meisshi.ui.fragment.QrFragment;
 import com.meisshi.meisshi.ui.fragment.SearchFragment;
+import com.meisshi.meisshi.util.FontManager;
 import com.meisshi.meisshi.view.IMainView;
 
 /**
@@ -35,6 +39,10 @@ public class MainActivity extends BaseActivity
     public void setup() {
         BottomNavigationView navigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation_view);
+
+        TextView tvToolbarTitle =  (TextView) findViewById(R.id.tvToolbarTitle);
+        Typeface font = FontManager.getTypeface(getApplicationContext(), FontManager.MEISSHI_FONT);
+        tvToolbarTitle.setTypeface(font, Typeface.NORMAL);
 
         if (navigationView != null) {
 

@@ -161,6 +161,7 @@ public class ProfileFragment extends BaseFragment
     @Override
     public void addReviews(Review[] items) {
         mListReviews = Arrays.asList(items);
+        mLvReviews.removeAllViews();
 
         LayoutInflater inflater = LayoutInflater.from(getContext());
         for(Review r : items) {

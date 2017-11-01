@@ -258,6 +258,8 @@ public class MeisshiCard extends RelativeLayout {
     public void setCardData(Card card, User user) {
         this.mCard = card;
         this.mUser = user;
-        buildCard();
+        if (card != null) {
+            buildCard();
+        }
     }
 }

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -30,6 +31,7 @@ public class SearchFragment extends BaseFragment
     private SearchPresenter mPresenter;
     private List<User> mListUsers;
     private UserCardAdapter mAdapter;
+    private Button mBtnSearch;
 
     @Nullable
     @Override
@@ -38,6 +40,14 @@ public class SearchFragment extends BaseFragment
 
         mLvCards = (ListView) view.findViewById(R.id.lv_cards);
         mEtSearch = (EditText) view.findViewById(R.id.et_search);
+        mBtnSearch = (Button) view.findViewById(R.id.btnSearch);
+
+        mBtnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.search();
+            }
+        });
 
         return view;
     }
