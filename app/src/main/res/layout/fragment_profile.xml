@@ -17,8 +17,7 @@
             <com.meisshi.meisshi.ui.view.MeisshiCard
                 android:id="@+id/meisshi_card"
                 android:layout_width="match_parent"
-                android:layout_height="210dp"
-                android:background="#0fffff" />
+                android:layout_height="210dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,16 +61,20 @@
                     android:id="@+id/btnFollowed"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="#0f5f5f" />
+                    android:textColor="#fff"
+                    android:textSize="8sp"
+                    android:background="@android:color/transparent"/>
                 <View
-                    android:background="#ff00"
-                    android:layout_width="2dp"
+                    android:background="#fff"
+                    android:layout_width="1dp"
                     android:layout_height="match_parent" />
                 <Button
                     android:id="@+id/btnFollowers"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="#0f5f5f" />
+                    android:textSize="8sp"
+                    android:textColor="#fff"
+                    android:background="@android:color/transparent"/>
             </LinearLayout>
 
             <LinearLayout
@@ -97,36 +100,43 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
+                        android:layout_marginBottom="8dp"
                         android:orientation="horizontal">
 
                         <ImageButton
                             android:id="@+id/btnFacebook"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_marginRight="4dp"
-                            android:background="#0069e1" />
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="8dp"
+                            android:background="@android:color/transparent"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/facebook" />
 
                         <ImageButton
                             android:id="@+id/btnTwitter"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_marginRight="4dp"
-                            android:background="#0069e1" />
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="8dp"
+                            android:background="@android:color/transparent"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/twitter" />
 
                         <ImageButton
                             android:id="@+id/btnInstagram"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="#0069e1" />
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@android:color/transparent"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/instagram" />
                     </LinearLayout>
 
                     <Button
                         android:id="@+id/btnTool"
                         style="@style/Widget.AppCompat.Button.Small"
                         android:layout_width="match_parent"
-                        android:layout_height="20dp"
-                        android:background="#1eea52"
+                        android:layout_height="30dp"
+                        android:textColor="#fff"
+                        android:background="@drawable/profile_edit_background"
                         android:text="Edit" />
                 </LinearLayout>
             </LinearLayout>
@@ -140,84 +150,102 @@
                     android:id="@+id/viewPhone"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
                     <TextView
                         android:id="@+id/tvIconPhone"
                         android:text="@string/fa_icon_mobile_phone"
-                        android:textSize="22sp"
+                        android:textSize="25sp"
                         android:textColor="#fff"
                         android:textAlignment="center"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="8dp"/>
                     <TextView
                         android:id="@+id/tvPhone"
                         android:layout_weight="1"
                         android:textColor="#fff"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15sp"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/viewWebsite"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
                     <TextView
                         android:id="@+id/tvIconWebsite"
                         android:text="@string/fa_icon_globe"
+                        android:textSize="25sp"
                         android:textColor="#fff"
-                        android:textSize="22sp"
                         android:textAlignment="center"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="8dp"/>
                     <TextView
                         android:id="@+id/tvWebsite"
                         android:textColor="#fff"
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15sp"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/viewAddress"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
                     <TextView
                         android:id="@+id/tvIconAddress"
                         android:text="@string/fa_icon_marker"
-                        android:textSize="22sp"
+                        android:textSize="25sp"
                         android:textColor="#fff"
                         android:textAlignment="center"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="8dp"/>
                     <TextView
                         android:id="@+id/tvAddress"
                         android:layout_weight="1"
 
                         android:textColor="#fff"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/viewEmail"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
                     <TextView
                         android:id="@+id/tvIconEmail"
                         android:text="@string/fa_icon_envelope"
-
+                        android:textSize="25sp"
                         android:textColor="#fff"
-                        android:textSize="22sp"
                         android:textAlignment="center"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="8dp"/>
                     <TextView
                         android:id="@+id/tvEmail"
                         android:layout_weight="1"
-
                         android:textColor="#fff"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15sp"/>
                 </LinearLayout>
             </LinearLayout>
             <Button
