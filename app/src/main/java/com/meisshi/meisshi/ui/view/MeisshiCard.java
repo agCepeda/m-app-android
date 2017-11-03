@@ -70,14 +70,17 @@ public class MeisshiCard extends RelativeLayout {
 
     private void init() {
         mViewCard = new RelativeLayout(this.getContext());
-        //mViewCard.setBackgroundColor(Color.RED);
+        mViewCard.setBackgroundColor(Color.WHITE);
 
         mViewQr = new RelativeLayout(this.getContext());
         //mViewQr.setBackgroundColor(Color.GREEN);
         mViewQr.setBackgroundColor(Color.WHITE);
 
         mBtFlip = new ImageButton(this.getContext());
-        mBtFlip.setBackgroundColor(Color.BLUE);
+        mBtFlip.setImageResource(R.drawable.flechasvolteartarjeta);
+        mBtFlip.setBackgroundColor(Color.parseColor("#00000000"));
+        mBtFlip.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
         mBtFlip.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

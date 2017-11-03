@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.presenter.SplashPresenter;
@@ -18,10 +19,15 @@ public class SplashActivity extends BaseActivity
     implements ISplashView {
 
     private SplashPresenter mPresenter;
+    private EditText mEtPassword;
+    private EditText mEtUsername;
+    private Button mBtnLogin;
+    private View mOptionsContainer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
         setup();
     }
 
@@ -52,7 +58,7 @@ public class SplashActivity extends BaseActivity
 
     @Override
     public void showOptions() {
-
+        mOptionsContainer.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -64,10 +70,32 @@ public class SplashActivity extends BaseActivity
     }
 
     @Override
+    public void unlockLogin() {
+
+    }
+
+    @Override
+    public void lockLogin() {
+
+    }
+
+    @Override
+    public String getUsername() {
+        return mEtUsername.getText().toString();
+    }
+
+    @Override
+    public String getPassword() {
+        return mEtPassword.getText().toString();
+    }
+
+    @Override
     public void setup() {
-        setContentView(R.layout.activity_splash);
+        mPresenter = new SplashPresenter(this);
+        mApplicationComponent.inject(mPresenter);
 
         // ButterKnife.bind(this);
+        /*
         (findViewById(R.id.btn_register))
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -82,10 +110,18 @@ public class SplashActivity extends BaseActivity
                         showLoginView();
                     }
                 });
+       */
+        mEtUsername = (EditText) findViewById(R.id.et_username);
+        mEtPassword = (EditText) findViewById(R.id.et_password);
+        mBtnLogin   = (Button) findViewById(R.id.btn_login);
+        mOptionsContainer = findViewById(R.id.options_container);
 
-        mPresenter = new SplashPresenter(this);
-
-        mApplicationComponent.inject(mPresenter);
+        mBtnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.login();
+            }
+        });
 
         mPresenter.checkSession();
     }

@@ -7,4 +7,6 @@
     <item
         android:color="@color/colorPrimaryClear"
         android:state_checked="true"/>
+    <item android:state_pressed="true" android:color="#00f" />
+    <item android:state_focused="true" android:color="#f0f" />
 </selector>

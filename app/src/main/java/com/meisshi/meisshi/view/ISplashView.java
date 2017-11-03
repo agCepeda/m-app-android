@@ -5,4 +5,10 @@ public interface ISplashView extends IView {
     void showRegisterView();
     void showOptions();
     void showMainView();
+
+    void unlockLogin();
+    void lockLogin();
+
+    String getUsername();
+    String getPassword();
 }
