@@ -18,6 +18,7 @@ import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.model.Review;
 import com.meisshi.meisshi.model.User;
 import com.meisshi.meisshi.presenter.ProfilePresenter;
+import com.meisshi.meisshi.ui.activity.EditProfileActivity;
 import com.meisshi.meisshi.ui.activity.FollowersActivity;
 import com.meisshi.meisshi.ui.adapter.ReviewsAdapter;
 import com.meisshi.meisshi.ui.view.MeisshiCard;
@@ -75,6 +76,7 @@ public class ProfileFragment extends BaseFragment
     private ReviewsAdapter mReviewsAdapter;
 
     private Picasso mImgLoader;
+    private Button mBtnTool;
 
     @Nullable
     @Override
@@ -91,6 +93,7 @@ public class ProfileFragment extends BaseFragment
         mBtnFollowers = (Button) view.findViewById(R.id.btnFollowers);
 
         mTvBio = (TextView) view.findViewById(R.id.tvBio);
+        mBtnTool = (Button) view.findViewById(R.id.btnTool);
 
         mViewPhone = view.findViewById(R.id.viewPhone);
         mTvIconPhone = (TextView) view.findViewById(R.id.tvIconPhone);
@@ -121,6 +124,15 @@ public class ProfileFragment extends BaseFragment
             @Override
             public void onClick(View view) {
                 showFollowers();
+            }
+        });
+
+        mBtnTool.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mIsOwn) {
+                    showEditProfile();
+                }
             }
         });
 
@@ -240,6 +252,11 @@ public class ProfileFragment extends BaseFragment
 
         i.putExtras(args);
 
+        startActivity(i);
+    }
+
+    public void showEditProfile() {
+        Intent i = new Intent(getContext(), EditProfileActivity.class);
         startActivity(i);
     }
 }
