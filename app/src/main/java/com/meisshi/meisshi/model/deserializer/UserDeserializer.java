@@ -107,6 +107,9 @@ public class UserDeserializer
         if (jsonObject.has("facebook") && ! jsonObject.get("facebook").isJsonNull()) {
             user.setFacebook(jsonObject.get("facebook").getAsString());
         }
+        if (jsonObject.has("instagran") && ! jsonObject.get("instagram").isJsonNull()) {
+            user.setInstagram(jsonObject.get("instagram").getAsString());
+        }
         if (jsonObject.has("followers_count") && jsonObject.get("followers_count").isJsonPrimitive()) {
                 user.setFollowersCount(jsonObject.get("followers_count").getAsInt());
         }

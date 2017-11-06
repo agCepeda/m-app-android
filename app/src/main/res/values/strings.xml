@@ -14,10 +14,10 @@
     <string name="register_last_name">Last name</string>
     <string name="register_password">Password</string>
     <string name="register_sign_in">Sign in</string>
-    <string name="main_menu_option_qr">Qr</string>
+    <string name="main_menu_option_qr">Scan</string>
     <string name="main_menu_option_search">Search</string>
-    <string name="main_menu_option_my_card">My Card</string>
-    <string name="main_menu_option_cardholder">Cardholder</string>
+    <string name="main_menu_option_my_card">Share</string>
+    <string name="main_menu_option_cardholder">Meisshibox</string>
     <string name="main_menu_option_profile">Profile</string>
     <string name="search_title">Search</string>
     <string name="profile_remove_contact">Remove</string>
@@ -26,4 +26,6 @@
     <string name="profile_add_review">Add Review</string>
     <string name="edit_profile_profile_image">Profile</string>
     <string name="edit_profile_logo">Logo</string>
+    <string name="title_edit_profile">Edit profile</string>
+    <string name="professions_dialog_title">Select a profession</string>
 </resources>

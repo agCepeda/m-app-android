@@ -5,26 +5,26 @@
     <item
         android:id="@+id/action_qr"
         android:enabled="true"
-        android:icon="@drawable/ic_phone_android_black_24dp"
+        android:icon="@drawable/qr_icon"
         android:title="@string/main_menu_option_qr"/>
     <item
         android:id="@+id/action_search"
         android:enabled="true"
-        android:icon="@drawable/ic_phone_android_black_24dp"
+        android:icon="@drawable/ssearch_icon"
         android:title="@string/main_menu_option_search"/>
     <item
         android:id="@+id/action_my_card"
         android:enabled="true"
-        android:icon="@drawable/ic_phone_android_black_24dp"
+        android:icon="@drawable/mycard_icon"
         android:title="@string/main_menu_option_my_card"/>
     <item
         android:id="@+id/action_cardholder"
         android:enabled="true"
-        android:icon="@drawable/ic_phone_android_black_24dp"
+        android:icon="@drawable/meisshibox_icon"
         android:title="@string/main_menu_option_cardholder"/>
     <item
         android:id="@+id/action_profile"
         android:enabled="true"
-        android:icon="@drawable/ic_phone_android_black_24dp"
+        android:icon="@drawable/profile_icon"
         android:title="@string/main_menu_option_profile"/>
 </menu>

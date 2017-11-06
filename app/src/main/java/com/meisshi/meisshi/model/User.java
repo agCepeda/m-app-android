@@ -12,6 +12,7 @@ public class User implements Serializable {
     private String password;
 
     private Card card;
+    private String cardId;
     private String firstName;
     private int followingCount;
     private int followersCount;
@@ -31,10 +32,45 @@ public class User implements Serializable {
     private String telephone1;
     private String workEmail;
     private String profession;
+    private String professionId;
     private String showName;
     private String logo;
     private String profilePicture;
     private String bio;
+    private String instagram;
+
+    public User() {}
+
+    public User(User user) {
+        this.id = user.id;
+        this.email = user.email;
+        this.firstName = user.firstName;
+        this.lastName = user.lastName;
+        this.password = user.password;
+        this.card = user.card;
+        this.cardId = user.cardId;
+        this.followingCount = user.followingCount;
+        this.followersCount = user.followersCount;
+        this.facebook = user.facebook;
+        this.twitter = user.twitter;
+        this.instagram = user.instagram;
+
+        this.street = user.street;
+        this.number = user.number;
+        this.neighborhood = user.neighborhood;
+        this.city = user.city;
+        this.zipCode =user.zipCode;
+        this.company = user.company;
+        this.telephone1 = user.telephone1;
+
+        this.workEmail = user.workEmail;
+        this.profession = user.profession;
+        this.professionId = user.professionId;
+
+        this.logo = user.logo;
+        this.profilePicture = user.profilePicture;
+        this.bio = user.bio;
+    }
 
     public String getQrImage() {
         return qrImage;
@@ -287,5 +323,17 @@ public class User implements Serializable {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
+    }
+
+    public void setProfessionId(String professionId) {
+        this.professionId = professionId;
     }
 }

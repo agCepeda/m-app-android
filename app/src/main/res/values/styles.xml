@@ -13,5 +13,24 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">#fff</item>
     </style>
+    <style name="EditTextLine" parent="Widget.AppCompat.EditText">
+        <item name="colorControlActivated">#fff</item>
+        <item name="colorControlNormal">#fff</item>
+        <item name="android:textColorHint">#A0A0A0</item>
+        <item name="android:editTextColor">#fff</item>
+    </style>
+    <style name="EditTextBorder" parent="Widget.AppCompat.EditText">
+        <item name="colorControlActivated">#fff</item>
+        <item name="colorControlNormal">#fff</item>
+        <item name="android:textColorHint">#A0A0A0</item>
+        <item name="android:editTextColor">#fff</item>
+        <item name="android:background">@drawable/border_shape</item>
+    </style>
+    <style name="SpinnerLine" parent="Widget.AppCompat.Spinner">
+        <item name="colorControlActivated">#fff</item>
+        <item name="colorControlNormal">#fff</item>
+        <item name="android:textColorHint">#A0A0A0</item>
+        <item name="android:editTextColor">#fff</item>
+    </style>
 
 </resources>

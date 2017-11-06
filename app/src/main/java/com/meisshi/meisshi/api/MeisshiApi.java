@@ -1,5 +1,6 @@
 package com.meisshi.meisshi.api;
 
+import com.meisshi.meisshi.model.Card;
 import com.meisshi.meisshi.model.Pagination;
 import com.meisshi.meisshi.model.Review;
 import com.meisshi.meisshi.model.Session;
@@ -71,4 +72,10 @@ public interface MeisshiApi {
 
     @DELETE("contact/{user_id}")
     Call<Void> removeContact(@Path("user_id") String userId);
+
+    @GET("card")
+    Call<ArrayList<Card>> getCards();
+
+    @GET("profession")
+    Call<ArrayList<HashMap<String, Object>>> getProfessions();
 }
