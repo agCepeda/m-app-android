@@ -65,6 +65,8 @@ public interface MeisshiApi {
             @Query("size") int size,
             @Query("page") int page
     );
+    @POST("user/{user_id}/review")
+    Call<Review> addReviews();
 
     @POST("contact")
     @FormUrlEncoded

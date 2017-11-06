@@ -18,4 +18,5 @@ public interface IProfileView extends IView {
 
     void showFollowers();
     void showFollowed();
+    void showReviewForm();
 }

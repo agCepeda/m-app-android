@@ -20,6 +20,7 @@ import com.meisshi.meisshi.model.User;
 import com.meisshi.meisshi.presenter.ProfilePresenter;
 import com.meisshi.meisshi.ui.activity.EditProfileActivity;
 import com.meisshi.meisshi.ui.activity.FollowersActivity;
+import com.meisshi.meisshi.ui.activity.ReviewFormActivity;
 import com.meisshi.meisshi.ui.adapter.ReviewsAdapter;
 import com.meisshi.meisshi.ui.view.MeisshiCard;
 import com.meisshi.meisshi.util.FontManager;
@@ -77,6 +78,7 @@ public class ProfileFragment extends BaseFragment
 
     private Picasso mImgLoader;
     private Button mBtnTool;
+    private Button mBtnReview;
 
     @Nullable
     @Override
@@ -111,6 +113,7 @@ public class ProfileFragment extends BaseFragment
         mTvIconWebsite = (TextView) view.findViewById(R.id.tvIconWebsite);
         mTvWebsite = (TextView) view.findViewById(R.id.tvWebsite);
 
+        mBtnReview = (Button) view.findViewById(R.id.btnReview);
         mLvReviews = (LinearLayout) view.findViewById(R.id.lvReviews);
 
         mBtnFollowed.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +136,12 @@ public class ProfileFragment extends BaseFragment
                 if (mIsOwn) {
                     showEditProfile();
                 }
+            }
+        });
+        mBtnReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showReviewForm();
             }
         });
 
@@ -249,6 +258,18 @@ public class ProfileFragment extends BaseFragment
 
         Bundle args = new Bundle();
         args.putString(FollowersActivity.OPTION_FOLLOW_TYPE, FollowersActivity.FOLLOW_TYPE_FOLLOWED);
+
+        i.putExtras(args);
+
+        startActivity(i);
+    }
+
+    @Override
+    public void showReviewForm() {
+        Intent i = new Intent(getContext(), ReviewFormActivity.class);
+
+        Bundle args = new Bundle();
+        args.putSerializable(ReviewFormActivity.ARG_USER, mUser);
 
         i.putExtras(args);
 
