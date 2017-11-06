@@ -60,7 +60,6 @@ public class RegisterFragment extends BaseFragment
             }
         });
 
-
     }
 
     @Override

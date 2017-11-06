@@ -9,16 +9,16 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.meisshi.meisshi.R;
+import com.meisshi.meisshi.presenter.LoginPresenter;
 import com.meisshi.meisshi.presenter.SplashPresenter;
+import com.meisshi.meisshi.view.ILoginView;
 import com.meisshi.meisshi.view.ISplashView;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 public class SplashActivity extends BaseActivity
-    implements ISplashView {
+    implements ISplashView, ILoginView {
 
-    private SplashPresenter mPresenter;
+    private SplashPresenter mSplashPresenter;
+    private LoginPresenter mLoginPresenter;
     private EditText mEtPassword;
     private EditText mEtUsername;
     private Button mBtnLogin;
@@ -62,6 +62,16 @@ public class SplashActivity extends BaseActivity
     }
 
     @Override
+    public void onLoginWithFacebook() {
+
+    }
+
+    @Override
+    public void onLogin() {
+
+    }
+
+    @Override
     public void showMainView() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
@@ -90,9 +100,21 @@ public class SplashActivity extends BaseActivity
     }
 
     @Override
+    public void setUsername(String username) {
+
+    }
+
+    @Override
+    public void setPassword(String password) {
+
+    }
+
+    @Override
     public void setup() {
-        mPresenter = new SplashPresenter(this);
-        mApplicationComponent.inject(mPresenter);
+        mSplashPresenter = new SplashPresenter(this);
+        mLoginPresenter = new LoginPresenter(this);
+        mApplicationComponent.inject(mSplashPresenter);
+        mApplicationComponent.inject(mLoginPresenter);
 
         // ButterKnife.bind(this);
         /*
@@ -119,11 +141,11 @@ public class SplashActivity extends BaseActivity
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.login();
+                mLoginPresenter.login();
             }
         });
 
-        mPresenter.checkSession();
+        mSplashPresenter.checkSession();
     }
 
     @Override

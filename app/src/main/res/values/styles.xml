@@ -24,7 +24,7 @@
         <item name="colorControlNormal">#fff</item>
         <item name="android:textColorHint">#A0A0A0</item>
         <item name="android:editTextColor">#fff</item>
-        <item name="android:background">@drawable/border_shape</item>
+        <item name="android:padding">4dp</item>
     </style>
     <style name="SpinnerLine" parent="Widget.AppCompat.Spinner">
         <item name="colorControlActivated">#fff</item>

@@ -21,6 +21,9 @@ public class AuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.register_title);
+
         Fragment fragment = null;
 
         if (getIntent().getIntExtra(VIEW_OPTION, VIEW_OPTION_LOGIN) == VIEW_OPTION_LOGIN ) {

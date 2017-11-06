@@ -55,7 +55,9 @@ public class MainActivity extends BaseActivity
                         }
                     });
 
+
         }
+        showMyCardView();
     }
 
     private void onSelectMenuItem(MenuItem item) {

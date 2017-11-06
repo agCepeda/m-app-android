@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Meisshi</string>
     <string name="app_toolbar">MEISSHI</string>
-    <string name="splash_login">LOG IN</string>
+    <string name="splash_login">Log In</string>
     <string name="splash_are_you_new">R U NEW?</string>
-    <string name="login_login">Login</string>
+    <string name="login_login">Log In</string>
     <string name="login_password">Password</string>
     <string name="login_username">Username</string>
     <string name="login_or">Or</string>
@@ -28,4 +28,10 @@
     <string name="edit_profile_logo">Logo</string>
     <string name="title_edit_profile">Edit profile</string>
     <string name="professions_dialog_title">Select a profession</string>
+    <string name="login_sign_up">Sign up</string>
+    <string name="login_forgot_password">Forgot your password?</string>
+
+    <string name="facebook_app_id">578549502325215</string>
+    <string name="fb_login_protocol_scheme">fb578549502325215</string>
+    <string name="register_title">Sign up</string>
 </resources>
