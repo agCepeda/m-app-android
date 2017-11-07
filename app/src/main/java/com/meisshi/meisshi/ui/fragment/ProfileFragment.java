@@ -2,6 +2,7 @@ package com.meisshi.meisshi.ui.fragment;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.github.maxwell.nc.library.StarRatingView;
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.model.Review;
 import com.meisshi.meisshi.model.User;
@@ -55,6 +58,9 @@ public class ProfileFragment extends BaseFragment
 
     private TextView mTvBio;
 
+    private ImageButton mBtnInstagram;
+    private ImageButton mBtnFacebook;
+    private ImageButton mBtnTwitter;
 
     private TextView mTvIconPhone;
     private TextView mTvIconWebsite;
@@ -96,6 +102,29 @@ public class ProfileFragment extends BaseFragment
 
         mTvBio = (TextView) view.findViewById(R.id.tvBio);
         mBtnTool = (Button) view.findViewById(R.id.btnTool);
+
+        mBtnFacebook = (ImageButton) view.findViewById(R.id.btnFacebook);
+        mBtnTwitter = (ImageButton) view.findViewById(R.id.btnTwitter);
+        mBtnInstagram = (ImageButton) view.findViewById(R.id.btnInstagram);
+
+        View.OnClickListener socialClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (view.getId() == R.id.btnFacebook) {
+                    gotoFacebook();
+
+                } else if (view.getId() == R.id.btnTwitter) {
+                    gotoTwitter();
+                } else if (view.getId() == R.id.btnInstagram) {
+                    gotoInstagram();
+                }
+            }
+        };
+
+        mBtnFacebook.setOnClickListener(socialClickListener);
+        mBtnInstagram.setOnClickListener(socialClickListener);
+        mBtnTwitter.setOnClickListener(socialClickListener);
+
 
         mViewPhone = view.findViewById(R.id.viewPhone);
         mTvIconPhone = (TextView) view.findViewById(R.id.tvIconPhone);
@@ -148,6 +177,43 @@ public class ProfileFragment extends BaseFragment
         return view;
     }
 
+    private void gotoFacebook() {
+        if (mUser.getFacebook() == null) return;
+        try {
+            getContext().getPackageManager()
+                    .getPackageInfo("com.facebook.katana", 0); //Checks if FB is even installed.
+            Intent i = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("fb://profile/" + mUser.getFacebook())); //Trys to make intent with FB's URI
+            startActivity(i);
+        } catch (Exception e) {
+            Intent i = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://www.facebook.com/" + mUser.getFacebook())); //catches and opens a url to the desired page
+            startActivity(i);
+        }
+    }
+    private void gotoTwitter() {
+        if (mUser.getTwitter() == null) return;
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + mUser.getTwitter())));
+        }catch (Exception e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/#!/" + mUser.getTwitter())));
+        }
+    }
+    private void gotoInstagram() {
+        if (mUser.getInstagram() == null) return;
+        Uri uri = Uri.parse("http://instagram.com/_u/" + mUser.getInstagram());
+        Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+        likeIng.setPackage("com.instagram.android");
+
+        try {
+            startActivity(likeIng);
+        } catch (Exception e) {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://instagram.com/" + mUser.getInstagram())));
+        }
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -165,7 +231,9 @@ public class ProfileFragment extends BaseFragment
         mApplicationComponent.inject(mPresenter);
 
         // mReviewsAdapter = new ReviewsAdapter(mListReviews, getContext());
-
+        if (mIsOwn) {
+            mBtnReview.setVisibility(View.GONE);
+        }
         mPresenter.loadProfile();
     }
 
@@ -189,9 +257,11 @@ public class ProfileFragment extends BaseFragment
             View view = inflater.inflate(R.layout.item_review, null);
             TextView tvUsername = (TextView) view.findViewById(R.id.tvUsername);
             TextView tvComment  = (TextView) view.findViewById(R.id.tvComment);
+            StarRatingView srScore  = (StarRatingView) view.findViewById(R.id.srScore);
 
             tvComment.setText(r.getComment());
             tvUsername.setText(r.getReviewer().getShowName());
+            srScore.rate(r.getScore());
 
             mLvReviews.addView(view);
         }

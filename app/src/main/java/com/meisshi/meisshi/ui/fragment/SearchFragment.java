@@ -1,10 +1,12 @@
 package com.meisshi.meisshi.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -12,6 +14,7 @@ import android.widget.ListView;
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.model.User;
 import com.meisshi.meisshi.presenter.SearchPresenter;
+import com.meisshi.meisshi.ui.activity.ProfileActivity;
 import com.meisshi.meisshi.ui.adapter.UserCardAdapter;
 import com.meisshi.meisshi.view.ISearchView;
 
@@ -49,7 +52,25 @@ public class SearchFragment extends BaseFragment
             }
         });
 
+        mLvCards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                showProfile(mListUsers.get(i));
+            }
+        });
+
         return view;
+    }
+
+    private void showProfile(User user) {
+        Intent i = new Intent(this.getContext(), ProfileActivity.class);
+
+        Bundle args = new Bundle();
+        args.putSerializable(ProfileActivity.ARG_USER, user);
+
+        i.putExtras(args);
+
+        startActivity(i);
     }
 
     @Override

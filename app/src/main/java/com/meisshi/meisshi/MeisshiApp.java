@@ -10,6 +10,7 @@ import com.meisshi.meisshi.model.User;
 
 public class MeisshiApp extends Application {
 
+    public static final String MEISSHI_API_END_POINT = "http://meisshi.com/api4/";
     private ApplicationComponent mAppComponent;
     private User user;
 
@@ -17,7 +18,7 @@ public class MeisshiApp extends Application {
         super.onCreate();
         mAppComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
-                .networkModule(new NetworkModule("http://meisshi.com/api4/"))
+                .networkModule(new NetworkModule(MEISSHI_API_END_POINT))
                 .build();
     }
 

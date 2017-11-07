@@ -7,11 +7,11 @@
     android:background="@drawable/background_app"
     android:padding="8dp">
     <com.github.maxwell.nc.library.StarRatingView
+        android:id="@+id/srScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal"
-        app:rating_count="2"
         app:star_count="5"
         app:star_size="30dp"
         android:paddingBottom="4dp"/>
@@ -31,8 +31,8 @@
 
 
     <EditText
+        android:id="@+id/etComment"
         android:textColor="#fff"
-        android:text="Esto es un ejemplo\n Rescirtres "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="viewStart"

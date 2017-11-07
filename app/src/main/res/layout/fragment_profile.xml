@@ -27,54 +27,56 @@
 
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/imvProfile"
-                    app:civ_border="false"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:contentDescription="" />
+                    android:contentDescription=""
+                    app:civ_border="false" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingLeft="8dp"
                     android:gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp">
 
                     <TextView
                         android:id="@+id/tvUsername"
-                        android:textStyle="bold"
-                        android:textSize="15sp"
-                        android:textColor="#fff"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="User Name" />
+                        android:text="User Name"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvProfession"
-                        android:textColor="#fff"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Profession" />
+                        android:text="Profession"
+                        android:textColor="#fff" />
                 </LinearLayout>
 
                 <Button
                     android:id="@+id/btnFollowed"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:background="@android:color/transparent"
                     android:textColor="#fff"
-                    android:textSize="8sp"
-                    android:background="@android:color/transparent"/>
+                    android:textSize="8sp" />
+
                 <View
-                    android:background="#fff"
                     android:layout_width="1dp"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:background="#fff" />
+
                 <Button
                     android:id="@+id/btnFollowers"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textSize="8sp"
+                    android:background="@android:color/transparent"
                     android:textColor="#fff"
-                    android:background="@android:color/transparent"/>
+                    android:textSize="8sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -85,10 +87,10 @@
 
                 <TextView
                     android:id="@+id/tvBio"
-                    android:textColor="#fff"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textColor="#fff" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -135,9 +137,9 @@
                         style="@style/Widget.AppCompat.Button.Small"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:textColor="#fff"
                         android:background="@drawable/profile_edit_background"
-                        android:text="Edit" />
+                        android:text="Edit"
+                        android:textColor="#fff" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -146,119 +148,134 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="8dp">
+
                 <LinearLayout
                     android:id="@+id/viewPhone"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp">
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tvIconPhone"
-                        android:text="@string/fa_icon_mobile_phone"
-                        android:textSize="25sp"
-                        android:textColor="#fff"
-                        android:textAlignment="center"
                         android:layout_width="35dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginRight="8dp"/>
+                        android:layout_marginRight="8dp"
+                        android:text="@string/fa_icon_mobile_phone"
+                        android:textAlignment="center"
+                        android:textColor="#fff"
+                        android:textSize="25sp" />
+
                     <TextView
                         android:id="@+id/tvPhone"
-                        android:layout_weight="1"
-                        android:textColor="#fff"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:textSize="15sp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/viewWebsite"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp">
-                    <TextView
-                        android:id="@+id/tvIconWebsite"
-                        android:text="@string/fa_icon_globe"
-                        android:textSize="25sp"
-                        android:textColor="#fff"
-                        android:textAlignment="center"
-                        android:layout_width="35dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginRight="8dp"/>
-                    <TextView
-                        android:id="@+id/tvWebsite"
-                        android:textColor="#fff"
                         android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="15sp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/viewAddress"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp">
-                    <TextView
-                        android:id="@+id/tvIconAddress"
-                        android:text="@string/fa_icon_marker"
-                        android:textSize="25sp"
                         android:textColor="#fff"
-                        android:textAlignment="center"
-                        android:layout_width="35dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginRight="8dp"/>
-                    <TextView
-                        android:id="@+id/tvAddress"
-                        android:layout_weight="1"
-
-                        android:textColor="#fff"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:textSize="15sp" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:id="@+id/viewEmail"
-                    android:orientation="horizontal"
+                    android:id="@+id/viewWebsite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp">
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+
                     <TextView
-                        android:id="@+id/tvIconEmail"
-                        android:text="@string/fa_icon_envelope"
-                        android:textSize="25sp"
-                        android:textColor="#fff"
-                        android:textAlignment="center"
+                        android:id="@+id/tvIconWebsite"
                         android:layout_width="35dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginRight="8dp"/>
-                    <TextView
-                        android:id="@+id/tvEmail"
-                        android:layout_weight="1"
+                        android:layout_marginRight="8dp"
+                        android:text="@string/fa_icon_globe"
+                        android:textAlignment="center"
                         android:textColor="#fff"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:id="@+id/tvWebsite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:textSize="15sp"/>
+                        android:layout_weight="1"
+                        android:textColor="#fff"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/viewAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvIconAddress"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="8dp"
+                        android:text="@string/fa_icon_marker"
+                        android:textAlignment="center"
+                        android:textColor="#fff"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:id="@+id/tvAddress"
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:textColor="#fff"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/viewEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvIconEmail"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="8dp"
+                        android:text="@string/fa_icon_envelope"
+                        android:textAlignment="center"
+                        android:textColor="#fff"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:id="@+id/tvEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:textColor="#fff"
+                        android:textSize="15sp" />
                 </LinearLayout>
             </LinearLayout>
+
             <Button
                 android:id="@+id/btnReview"
-                android:text="@string/profile_add_review"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/profile_add_review"
+                android:textColor="@color/meisshiGreen" />
+
             <LinearLayout
                 android:id="@+id/lvReviews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-            </LinearLayout>
+                android:orientation="vertical"></LinearLayout>
 
         </LinearLayout>
     </ScrollView>

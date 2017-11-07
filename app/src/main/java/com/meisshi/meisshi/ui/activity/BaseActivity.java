@@ -5,12 +5,18 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.meisshi.meisshi.MeisshiApp;
+import com.meisshi.meisshi.api.MeisshiApi;
 import com.meisshi.meisshi.di.ApplicationComponent;
+
+import javax.inject.Inject;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected ApplicationComponent mApplicationComponent;
     protected MeisshiApp mApplication;
+
+    @Inject
+    MeisshiApi mApi;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

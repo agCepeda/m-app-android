@@ -5,6 +5,6 @@
         android:color="@color/colorPrimaryClear"
         android:state_checked="false"/>
     <item
-        android:color="@color/colorPrimaryClear"
+        android:color="@color/meisshiGreen"
         android:state_checked="true"/>
 </selector>

@@ -1,54 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical">
 
-    <com.meisshi.meisshi.ui.view.MeisshiCard
-        android:id="@+id/meisshi_card"
-        android:layout_width="match_parent"
-        android:layout_height="400px">
-    </com.meisshi.meisshi.ui.view.MeisshiCard>
-
     <LinearLayout
-        android:layout_below="@id/meisshi_card"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:layout_height="wrap_content">
 
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/imvProfile"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:civ_border="false"
-            android:contentDescription="" />
+        <com.meisshi.meisshi.ui.view.MeisshiCard
+            android:id="@+id/meisshi_card"
+            android:layout_width="match_parent"
+            android:layout_height="400px"></com.meisshi.meisshi.ui.view.MeisshiCard>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="8dp"
-            android:orientation="vertical">
+            android:layout_below="@id/meisshi_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
 
-            <TextView
-                android:id="@+id/tvUsername"
-                android:textStyle="bold"
-                android:textColor="#fff"
-                android:textSize="15sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="User Name" />
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/imvProfile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:civ_border="false"
+                android:contentDescription="" />
 
-            <TextView
-                android:id="@+id/tvProfession"
-                android:textColor="#fff"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Profession" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvUsername"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="User Name" />
+
+                <TextView
+                    android:id="@+id/tvProfession"
+                    android:textColor="#fff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Profession" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+
+    <Button
+        android:id="@+id/btnShare"
+        android:textColor="#fff"
+        android:background="@drawable/share_background"
+        android:text="Share"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp" />
+</LinearLayout>

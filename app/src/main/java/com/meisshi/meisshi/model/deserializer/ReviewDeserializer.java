@@ -34,6 +34,9 @@ public class ReviewDeserializer implements JsonDeserializer<Review> {
         if (jsonObject.has("comment")) {
             review.setComment(jsonObject.get("comment").getAsString());
         }
+        if (jsonObject.has("score")) {
+            review.setScore(jsonObject.get("score").getAsInt());
+        }
         return review;
     }
 }

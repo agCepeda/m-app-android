@@ -81,12 +81,12 @@ public class SplashActivity extends BaseActivity
 
     @Override
     public void unlockLogin() {
-
+        mBtnLogin.setEnabled(true);
     }
 
     @Override
     public void lockLogin() {
-
+        mBtnLogin.setEnabled(false);
     }
 
     @Override
