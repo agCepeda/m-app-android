@@ -32,5 +32,8 @@
         <item name="android:textColorHint">#A0A0A0</item>
         <item name="android:editTextColor">#fff</item>
     </style>
-
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#f0f</item>
+        <item name="colorControlActivated">#ff0</item>
+    </style>
 </resources>

@@ -1,23 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_app"
+    android:padding="8dp">
+    <com.github.maxwell.nc.library.StarRatingView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        app:rating_count="2"
+        app:star_count="5"
+        app:star_size="30dp"
+        android:paddingBottom="4dp"/>
     <TextView
-        android:text="Example"
-        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:textColor="#fff"
+        android:text="@string/review_form_tap_to_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp" />
+    <TextView
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:text="@string/review_form_comment"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:numStars="5"
-        android:rating="3"
-        android:stepSize="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <EditText
+        android:textColor="#fff"
+        android:text="Esto es un ejemplo\n Rescirtres "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+        android:textAlignment="viewStart"
+        android:layout_weight="1"
+        android:background="@drawable/border_shape"/>
 
 </LinearLayout>
