@@ -1,11 +1,13 @@
 package com.meisshi.meisshi.ui.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -25,6 +27,8 @@ public class SplashActivity extends BaseActivity
     private Button mBtnLogin;
     private View mOptionsContainer;
     private ProgressDialog mPdLogin;
+    private View mLogoContainer;
+    private Button mBtnSignUp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -125,27 +129,24 @@ public class SplashActivity extends BaseActivity
         mApplicationComponent.inject(mSplashPresenter);
         mApplicationComponent.inject(mLoginPresenter);
 
-        // ButterKnife.bind(this);
-        /*
-        (findViewById(R.id.btn_register))
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showRegisterView();
-                    }
-                });
-        (findViewById(R.id.btn_login))
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showLoginView();
-                    }
-                });
-       */
         mEtUsername = (EditText) findViewById(R.id.et_username);
         mEtPassword = (EditText) findViewById(R.id.et_password);
         mBtnLogin   = (Button) findViewById(R.id.btn_login);
+        mBtnSignUp  = (Button) findViewById(R.id.btn_sign_up);
+
         mOptionsContainer = findViewById(R.id.options_container);
+        mLogoContainer = findViewById(R.id.logo_container);
+
+        View.OnClickListener containerListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                closeKeyboard();
+            }
+        };
+
+        mOptionsContainer.setOnClickListener(containerListener);
+        mLogoContainer.setOnClickListener(containerListener);
 
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,8 +154,23 @@ public class SplashActivity extends BaseActivity
                 mLoginPresenter.login();
             }
         });
+        mBtnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showRegisterView();
+            }
+        });
+
 
         mSplashPresenter.checkSession();
+    }
+
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     @Override

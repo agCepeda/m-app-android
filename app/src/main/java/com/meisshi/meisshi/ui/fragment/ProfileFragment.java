@@ -5,7 +5,6 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.maxwell.nc.library.StarRatingView;
@@ -32,7 +30,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -79,8 +76,6 @@ public class ProfileFragment extends BaseFragment
 
     private LinearLayout mLvReviews;
     private List<Review> mListReviews = new ArrayList<>();
-
-    private ReviewsAdapter mReviewsAdapter;
 
     private Picasso mImgLoader;
     private Button mBtnTool;
