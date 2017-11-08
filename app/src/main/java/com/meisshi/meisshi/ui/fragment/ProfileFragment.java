@@ -233,6 +233,7 @@ public class ProfileFragment extends BaseFragment
         // mReviewsAdapter = new ReviewsAdapter(mListReviews, getContext());
         if (mIsOwn) {
             mBtnReview.setVisibility(View.GONE);
+            mBtnTool.setText(R.string.profile_tool_edit);
         }
         mPresenter.loadProfile();
     }

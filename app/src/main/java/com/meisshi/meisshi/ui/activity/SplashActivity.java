@@ -1,5 +1,6 @@
 package com.meisshi.meisshi.ui.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ public class SplashActivity extends BaseActivity
     private EditText mEtUsername;
     private Button mBtnLogin;
     private View mOptionsContainer;
+    private ProgressDialog mPdLogin;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,12 +83,19 @@ public class SplashActivity extends BaseActivity
 
     @Override
     public void unlockLogin() {
-        mBtnLogin.setEnabled(true);
+        if (mPdLogin != null) {
+            mPdLogin.dismiss();
+        }
     }
 
     @Override
     public void lockLogin() {
-        mBtnLogin.setEnabled(false);
+        mPdLogin = new ProgressDialog(this);
+        mPdLogin.setIndeterminate(false);
+        mPdLogin.setCancelable(false);
+        mPdLogin.setCanceledOnTouchOutside(false);
+        mPdLogin.setMessage("Authenticating...");
+        mPdLogin.show();
     }
 
     @Override

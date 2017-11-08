@@ -36,11 +36,13 @@ public class LoginPresenter extends BasePresenter {
 
                     SharedPreferences.Editor editor = mSharedPreferences.edit();
                     editor.putString("SESSION_TOKEN", session.getToken());
+
                     editor.commit();
+
+                    mApplication.setUser(session.getUser());
 
                     mView.showMainView();
                 } else {
-
                     try {
                         String error = response.errorBody().string();
                     } catch (IOException e) {
