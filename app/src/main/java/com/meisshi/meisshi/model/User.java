@@ -33,11 +33,12 @@ public class User implements Serializable {
     private String workEmail;
     private String profession;
     private String professionId;
-    private String showName;
     private String logo;
     private String profilePicture;
     private String bio;
     private String instagram;
+
+    private boolean isContact;
 
     public User() {}
 
@@ -297,10 +298,6 @@ public class User implements Serializable {
         return null;
     }
 
-    public void setShowName(String showName) {
-        this.showName = showName;
-    }
-
     public String getLogo() {
         return logo;
     }
@@ -335,5 +332,13 @@ public class User implements Serializable {
 
     public void setProfessionId(String professionId) {
         this.professionId = professionId;
+    }
+
+    public boolean isContact() {
+        return isContact;
+    }
+
+    public void setContact(boolean contact) {
+        isContact = contact;
     }
 }

@@ -1,5 +1,6 @@
 package com.meisshi.meisshi.ui.activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -174,7 +175,11 @@ public class SplashActivity extends BaseActivity
     }
 
     @Override
-    public void showErrorMessage(String message) {
-
+    public void showErrorMessage(int titleRes, int messageRes) {
+        new AlertDialog.Builder(this)
+                .setTitle(titleRes)
+                .setMessage(messageRes)
+                .create()
+                .show();
     }
 }

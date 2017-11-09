@@ -94,7 +94,7 @@ public class SearchFragment extends BaseFragment
     }
 
     @Override
-    public void showErrorMessage(String message) {
+    public void showErrorMessage(int titleRes, int messageRes) {
 
     }
 

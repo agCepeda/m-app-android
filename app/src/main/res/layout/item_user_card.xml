@@ -60,7 +60,7 @@
     <com.meisshi.meisshi.ui.view.MeisshiCard
         android:id="@+id/meisshiCard"
         android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:layout_height="215dp"
         android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"/>

@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.google.android.gms.vision.text.Text;
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.ui.fragment.CardHolderFragment;
 import com.meisshi.meisshi.ui.fragment.MyCardFragment;
@@ -83,7 +82,7 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void showErrorMessage(String message) {
+    public void showErrorMessage(int titleRes, int messageRes) {
 
     }
 

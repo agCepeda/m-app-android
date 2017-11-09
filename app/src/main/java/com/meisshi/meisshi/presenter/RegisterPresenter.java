@@ -37,14 +37,14 @@ public class RegisterPresenter extends BasePresenter {
 
                     mView.showMainView();
                 } else {
-                    mView.showErrorMessage("");
+                    //mView.showErrorMessage("", );
                 }
                 mView.unlockRegister();
             }
 
             @Override
             public void onFailure(Call<Session> call, Throwable t) {
-                mView.showErrorMessage("");
+                //mView.showErrorMessage("", );
                 mView.unlockRegister();
             }
         });

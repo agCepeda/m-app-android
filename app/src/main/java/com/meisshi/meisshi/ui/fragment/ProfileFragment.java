@@ -22,7 +22,6 @@ import com.meisshi.meisshi.presenter.ProfilePresenter;
 import com.meisshi.meisshi.ui.activity.EditProfileActivity;
 import com.meisshi.meisshi.ui.activity.FollowersActivity;
 import com.meisshi.meisshi.ui.activity.ReviewFormActivity;
-import com.meisshi.meisshi.ui.adapter.ReviewsAdapter;
 import com.meisshi.meisshi.ui.view.MeisshiCard;
 import com.meisshi.meisshi.util.FontManager;
 import com.meisshi.meisshi.view.IProfileView;
@@ -157,9 +156,7 @@ public class ProfileFragment extends BaseFragment
         mBtnTool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mIsOwn) {
-                    showEditProfile();
-                }
+                toolAction();
             }
         });
         mBtnReview.setOnClickListener(new View.OnClickListener() {
@@ -170,6 +167,16 @@ public class ProfileFragment extends BaseFragment
         });
 
         return view;
+    }
+
+    private void toolAction() {
+        if (mIsOwn) {
+            showEditProfile();
+        } else if (mUser.isContact()) {
+            mPresenter.removeContact();
+        } else {
+            mPresenter.addContact();
+        }
     }
 
     private void gotoFacebook() {
@@ -229,12 +236,16 @@ public class ProfileFragment extends BaseFragment
         if (mIsOwn) {
             mBtnReview.setVisibility(View.GONE);
             mBtnTool.setText(R.string.profile_tool_edit);
+        } else if (mUser.isContact()) {
+            mBtnTool.setText(R.string.profile_remove_contact);
+        } else {
+            mBtnTool.setText(R.string.profile_add_contact);
         }
         mPresenter.loadProfile();
     }
 
     @Override
-    public void showErrorMessage(String message) {
+    public void showErrorMessage(int titleRes, int messageRes) {
 
     }
 

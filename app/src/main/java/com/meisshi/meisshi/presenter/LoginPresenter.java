@@ -3,6 +3,7 @@ package com.meisshi.meisshi.presenter;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.model.Session;
 import com.meisshi.meisshi.view.ILoginView;
 
@@ -43,19 +44,22 @@ public class LoginPresenter extends BasePresenter {
 
                     mView.showMainView();
                 } else {
-                    try {
-                        String error = response.errorBody().string();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    mView.showErrorMessage(
+                            R.string.login_error_login_title,
+                            R.string.login_error_login_message
+                    );
                 }
             }
 
             @Override
             public void onFailure(Call<Session> call, Throwable t) {
-                mView.unlockLogin();
                 t.printStackTrace();
                 Log.d("LoginPresenter", t.getMessage(), t);
+                mView.unlockLogin();
+                mView.showErrorMessage(
+                        R.string.error_server_title,
+                        R.string.error_server_message
+                );
             }
         });
     }

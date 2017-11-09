@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.meisshi.meisshi.R;
@@ -59,7 +58,7 @@ public class LoginFragment extends BaseFragment
     }
 
     @Override
-    public void showErrorMessage(String message) {
+    public void showErrorMessage(int titleRes, int messageRes) {
 
     }
 

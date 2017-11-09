@@ -39,4 +39,10 @@
     <string name="review_form_tap_to_score">Tap to score</string>
     <string name="review_form_comment">Comment</string>
     <string name="profile_tool_edit">Edit</string>
+
+    <string name="login_error_login_title">Error</string>
+    <string name="login_error_login_message">The username or password is incorrect.</string>
+
+    <string name="error_server_title">Error</string>
+    <string name="error_server_message">Ups! something went wrong.</string>
 </resources>

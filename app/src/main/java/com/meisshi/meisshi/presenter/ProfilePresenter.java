@@ -36,7 +36,7 @@ public class ProfilePresenter extends BasePresenter {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 t.printStackTrace();
-                mView.showErrorMessage("");
+                //mView.showErrorMessage("", );
             }
         });
     }
@@ -56,7 +56,7 @@ public class ProfilePresenter extends BasePresenter {
             public void onFailure(Call<Pagination<Review>> call, Throwable t) {
 
                 t.printStackTrace();
-                mView.showErrorMessage("");
+                //mView.showErrorMessage("", );
             }
         });
     }
@@ -77,7 +77,7 @@ public class ProfilePresenter extends BasePresenter {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                mView.showErrorMessage("");
+                //mView.showErrorMessage("", );
                 mView.unlockAddRemove();
 
                 t.printStackTrace();
@@ -101,7 +101,7 @@ public class ProfilePresenter extends BasePresenter {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                mView.showErrorMessage("");
+                //mView.showErrorMessage("", );
                 mView.unlockAddRemove();
 
                 t.printStackTrace();

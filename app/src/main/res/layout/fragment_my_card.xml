@@ -14,7 +14,8 @@
         <com.meisshi.meisshi.ui.view.MeisshiCard
             android:id="@+id/meisshi_card"
             android:layout_width="match_parent"
-            android:layout_height="400px"></com.meisshi.meisshi.ui.view.MeisshiCard>
+            android:layout_height="215dp">
+        </com.meisshi.meisshi.ui.view.MeisshiCard>
 
         <LinearLayout
             android:layout_below="@id/meisshi_card"

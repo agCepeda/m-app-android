@@ -6,5 +6,5 @@ package com.meisshi.meisshi.view;
 
 public interface IView {
     void setup();
-    void showErrorMessage(String message);
+    void showErrorMessage(int titleRes, int messageRes);
 }

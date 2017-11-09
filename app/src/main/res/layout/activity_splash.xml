@@ -43,6 +43,7 @@
 
             <EditText
                 android:maxLines="1"
+                android:lines="1"
                 android:singleLine="true"
                 android:id="@+id/et_username"
                 android:layout_width="250dp"
@@ -55,6 +56,7 @@
 
             <EditText
                 android:maxLines="1"
+                android:lines="1"
                 android:singleLine="true"
                 android:id="@+id/et_password"
                 android:layout_width="250dp"
