@@ -37,6 +37,7 @@ public class ProfileActivity extends BaseActivity {
                 .replace(R.id.fragment_container, fragment)
                 .commit();
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(user.getShowName());
     }
-
 }

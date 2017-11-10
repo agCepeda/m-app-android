@@ -57,7 +57,10 @@ public interface MeisshiApi {
     Call<ArrayList<User>> getContacts();
 
     @GET("user/{user_id}")
-    Call<User> getUser(@Path("user_id") String id);
+    Call<User> getUser(
+            @Path("user_id") String userId,
+            @Query("with") String relations
+    );
 
     @GET("user/{user_id}/review")
     Call<Pagination<Review>> loadReviews(

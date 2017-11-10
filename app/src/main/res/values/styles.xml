@@ -18,6 +18,9 @@
         <item name="colorControlNormal">#fff</item>
         <item name="android:textColorHint">#A0A0A0</item>
         <item name="android:editTextColor">#fff</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:lines">1</item>
+        <item name="android:singleLine">true</item>
     </style>
     <style name="EditTextBorder" parent="Widget.AppCompat.EditText">
         <item name="colorControlActivated">#fff</item>

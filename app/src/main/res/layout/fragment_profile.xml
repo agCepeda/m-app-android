@@ -269,7 +269,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:text="@string/profile_add_review"
-                android:textColor="@color/meisshiGreen" />
+                android:textColor="#008f1f" />
 
             <LinearLayout
                 android:id="@+id/lvReviews"

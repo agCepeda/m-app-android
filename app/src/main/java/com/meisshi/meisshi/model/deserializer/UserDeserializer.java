@@ -36,9 +36,6 @@ public class UserDeserializer
         if (jsonObject.has("qr_image") && ! jsonObject.get("qr_image").isJsonNull()) {
             user.setQrImage(jsonObject.get("qr_image").getAsString());
         }
-        if (jsonObject.has("show_name") && ! jsonObject.get("show_name").isJsonNull()) {
-            user.setShowName(jsonObject.get("show_name").getAsString());
-        }
         if (jsonObject.has("name") && ! jsonObject.get("name").isJsonNull()) {
             user.setFirstName(jsonObject.get("name").getAsString());
         }
@@ -63,11 +60,9 @@ public class UserDeserializer
         if (jsonObject.has("company") && ! jsonObject.get("company").isJsonNull()) {
             user.setCompany(jsonObject.get("company").getAsString());
         }
-        /*
-        if (jsonObject.has("position")) {
-            user.setPosition(jsonObject.get("position").getAsString());
+        if (jsonObject.has("contact")) {
+            user.setContact(jsonObject.get("contact").getAsBoolean());
         }
-        */
         if (jsonObject.has("profession") && jsonObject.get("profession").isJsonObject()) {
             user.setProfession(
                     jsonObject

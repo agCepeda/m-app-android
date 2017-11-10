@@ -24,7 +24,7 @@ public class ProfilePresenter extends BasePresenter {
 
     public void loadProfile() {
         User user = mView.getUser();
-        mApi.getUser(user.getId()).enqueue(new Callback<User>() {
+        mApi.getUser(user.getId(), "my_review").enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
