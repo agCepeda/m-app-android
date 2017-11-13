@@ -64,6 +64,8 @@ public class MainActivity extends BaseActivity
 
             if (mApplication.getUser().getCard() == null) {
                 lockToolbar();
+            } else {
+                unlockToolbar();
             }
         }
     }
@@ -72,6 +74,12 @@ public class MainActivity extends BaseActivity
         int i = 0;
         while (i < mNavigationView.getMenu().size()) {
             mNavigationView.getMenu().getItem(i ++).setEnabled(false);
+        }
+    }
+    private void unlockToolbar() {
+        int i = 0;
+        while (i < mNavigationView.getMenu().size()) {
+            mNavigationView.getMenu().getItem(i ++).setEnabled(true);
         }
     }
 

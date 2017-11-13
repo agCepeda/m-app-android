@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.model.User;
 import com.meisshi.meisshi.presenter.EditProfilePresenter;
+import com.meisshi.meisshi.util.Text;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -32,6 +33,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by DevAg on 05/11/2017.
@@ -175,12 +178,16 @@ public class PersonalFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (requestCode == PICK_LOGO_IMAGE) {
-            mUser.setLogo(data.getDataString());
-            mImageLoader.load(data.getDataString()).into(mImvLogo);
-        } else if (requestCode == PICK_PROFILE_IMAGE) {
-            mUser.setProfilePicture(data.getDataString());
-            mImageLoader.load(data.getDataString()).into(mImvProfile);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PICK_LOGO_IMAGE) {
+                mUriLogo = data.getData();
+                mUser.setLogo(data.getDataString());
+                mImageLoader.load(data.getDataString()).into(mImvLogo);
+            } else if (requestCode == PICK_PROFILE_IMAGE) {
+                mUriProfile = data.getData();
+                mUser.setProfilePicture(data.getDataString());
+                mImageLoader.load(data.getDataString()).into(mImvProfile);
+            }
         }
     }
     public void setup() {
@@ -274,7 +281,7 @@ public class PersonalFragment extends BaseFragment {
         params.put("telephone1", mEtTelephone.getText().toString());
 
         if (mUser.getProfessionId() != null)
-            params.put("profession_id", mUser.getProfessionId());
+            params.put("profession", mUser.getProfessionId());
 
         // PROFESSION
         params.put("work_name", mEtWorkEmail.getText().toString());
@@ -293,20 +300,54 @@ public class PersonalFragment extends BaseFragment {
         return params;
     }
 
-    public boolean validate() {
+    public List<String> validate() {
         List<String> errors = new ArrayList<>();
 
-        User user = getEditedUser();
 
-        if (user.getProfessionId() == null) {
+        if (mUser.getProfessionId() == null) {
             errors.add("Select a profession please.");
         }
 
-        if (errors.isEmpty()) {
-            return true;
+        String email =  mEtWorkEmail.getText().toString();
+
+        if (! email.isEmpty() && !Text.isEmail(email)) {
+            errors.add("The field email doesn't have the correct format.");
         }
 
+        String telephone =  mEtTelephone.getText().toString();
 
-        return true;
+        if (! telephone.isEmpty() && !Text.isTelephone(telephone)) {
+            errors.add("The field phone doesn't have the correct format.");
+        }
+        String facebook =  mEtFacebook.getText().toString();
+
+        if (! facebook.isEmpty() && !Text.isFacebook(facebook)) {
+            errors.add("The field facebook doesn't have the correct format.");
+        }
+        String instagram =  mEtInstagram.getText().toString();
+
+        if (! instagram.isEmpty() && !Text.isInstagram(instagram)) {
+            errors.add("The field instagram doesn't have the correct format.");
+        }
+        String twitter =  mEtTwitter.getText().toString();
+
+        if (! twitter.isEmpty() && !Text.isTwitter(twitter)) {
+            errors.add("The field twitter doesn't have the correct format.");
+        }
+        String website =  mEtWebsite.getText().toString();
+
+        if (! website.isEmpty() && !Text.isWebsite(website)) {
+            errors.add("The field website doesn't have the correct format.");
+        }
+
+        return errors;
+    }
+
+    public Uri getUriLogo() {
+        return mUriLogo;
+    }
+
+    public Uri getUriProfile() {
+        return mUriProfile;
     }
 }

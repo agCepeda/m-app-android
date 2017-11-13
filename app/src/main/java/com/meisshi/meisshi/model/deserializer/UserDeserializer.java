@@ -71,6 +71,13 @@ public class UserDeserializer
                             .get("name")
                             .getAsString()
             );
+            user.setProfessionId(
+                    jsonObject
+                        .get("profession")
+                        .getAsJsonObject()
+                        .get("id")
+                        .getAsString()
+            );
         }
         if (jsonObject.has("degree") && ! jsonObject.get("degree").isJsonNull()) {
             user.setDegree(jsonObject.get("degree").getAsString());

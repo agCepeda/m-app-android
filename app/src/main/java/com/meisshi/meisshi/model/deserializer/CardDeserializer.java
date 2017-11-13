@@ -25,6 +25,9 @@ public class CardDeserializer
 
         Card card = new Card();
 
+        if (jsonObject.has("id") && !jsonObject.get("id").isJsonNull()) {
+            card.setId(jsonObject.get("id").getAsString());
+        }
         if (jsonObject.has("path") && !jsonObject.get("path").isJsonNull()) {
             card.setImageUrl(jsonObject.get("path").getAsString());
         }

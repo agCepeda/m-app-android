@@ -20,6 +20,7 @@ public class Card implements Serializable {
     private CardField logo;
     private CardField workEmail;
     private String imageUrl;
+    private String id;
 
     public CardField getShowName() {
         return showName;
@@ -124,5 +125,13 @@ public class Card implements Serializable {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 }

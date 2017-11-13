@@ -1,6 +1,7 @@
 package com.meisshi.meisshi.api;
 
 import com.meisshi.meisshi.model.Card;
+import com.meisshi.meisshi.model.Notification;
 import com.meisshi.meisshi.model.Pagination;
 import com.meisshi.meisshi.model.Review;
 import com.meisshi.meisshi.model.Session;
@@ -101,7 +102,10 @@ public interface MeisshiApi {
     @Multipart
     @POST("user")
     Call<User> saveProfile(
-            @Part("profile_image")MultipartBody.Part profileImage,
-            @Part("logo_image") MultipartBody.Part logoImage
+            @Part MultipartBody.Part profileImage,
+            @Part MultipartBody.Part logoImage
     );
+
+    @GET("notification")
+    Call<ArrayList<Notification>> getNotifications();
 }
