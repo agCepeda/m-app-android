@@ -341,4 +341,8 @@ public class User implements Serializable {
     public void setContact(boolean contact) {
         isContact = contact;
     }
+
+    public String getProfessionId() {
+        return professionId;
+    }
 }

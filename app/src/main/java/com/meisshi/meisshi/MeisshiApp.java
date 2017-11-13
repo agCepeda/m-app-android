@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.meisshi.meisshi.di.ApplicationComponent;
 import com.meisshi.meisshi.di.ApplicationModule;
-import com.meisshi.meisshi.di.DaggerApplicationComponent;
+import com.meisshi.meisshi.di .DaggerApplicationComponent;
 import com.meisshi.meisshi.di.NetworkModule;
 import com.meisshi.meisshi.model.User;
 

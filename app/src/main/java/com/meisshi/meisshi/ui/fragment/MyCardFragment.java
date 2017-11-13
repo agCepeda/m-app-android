@@ -14,6 +14,7 @@ import com.meisshi.meisshi.MeisshiApp;
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.model.User;
 import com.meisshi.meisshi.presenter.MyCardPresenter;
+import com.meisshi.meisshi.ui.activity.EditProfileActivity;
 import com.meisshi.meisshi.ui.view.MeisshiCard;
 import com.meisshi.meisshi.view.IMyCardView;
 import com.squareup.picasso.Picasso;
@@ -31,6 +32,9 @@ public class MyCardFragment extends BaseFragment
     private TextView mTvUsername;
     private TextView mTvProfession;
     private Button mBtnShare;
+    private View mContainerCard;
+    private View mContainerNew;
+    private Button mBtnCreate;
 
     @Nullable
     @Override
@@ -43,14 +47,30 @@ public class MyCardFragment extends BaseFragment
         mImvProfile = (ImageView) view.findViewById(R.id.imvProfile);
         mBtnShare = (Button) view.findViewById(R.id.btnShare);
 
+        mContainerCard = view.findViewById(R.id.container_card);
+        mContainerNew = view.findViewById(R.id.container_new);
+
+        mBtnCreate = (Button) view.findViewById(R.id.btn_create_card);
+
         mBtnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 share();
             }
         });
+        mBtnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showEditProfile();
+            }
+        });
 
         return view;
+    }
+
+    private void showEditProfile() {
+        Intent i = new Intent(getContext(), EditProfileActivity.class);
+        startActivity(i);
     }
 
     private void share() {
@@ -83,6 +103,13 @@ public class MyCardFragment extends BaseFragment
 
         mPresenter = new MyCardPresenter(this);
 
+        if (user.getCard() == null) {
+            mContainerNew.setVisibility(View.VISIBLE);
+            mContainerCard.setVisibility(View.INVISIBLE);
+        } else {
+            mContainerNew.setVisibility(View.GONE);
+            mContainerCard.setVisibility(View.VISIBLE);
+        }
 
     }
 

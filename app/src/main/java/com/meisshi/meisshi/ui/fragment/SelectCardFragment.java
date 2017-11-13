@@ -33,6 +33,8 @@ public class SelectCardFragment extends BaseFragment {
     private ListView mLvCards;
     private User mUser;
     private CardsAdapter mAdapter;
+    private List<Card> mListCard;
+    private int mSelectedIndex = -1;
 
     @Nullable
     @Override
@@ -44,6 +46,7 @@ public class SelectCardFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 mAdapter.setSelectedIndex(i);
+                mSelectedIndex = i;
             }
         });
 
@@ -79,9 +82,11 @@ public class SelectCardFragment extends BaseFragment {
     }
 
     private void setCards(List<Card> cards) {
+        mListCard = cards;
         mAdapter = new CardsAdapter(cards, mUser, getContext());
         mLvCards.setAdapter(mAdapter);
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -89,4 +94,9 @@ public class SelectCardFragment extends BaseFragment {
         inflater.inflate(R.menu.edit_profile_card, menu);
     }
 
+    public Card getCard() {
+        if (mSelectedIndex < 0)
+            return null;
+        return mListCard.get(mSelectedIndex);
+    }
 }

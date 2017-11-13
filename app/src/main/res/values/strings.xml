@@ -45,4 +45,8 @@
 
     <string name="error_server_title">Error</string>
     <string name="error_server_message">Ups! something went wrong.</string>
+    <string name="register_error_register_message">Error</string>
+    <string name="register_error_register_title">Error</string>
+    <string name="register_error_server_message">Error</string>
+    <string name="register_error_server_title">Error</string>
 </resources>

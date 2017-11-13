@@ -243,10 +243,12 @@ public class PersonalFragment extends BaseFragment {
     }
 
     public User getEditedUser() {
-
         mUser.setFirstName(mEtFirstName.getText().toString());
         mUser.setLastName(mEtLastName.getText().toString());
         mUser.setTelephone1(mEtTelephone.getText().toString());
+
+        if (mUser.getProfessionId() != null)
+            mUser.setProfessionId(mUser.getProfessionId());
         // PROFESSION
         mUser.setWorkEmail(mEtWorkEmail.getText().toString());
         mUser.setWebsite(mEtWebsite.getText().toString());
@@ -262,5 +264,49 @@ public class PersonalFragment extends BaseFragment {
         mUser.setZipCode(mEtZipCode.getText().toString());
 
         return mUser;
+    }
+
+    public HashMap<String, Object> getEdited() {
+        HashMap<String, Object> params = new HashMap<>();
+
+        params.put("first_name", mEtFirstName.getText().toString());
+        params.put("last_name", mEtLastName.getText().toString());
+        params.put("telephone1", mEtTelephone.getText().toString());
+
+        if (mUser.getProfessionId() != null)
+            params.put("profession_id", mUser.getProfessionId());
+
+        // PROFESSION
+        params.put("work_name", mEtWorkEmail.getText().toString());
+        params.put("website", mEtWebsite.getText().toString());
+        params.put("facebook", mEtFacebook.getText().toString());
+        params.put("twitter_name", mEtTwitter.getText().toString());
+        params.put("instagram", mEtInstagram.getText().toString());
+        params.put("bio", mEtBio.getText().toString());
+
+        params.put("street", mEtStreet.getText().toString());
+        params.put("number", mEtNumber.getText().toString());
+        params.put("neighborhood", mEtNeighborhood.getText().toString());
+        params.put("city", mEtCity.getText().toString());
+        params.put("zip_code", mEtZipCode.getText().toString());
+
+        return params;
+    }
+
+    public boolean validate() {
+        List<String> errors = new ArrayList<>();
+
+        User user = getEditedUser();
+
+        if (user.getProfessionId() == null) {
+            errors.add("Select a profession please.");
+        }
+
+        if (errors.isEmpty()) {
+            return true;
+        }
+
+
+        return true;
     }
 }

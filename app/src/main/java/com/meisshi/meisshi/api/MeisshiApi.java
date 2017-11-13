@@ -10,12 +10,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -89,4 +93,15 @@ public interface MeisshiApi {
 
     @GET("profession")
     Call<ArrayList<HashMap<String, Object>>> getProfessions();
+
+    @FormUrlEncoded
+    @POST("user")
+    Call<User> saveProfile(@FieldMap HashMap<String, Object> data);
+
+    @Multipart
+    @POST("user")
+    Call<User> saveProfile(
+            @Part("profile_image")MultipartBody.Part profileImage,
+            @Part("logo_image") MultipartBody.Part logoImage
+    );
 }

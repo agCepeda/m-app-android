@@ -30,27 +30,29 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    // if you use the support libraries
-
-
-
-
     compile 'com.github.nisrulz:qreader:2.1.1'
+
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:design:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'
-    compile 'com.android.support:support-core-utils:25.1.0'
+    compile "com.android.support:support-core-utils:25.1.0"
+
+    testCompile 'junit:junit:4.12'
+
     compile 'com.google.dagger:dagger-android:2.11'
-    compile 'com.google.dagger:dagger-android-support:2.11'
+    compile 'com.google.dagger:dagger-android-support:2.11' // if you use the support libraries
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
+    apt "com.google.dagger:dagger-compiler:2.11"
+
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+
     compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
     compile 'com.facebook.android:facebook-login:[4,5)'
+
     compile 'com.github.maxwell-nc:StarRatingView:1.0'
-    testCompile 'junit:junit:4.12'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    apt 'com.google.dagger:dagger-compiler:2.11'
 }

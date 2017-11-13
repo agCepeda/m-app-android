@@ -107,8 +107,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_shape"
-                android:text="@string/login_sign_up"
-                android:textColor="#fff" />
+                android:textColor="#fff"
+                android:text="@string/login_sign_up" />
         </LinearLayout>
     </LinearLayout>
     <!--

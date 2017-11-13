@@ -1,5 +1,7 @@
 package com.meisshi.meisshi.ui.fragment;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.widget.EditText;
 
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.presenter.RegisterPresenter;
+import com.meisshi.meisshi.ui.activity.MainActivity;
 import com.meisshi.meisshi.view.IRegisterView;
 
 /**
@@ -24,6 +27,7 @@ public class RegisterFragment extends BaseFragment
     EditText mEtLastName;
 
     RegisterPresenter mPresenter;
+    private ProgressDialog mPdLogin;
 
     @Override
     public View onCreateView(
@@ -119,16 +123,26 @@ public class RegisterFragment extends BaseFragment
 
     @Override
     public void lockRegister() {
-
+        mPdLogin = new ProgressDialog(getActivity());
+        mPdLogin.setIndeterminate(false);
+        mPdLogin.setCancelable(false);
+        mPdLogin.setCanceledOnTouchOutside(false);
+        mPdLogin.setMessage("Sign up...");
+        mPdLogin.show();
     }
 
     @Override
     public void unlockRegister() {
-
+        if (mPdLogin != null) {
+            mPdLogin.dismiss();
+        }
     }
 
     @Override
     public void showMainView() {
+        Intent i = new Intent(getContext(), MainActivity.class);
+        startActivity(i);
 
+        getActivity().finish();
     }
 }

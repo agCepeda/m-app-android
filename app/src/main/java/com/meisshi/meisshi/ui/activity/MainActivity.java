@@ -27,6 +27,8 @@ import com.meisshi.meisshi.view.IMainView;
 public class MainActivity extends BaseActivity
     implements IMainView {
 
+    private BottomNavigationView mNavigationView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,16 +38,15 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void setup() {
-        BottomNavigationView navigationView = (BottomNavigationView)
+        mNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation_view);
 
         TextView tvToolbarTitle =  (TextView) findViewById(R.id.tvToolbarTitle);
         Typeface font = FontManager.getTypeface(getApplicationContext(), FontManager.MEISSHI_FONT);
         tvToolbarTitle.setTypeface(font, Typeface.NORMAL);
 
-        if (navigationView != null) {
-
-            navigationView.setOnNavigationItemSelectedListener(
+        if (mNavigationView != null) {
+            mNavigationView.setOnNavigationItemSelectedListener(
                     new BottomNavigationView.OnNavigationItemSelectedListener() {
                         @Override
                         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -54,9 +55,24 @@ public class MainActivity extends BaseActivity
                         }
                     });
 
+            mNavigationView
+                    .getMenu()
+                    .findItem(R.id.action_my_card)
+                    .setChecked(true);
 
+            showMyCardView();
+
+            if (mApplication.getUser().getCard() == null) {
+                lockToolbar();
+            }
         }
-        showMyCardView();
+    }
+
+    private void lockToolbar() {
+        int i = 0;
+        while (i < mNavigationView.getMenu().size()) {
+            mNavigationView.getMenu().getItem(i ++).setEnabled(false);
+        }
     }
 
     private void onSelectMenuItem(MenuItem item) {

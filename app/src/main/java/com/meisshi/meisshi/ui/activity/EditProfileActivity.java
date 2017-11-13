@@ -10,6 +10,8 @@ import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.ui.fragment.PersonalFragment;
 import com.meisshi.meisshi.ui.fragment.SelectCardFragment;
 
+import java.util.HashMap;
+
 /**
  * Created by agustin on 02/11/2017.
  */
@@ -63,6 +65,10 @@ public class EditProfileActivity extends BaseActivity {
     }
 
     private void showSelectCard() {
+        if (! mPersonalFragment.validate())
+            return;
+        HashMap<String, Object> mParams = mPersonalFragment.getEdited();
+
         Log.i("EditProfile", "Show select card");
         mSelectfragment = new SelectCardFragment();
 

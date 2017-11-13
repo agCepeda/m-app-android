@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "587590768469",
+    "firebase_url": "https://meisshi-18f15.firebaseio.com",
+    "project_id": "meisshi-18f15",
+    "storage_bucket": "meisshi-18f15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587590768469:android:e54a5024788c123c",
+        "android_client_info": {
+          "package_name": "com.meisshi.meisshi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "587590768469-a74t34osl7q22uk4f4ihqp50i16v6ct5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.meisshi.meisshi",
+            "certificate_hash": "273027cda1f8a033e130126fb798deaf21969e3e"
+          }
+        },
+        {
+          "client_id": "587590768469-9aeeat4j4n04uaqgvnq9kuah8huv2eif.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUfxNK4n6c8PlCJKQ3HMnBkSTlEZZ68jM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "587590768469-tnr3g4jeg78m77atqa7se87vt2157vl0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "meisshi",
+                "app_store_id": "1179194186"
+              }
+            },
+            {
+              "client_id": "587590768469-9aeeat4j4n04uaqgvnq9kuah8huv2eif.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

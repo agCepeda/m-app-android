@@ -1,7 +1,9 @@
 package com.meisshi.meisshi.presenter;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.model.Session;
 import com.meisshi.meisshi.view.IRegisterView;
 
@@ -32,20 +34,27 @@ public class RegisterPresenter extends BasePresenter {
         ).enqueue(new Callback<Session>() {
             @Override
             public void onResponse(Call<Session> call, Response<Session> response) {
+                mView.unlockRegister();
                 if (response.isSuccessful()) {
                     Session session = response.body();
 
+                    SharedPreferences.Editor editor = mSharedPreferences.edit();
+                    editor.putString("SESSION_TOKEN", session.getToken());
+
+                    editor.commit();
+
+                    mApplication.setUser(session.getUser());
+
                     mView.showMainView();
                 } else {
-                    //mView.showErrorMessage("", );
+                    mView.showErrorMessage(R.string.register_error_register_title, R.string.register_error_register_message);
                 }
-                mView.unlockRegister();
             }
 
             @Override
             public void onFailure(Call<Session> call, Throwable t) {
-                //mView.showErrorMessage("", );
                 mView.unlockRegister();
+                mView.showErrorMessage(R.string.register_error_server_title, R.string.register_error_server_message);
             }
         });
     }
