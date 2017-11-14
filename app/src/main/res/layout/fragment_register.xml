@@ -26,6 +26,9 @@
             android:layout_height="wrap_content" />
 
         <EditText
+            android:maxLines="1"
+            android:lines="1"
+            android:singleLine="true"
             android:id="@+id/et_email"
             android:hint="@string/register_email"
             android:layout_width="250dp"
@@ -35,6 +38,9 @@
             android:background="@drawable/border_shape"
             android:theme="@style/EditTextBorder" />
         <EditText
+            android:maxLines="1"
+            android:lines="1"
+            android:singleLine="true"
             android:id="@+id/et_name"
             android:hint="@string/register_name"
             android:layout_width="250dp"
@@ -44,6 +50,9 @@
             android:background="@drawable/border_shape"
             android:theme="@style/EditTextBorder" />
         <EditText
+            android:maxLines="1"
+            android:lines="1"
+            android:singleLine="true"
             android:id="@+id/et_last_name"
             android:hint="@string/register_last_name"
             android:layout_width="250dp"
@@ -53,6 +62,9 @@
             android:background="@drawable/border_shape"
             android:theme="@style/EditTextBorder" />
         <EditText
+            android:maxLines="1"
+            android:lines="1"
+            android:singleLine="true"
             android:id="@+id/et_password"
             android:hint="@string/register_password"
             android:inputType="textPassword"
