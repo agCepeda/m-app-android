@@ -22,4 +22,6 @@ public interface IRegisterView extends IView {
     void unlockRegister();
 
     void showMainView();
+
+    void showErrorMessage(String s, String s1);
 }

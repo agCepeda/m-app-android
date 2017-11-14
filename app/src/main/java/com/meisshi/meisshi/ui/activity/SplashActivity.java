@@ -94,6 +94,15 @@ public class SplashActivity extends BaseActivity
     }
 
     @Override
+    public void showErrorMessage(String s, String s1) {
+        new AlertDialog.Builder(this)
+                .setTitle(s)
+                .setMessage(s1)
+                .create()
+                .show();
+    }
+
+    @Override
     public void lockLogin() {
         mPdLogin = new ProgressDialog(this);
         mPdLogin.setIndeterminate(false);

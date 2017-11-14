@@ -18,4 +18,6 @@ public interface ILoginView extends IView {
 
     void lockLogin();
     void unlockLogin();
+
+    void showErrorMessage(String s, String s1);
 }

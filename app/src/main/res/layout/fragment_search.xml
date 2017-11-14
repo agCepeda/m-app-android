@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
+        android:background="#ccc"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
+            android:maxLines="1"
+            android:lines="1"
+            android:singleLine="true"
             android:id="@+id/et_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="@string/search_title"/>
-        <Button
+        <ImageButton
             android:id="@+id/btnSearch"
-            android:text="B"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ssearch_icon"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp" />
     </LinearLayout>
     <ListView
         android:id="@+id/lv_cards"

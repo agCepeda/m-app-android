@@ -2,6 +2,7 @@ package com.meisshi.meisshi.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.MenuItem;
 
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.model.User;
@@ -39,5 +40,18 @@ public class ProfileActivity extends BaseActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(user.getShowName());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            close();
+            return true;
+        }
+        return false;// super.onOptionsItemSelected(menuItem);
+    }
+
+    private void close() {
+        finish();
     }
 }

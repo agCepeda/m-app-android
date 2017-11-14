@@ -1,5 +1,6 @@
 package com.meisshi.meisshi.ui.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Inject
     MeisshiApi mApi;
+    @Inject
+    SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

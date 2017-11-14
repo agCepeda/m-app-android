@@ -5,9 +5,12 @@ import android.util.Log;
 
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.model.Session;
+import com.meisshi.meisshi.util.Text;
 import com.meisshi.meisshi.view.ILoginView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -24,43 +27,63 @@ public class LoginPresenter extends BasePresenter {
     }
 
     public void login() {
-        mView.lockLogin();
-        mApi.login(
-                mView.getUsername(),
-                mView.getPassword()
-        ).enqueue(new Callback<Session>() {
-            @Override
-            public void onResponse(Call<Session> call, Response<Session> response) {
-                mView.unlockLogin();
-                if (response.isSuccessful()) {
-                    Session session = response.body();
+        List<String> errors = validate();
 
-                    SharedPreferences.Editor editor = mSharedPreferences.edit();
-                    editor.putString("SESSION_TOKEN", session.getToken());
+        if (errors.isEmpty()) {
+            mView.lockLogin();
+            mApi.login(
+                    mView.getUsername(),
+                    mView.getPassword()
+            ).enqueue(new Callback<Session>() {
+                @Override
+                public void onResponse(Call<Session> call, Response<Session> response) {
+                    mView.unlockLogin();
+                    if (response.isSuccessful()) {
+                        Session session = response.body();
 
-                    editor.commit();
+                        SharedPreferences.Editor editor = mSharedPreferences.edit();
+                        editor.putString("SESSION_TOKEN", session.getToken());
 
-                    mApplication.setUser(session.getUser());
+                        editor.commit();
 
-                    mView.showMainView();
-                } else {
+                        mApplication.setUser(session.getUser());
+
+                        mView.showMainView();
+                    } else {
+                        mView.showErrorMessage(
+                                R.string.login_error_login_title,
+                                R.string.login_error_login_message
+                        );
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Session> call, Throwable t) {
+                    t.printStackTrace();
+                    Log.d("LoginPresenter", t.getMessage(), t);
+                    mView.unlockLogin();
                     mView.showErrorMessage(
-                            R.string.login_error_login_title,
-                            R.string.login_error_login_message
+                            R.string.error_server_title,
+                            R.string.error_server_message
                     );
                 }
+            });
+        } else {
+            StringBuilder builder = new StringBuilder();
+            for (String s: errors) {
+                builder.append(s).append("\n");
             }
+            mView.showErrorMessage("Error", builder.toString());
+        }
+    }
 
-            @Override
-            public void onFailure(Call<Session> call, Throwable t) {
-                t.printStackTrace();
-                Log.d("LoginPresenter", t.getMessage(), t);
-                mView.unlockLogin();
-                mView.showErrorMessage(
-                        R.string.error_server_title,
-                        R.string.error_server_message
-                );
-            }
-        });
+    private List<String> validate() {
+        List<String> errors = new ArrayList<>();
+
+        if (! Text.isEmail(mView.getUsername())) {
+            errors.add("The username is not valid.");
+        }
+
+        return errors;
     }
 }

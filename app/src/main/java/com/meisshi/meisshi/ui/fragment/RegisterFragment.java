@@ -1,5 +1,6 @@
 package com.meisshi.meisshi.ui.fragment;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -144,5 +145,14 @@ public class RegisterFragment extends BaseFragment
         startActivity(i);
 
         getActivity().finish();
+    }
+
+    @Override
+    public void showErrorMessage(String s, String s1) {
+        new AlertDialog.Builder(getActivity())
+                .setTitle(s)
+                .setMessage(s1)
+                .create()
+                .show();
     }
 }

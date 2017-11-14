@@ -3,12 +3,14 @@ package com.meisshi.meisshi.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.meisshi.meisshi.R;
@@ -34,7 +36,7 @@ public class SearchFragment extends BaseFragment
     private SearchPresenter mPresenter;
     private List<User> mListUsers;
     private UserCardAdapter mAdapter;
-    private Button mBtnSearch;
+    private ImageButton mBtnSearch;
 
     @Nullable
     @Override
@@ -43,7 +45,7 @@ public class SearchFragment extends BaseFragment
 
         mLvCards = (ListView) view.findViewById(R.id.lv_cards);
         mEtSearch = (EditText) view.findViewById(R.id.et_search);
-        mBtnSearch = (Button) view.findViewById(R.id.btnSearch);
+        mBtnSearch = (ImageButton) view.findViewById(R.id.btnSearch);
 
         mBtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +97,11 @@ public class SearchFragment extends BaseFragment
 
     @Override
     public void showErrorMessage(int titleRes, int messageRes) {
-
+        new AlertDialog.Builder(getActivity())
+                .setTitle(titleRes)
+                .setMessage(messageRes)
+                .create()
+                .show();
     }
 
     @Override

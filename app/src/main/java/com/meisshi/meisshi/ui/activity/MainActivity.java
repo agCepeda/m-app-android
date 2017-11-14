@@ -1,5 +1,9 @@
 package com.meisshi.meisshi.ui.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,9 +13,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.meisshi.meisshi.R;
+import com.meisshi.meisshi.model.Session;
 import com.meisshi.meisshi.ui.fragment.CardHolderFragment;
 import com.meisshi.meisshi.ui.fragment.MyCardFragment;
 import com.meisshi.meisshi.ui.fragment.ProfileFragment;
@@ -38,12 +45,29 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void setup() {
+        mApplicationComponent.inject(this);
         mNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation_view);
 
         TextView tvToolbarTitle =  (TextView) findViewById(R.id.tvToolbarTitle);
         Typeface font = FontManager.getTypeface(getApplicationContext(), FontManager.MEISSHI_FONT);
         tvToolbarTitle.setTypeface(font, Typeface.NORMAL);
+
+        ImageButton btnOptions = (ImageButton) findViewById(R.id.btn_options);
+        ImageButton btnNotifications = (ImageButton) findViewById(R.id.btn_notifications);
+
+        btnOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showOptions();
+            }
+        });
+        btnNotifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showNotificationsView();
+            }
+        });
 
         if (mNavigationView != null) {
             mNavigationView.setOnNavigationItemSelectedListener(
@@ -68,6 +92,41 @@ public class MainActivity extends BaseActivity
                 unlockToolbar();
             }
         }
+    }
+
+    private void showOptions() {
+        CharSequence options[] = new CharSequence[] {"Logout"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select option");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                logout();
+            }
+        });
+        builder.show();
+    }
+
+    private void logout() {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.remove("SESSION_TOKEN");
+
+        editor.commit();
+
+        mApplication.setUser(null);
+
+        showSplashView();
+        finish();
+    }
+
+    private void showSplashView() {
+        Intent i = new Intent(this, SplashActivity.class);
+        startActivity(i);
+    }
+
+    private void showNotificationsView() {
+        Intent i = new Intent(this, NotificationsActivity.class);
+        startActivity(i);
     }
 
     private void lockToolbar() {

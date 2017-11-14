@@ -20,6 +20,7 @@
             android:layout_height="match_parent">
 
             <ImageButton
+                android:id="@+id/btn_notifications"
                 android:src="@drawable/notificacion_icon"
                 android:background="?attr/actionBarItemBackground"
                 android:layout_width="?attr/actionBarSize"
@@ -40,6 +41,7 @@
 
                 android:id="@+id/tvToolbarTitle" />
             <ImageButton
+                android:id="@+id/btn_options"
                 android:src="@drawable/settings_icon"
                 android:background="?attr/actionBarItemBackground"
                 android:layout_width="?attr/actionBarSize"

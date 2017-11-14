@@ -19,7 +19,7 @@ public class Text {
     public static final Pattern VALID_WEBSITE_REGEX =
             Pattern.compile("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]", Pattern.CASE_INSENSITIVE);
     public static final Pattern VALID_TELEPHONE_REGEX =
-            Pattern.compile("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("[0-9]{10}", Pattern.CASE_INSENSITIVE);
 
     public static boolean isEmail(String email) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);

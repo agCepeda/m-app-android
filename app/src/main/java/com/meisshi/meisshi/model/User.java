@@ -272,11 +272,19 @@ public class User implements Serializable {
     }
 
     public String getProfession() {
+        if (profession == null)
+            return "";
         return profession;
     }
 
     public String getShowName() {
-        return firstName + " " + lastName;
+        String name = "";
+        if (firstName != null)
+            name = firstName + " ";
+        if (lastName != null)
+            name = name + lastName;
+
+        return name;
     }
 
     public String getAddress() {

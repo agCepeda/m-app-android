@@ -1,5 +1,6 @@
 package com.meisshi.meisshi.ui.fragment;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -103,5 +104,14 @@ public class LoginFragment extends BaseFragment
     @Override
     public void unlockLogin() {
 
+    }
+
+    @Override
+    public void showErrorMessage(String s, String s1) {
+        new AlertDialog.Builder(getActivity())
+                .setTitle(s)
+                .setMessage(s1)
+                .create()
+                .show();
     }
 }
