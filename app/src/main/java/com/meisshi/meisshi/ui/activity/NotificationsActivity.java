@@ -3,6 +3,7 @@ package com.meisshi.meisshi.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.model.Notification;
@@ -20,11 +21,14 @@ import retrofit2.Response;
 
 public class NotificationsActivity extends BaseActivity {
     private ArrayList<Notification> mListNotifications;
+    private ListView mLvNotifications;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
+
+        mLvNotifications = (ListView) findViewById(R.id.lv_notifications);
 
         setup();
     }
@@ -65,5 +69,6 @@ public class NotificationsActivity extends BaseActivity {
     public void setmListNotifications(ArrayList<Notification> mListNotifications) {
         this.mListNotifications = mListNotifications;
         NotificationsAdapter adapter = new NotificationsAdapter(mListNotifications, this);
+        mLvNotifications.setAdapter(adapter);
     }
 }

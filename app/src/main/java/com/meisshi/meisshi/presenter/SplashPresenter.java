@@ -3,8 +3,11 @@ package com.meisshi.meisshi.presenter;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.meisshi.meisshi.MeisshiApp;
 import com.meisshi.meisshi.model.Session;
 import com.meisshi.meisshi.model.User;
+import com.meisshi.meisshi.services.MyFirebaseInstanceIDService;
 import com.meisshi.meisshi.view.ISplashView;
 
 import java.io.IOException;
@@ -28,7 +31,8 @@ public class SplashPresenter extends BasePresenter {
                 if (response.isSuccessful()) {
                     User user = response.body();
                     mApplication.setUser(user);
-                    mView.showMainView();
+
+                    updateDeviceToken();
                 } else {
                     mView.showOptions();
                 }
@@ -62,7 +66,7 @@ public class SplashPresenter extends BasePresenter {
                     editor.putString("SESSION_TOKEN", session.getToken());
                     editor.commit();
 
-                    mView.showMainView();
+                    updateDeviceToken();
                 } else {
 
                     try {
@@ -80,5 +84,26 @@ public class SplashPresenter extends BasePresenter {
                 Log.d("LoginPresenter", t.getMessage(), t);
             }
         });
+    }
+
+    private void updateDeviceToken() {
+        if (FirebaseInstanceId.getInstance() != null && FirebaseInstanceId.getInstance().getToken() != null) {
+            mApi.updateDeviceToken(FirebaseInstanceId.getInstance().getToken())
+                    .enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.isSuccessful()) {
+                            }
+                            mView.showMainView();
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+        } else {
+            mView.showMainView();
+        }
     }
 }

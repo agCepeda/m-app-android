@@ -85,7 +85,7 @@ public class EditProfileActivity extends BaseActivity {
             params.put("card", card.getId());
 
             final MultipartBody.Part logoPart = partFromImage(mPersonalFragment.getUriLogo(), "logo");
-            final MultipartBody.Part profilePart = partFromImage(mPersonalFragment.getUriProfile(), "profile_image");
+            final MultipartBody.Part profilePart = partFromImage(mPersonalFragment.getUriProfile(), "profile_picture");
 
             Thread t = new Thread(new Runnable() {
                 @Override

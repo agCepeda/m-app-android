@@ -35,6 +35,7 @@ public class MainActivity extends BaseActivity
     implements IMainView {
 
     private BottomNavigationView mNavigationView;
+    private int mCurrentAction;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,12 +86,6 @@ public class MainActivity extends BaseActivity
                     .setChecked(true);
 
             showMyCardView();
-
-            if (mApplication.getUser().getCard() == null) {
-                lockToolbar();
-            } else {
-                unlockToolbar();
-            }
         }
     }
 
@@ -144,6 +139,12 @@ public class MainActivity extends BaseActivity
 
     private void onSelectMenuItem(MenuItem item) {
         item.setChecked(true);
+
+        if (mCurrentAction == item.getItemId()) {
+            return;
+        }
+
+        mCurrentAction = item.getItemId();
 
         switch (item.getItemId()) {
             case R.id.action_qr:
@@ -215,4 +216,16 @@ public class MainActivity extends BaseActivity
             }
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mApplication.getUser().getCard() == null) {
+            lockToolbar();
+        } else {
+            unlockToolbar();
+        }
+    }
+
+
 }

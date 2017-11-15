@@ -49,4 +49,6 @@
     <string name="register_error_register_title">Error</string>
     <string name="register_error_server_message">Error</string>
     <string name="register_error_server_title">Error</string>
+    <string name="followers_title">Followers</string>
+    <string name="followed_title">Followed</string>
 </resources>

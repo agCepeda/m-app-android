@@ -3,6 +3,8 @@ package com.meisshi.meisshi.presenter;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.meisshi.meisshi.MeisshiApp;
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.model.Session;
 import com.meisshi.meisshi.util.Text;
@@ -48,7 +50,7 @@ public class LoginPresenter extends BasePresenter {
 
                         mApplication.setUser(session.getUser());
 
-                        mView.showMainView();
+                        updateDeviceToken();
                     } else {
                         mView.showErrorMessage(
                                 R.string.login_error_login_title,
@@ -74,6 +76,27 @@ public class LoginPresenter extends BasePresenter {
                 builder.append(s).append("\n");
             }
             mView.showErrorMessage("Error", builder.toString());
+        }
+    }
+
+    private void updateDeviceToken() {
+        if (FirebaseInstanceId.getInstance() != null && FirebaseInstanceId.getInstance().getToken() != null) {
+            mApi.updateDeviceToken(FirebaseInstanceId.getInstance().getToken())
+                    .enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.isSuccessful()) {
+                            }
+                            mView.showMainView();
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+        } else {
+            mView.showMainView();
         }
     }
 

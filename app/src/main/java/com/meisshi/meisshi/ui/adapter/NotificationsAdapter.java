@@ -60,7 +60,26 @@ public class NotificationsAdapter extends BaseAdapter {
 
         Notification notification = mListNotifications.get(i);
 
-        return null;
+        holder.tvUsername.setText(notification.getAttachment().getShowName());
+        mImageLoader.load(notification.getAttachment().getProfilePicture()).into(holder.imvProfile);
+
+        if ("review".equals(notification.getType())) {
+            holder
+                    .tvNotification
+                    .setText(
+                            notification.getAttachment().getShowName() +
+                                    " posted a review on your profile!"
+                    );
+        } else {
+            holder
+                    .tvNotification
+                    .setText(
+                            notification.getAttachment().getShowName() +
+                                    " started following you!"
+                    );
+        }
+
+        return view;
     }
 
     private class ViewHolder {

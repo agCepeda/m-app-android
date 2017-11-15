@@ -2,10 +2,12 @@ package com.meisshi.meisshi.ui.fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -118,6 +120,8 @@ public class PersonalFragment extends BaseFragment {
             }
         });
 
+        mEtTelephone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
         return view;
     }
 
@@ -190,6 +194,13 @@ public class PersonalFragment extends BaseFragment {
             }
         }
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mUser = getEditedUser();
+    }
+
     public void setup() {
         mImageLoader = Picasso.with(getContext());
         mApplicationComponent.inject(this);
@@ -200,6 +211,29 @@ public class PersonalFragment extends BaseFragment {
             mUser = new User(mApplication.getUser());
         }
 
+        loadUserData();
+
+        mApi.getProfessions().enqueue(new Callback<ArrayList<HashMap<String, Object>>>() {
+            @Override
+            public void onResponse(Call<ArrayList<HashMap<String, Object>>> call, Response<ArrayList<HashMap<String, Object>>> response) {
+                if (response.isSuccessful()) {
+                    mProfessionIds = new ArrayList<String>();
+                    mProfessionNames = new ArrayList<String>();
+                    for (HashMap<String, Object> obj:response.body()) {
+                        mProfessionIds.add(obj.get("id").toString());
+                        mProfessionNames.add(obj.get("name").toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<HashMap<String, Object>>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void loadUserData() {
         mImageLoader.load(mUser.getProfilePicture()).into(mImvProfile);
         mImageLoader.load(mUser.getLogo()).into(mImvLogo);
 
@@ -221,25 +255,6 @@ public class PersonalFragment extends BaseFragment {
         mEtNeighborhood.setText(mUser.getNeighborhood());
         mEtCity.setText(mUser.getCity());
         mEtZipCode.setText(mUser.getZipCode());
-
-        mApi.getProfessions().enqueue(new Callback<ArrayList<HashMap<String, Object>>>() {
-            @Override
-            public void onResponse(Call<ArrayList<HashMap<String, Object>>> call, Response<ArrayList<HashMap<String, Object>>> response) {
-                if (response.isSuccessful()) {
-                    mProfessionIds = new ArrayList<String>();
-                    mProfessionNames = new ArrayList<String>();
-                    for (HashMap<String, Object> obj:response.body()) {
-                        mProfessionIds.add(obj.get("id").toString());
-                        mProfessionNames.add(obj.get("name").toString());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<HashMap<String, Object>>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
     }
 
     @Override

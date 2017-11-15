@@ -138,7 +138,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:background="@drawable/profile_edit_background"
-                        android:text="Edit"
                         android:textColor="#fff" />
                 </LinearLayout>
             </LinearLayout>

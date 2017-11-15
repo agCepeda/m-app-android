@@ -1,10 +1,14 @@
 package com.meisshi.meisshi.ui.fragment;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +34,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by DevAg on 05/09/2017.
@@ -119,20 +124,43 @@ public class ProfileFragment extends BaseFragment
         mBtnInstagram.setOnClickListener(socialClickListener);
         mBtnTwitter.setOnClickListener(socialClickListener);
 
+        View.OnClickListener networkListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()) {
+                    case R.id.viewAddress:
+                        showMapAddress();
+                        break;
+                    case R.id.viewEmail:
+                        showSendEmail();
+                        break;
+                    case R.id.viewPhone:
+                        showMakePhoneCall();
+                        break;
+                    case R.id.viewWebsite:
+                        showBrowser();
+                        break;
+                }
+            }
+        };
 
         mViewPhone = view.findViewById(R.id.viewPhone);
+        mViewPhone.setOnClickListener(networkListener);
         mTvIconPhone = (TextView) view.findViewById(R.id.tvIconPhone);
         mTvPhone = (TextView) view.findViewById(R.id.tvPhone);
 
         mViewEmail = view.findViewById(R.id.viewEmail);
+        mViewEmail.setOnClickListener(networkListener);
         mTvIconEmail = (TextView) view.findViewById(R.id.tvIconEmail);
         mTvEmail = (TextView) view.findViewById(R.id.tvEmail);
 
         mViewAddress = view.findViewById(R.id.viewAddress);
+        mViewAddress.setOnClickListener(networkListener);
         mTvIconAddress = (TextView) view.findViewById(R.id.tvIconAddress);
         mTvAddress = (TextView) view.findViewById(R.id.tvAddress);
 
         mViewWebsite = view.findViewById(R.id.viewWebsite);
+        mViewWebsite.setOnClickListener(networkListener);
         mTvIconWebsite = (TextView) view.findViewById(R.id.tvIconWebsite);
         mTvWebsite = (TextView) view.findViewById(R.id.tvWebsite);
 
@@ -167,6 +195,60 @@ public class ProfileFragment extends BaseFragment
         });
 
         return view;
+    }
+
+    private void showSendEmail() {
+        if (mUser.getWorkEmail() != null && ! mUser.getWorkEmail().isEmpty()) {
+            Intent intent=new Intent(Intent.ACTION_SEND);
+            String[] recipients={mUser.getWorkEmail()};
+            intent.putExtra(Intent.EXTRA_EMAIL, recipients);
+            //intent.putExtra(Intent.EXTRA_SUBJECT,"abc");
+            //intent.putExtra(Intent.EXTRA_TEXT,"def");
+            //intent.putExtra(Intent.EXTRA_CC,"ghi");
+            intent.setType("text/html");
+            startActivity(Intent.createChooser(intent, "Send mail"));
+        }
+    }
+
+    private void showMakePhoneCall() {
+        String phone = mUser.getTelephone1();
+
+        if (phone == null)
+            return;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, 1);
+            } else {
+                Intent intent = new Intent(Intent.ACTION_CALL);
+
+                intent.setData(Uri.parse("tel:" + phone));
+
+                startActivity(intent);
+            }
+        }
+
+    }
+
+
+    private void showMapAddress() {
+        String uri = String.format(Locale.ENGLISH, "geo:0,0?q=%s",mUser.getAddress());
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        startActivity(intent);
+    }
+
+    private void showBrowser() {
+        String url = mUser.getWebsite();
+
+        if (url == null)
+            return;
+
+        if (!url.startsWith("http://") && !url.startsWith("https://"))
+            url = "http://" + url;
+
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(browserIntent);
+
     }
 
     private void toolAction() {
@@ -233,14 +315,7 @@ public class ProfileFragment extends BaseFragment
         mApplicationComponent.inject(mPresenter);
 
         // mReviewsAdapter = new ReviewsAdapter(mListReviews, getContext());
-        if (mIsOwn) {
-            mBtnReview.setVisibility(View.GONE);
-            mBtnTool.setText(R.string.profile_tool_edit);
-        } else if (mUser.isContact()) {
-            mBtnTool.setText(R.string.profile_remove_contact);
-        } else {
-            mBtnTool.setText(R.string.profile_add_contact);
-        }
+
         mPresenter.loadProfile();
     }
 
@@ -310,11 +385,20 @@ public class ProfileFragment extends BaseFragment
 
         mBtnFollowed.setText(user.getFollowingCount() + "\nFollowed");
         mBtnFollowers.setText(user.getFollowersCount() + "\nFollowers");
+
+        if (mIsOwn) {
+            mBtnReview.setVisibility(View.GONE);
+            mBtnTool.setText(R.string.profile_tool_edit);
+        } else if (mUser.isContact()) {
+            mBtnTool.setText(R.string.profile_remove_contact);
+        } else {
+            mBtnTool.setText(R.string.profile_add_contact);
+        }
     }
 
     @Override
     public void setToolText(int resourceString) {
-
+        mBtnTool.setText(resourceString);
     }
 
     @Override

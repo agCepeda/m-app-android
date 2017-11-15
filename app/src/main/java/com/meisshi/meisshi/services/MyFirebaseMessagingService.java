@@ -23,22 +23,31 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.i("MyService", "remote");
 
         if (remoteMessage.getNotification() != null) {
+            String message = remoteMessage.getData().get("alert");
+            String userId = remoteMessage.getData().get("user_id");
             showNotification(
                     remoteMessage.getNotification().getTitle(),
-                    remoteMessage.getNotification().getBody()
+                    message,
+                    userId
             );
         }
     }
 
-    private void showNotification(String title, String body) {
+    // Quitar http://
+    // Quitar
+    // Continuea bloqueaada bar despues de editar
+
+    private void showNotification(String title, String body, String userId) {
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         NotificationCompat.Builder notBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.icon_notification)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)
                 .setSound(uri);
+
+        // getExtra data from
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, notBuilder.build());

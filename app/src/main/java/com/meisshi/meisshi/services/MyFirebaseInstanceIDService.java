@@ -4,6 +4,16 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.meisshi.meisshi.MeisshiApp;
+import com.meisshi.meisshi.api.MeisshiApi;
+
+import java.io.IOException;
+
+import javax.inject.Inject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by DevAg on 12/11/2017.
@@ -13,6 +23,9 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     private static final String TAG = "MyFirebaseIIDService";
 
+    @Inject
+    MeisshiApi mApi;
+
     /**
      * Called if InstanceID token is updated. This may occur if the security of
      * the previous token had been compromised. Note that this is called when the InstanceID token
@@ -21,13 +34,9 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     // [START refresh_token]
     @Override
     public void onTokenRefresh() {
-        // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d(TAG, "Refreshed token: " + refreshedToken);
 
-        // If you want to send messages to this application instance or
-        // manage this apps subscriptions on the server side, send the
-        // Instance ID token to your app server.
         sendRegistrationToServer(refreshedToken);
     }
     // [END refresh_token]
@@ -42,6 +51,5 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
      */
     private void sendRegistrationToServer(String token) {
         Log.d(TAG, "sendRegistrationToServer: " + token);
-        // TODO: Implement this method to send token to your app server.
     }
 }

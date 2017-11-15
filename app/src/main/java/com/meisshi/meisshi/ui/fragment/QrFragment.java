@@ -49,6 +49,8 @@ public class QrFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
+        mQrReader.stop();
+        mQrReader.releaseAndCleanup();
         //mQrReader.releaseAndCleanup();
     }
 
@@ -64,15 +66,20 @@ public class QrFragment extends BaseFragment {
             @Override
             public void onDetected(final String data) {
                 Log.d("QREader", "Value : " + data);
+                Log.d("QREader", "Value : " + MeisshiApp.MEISSHI_API_END_POINT);
+
+                mQrReader.stop();
 
                 if (data.contains(MeisshiApp.MEISSHI_API_END_POINT)) {
                     Uri profileUrl = Uri.parse(data);
+                    Log.d("QREader", "OPEN Meisshi Profile: " + profileUrl.getLastPathSegment());
 
                     User user = new User();
                     user.setId(profileUrl.getLastPathSegment());
 
                     showProfile(user);
                 } else {
+                    Log.d("QREader", "EERRORR ASDASDASDASD!");
                     showMessageError("Error", "Error");
                 }
 

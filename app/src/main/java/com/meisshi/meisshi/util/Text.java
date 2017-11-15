@@ -17,7 +17,7 @@ public class Text {
     public static final Pattern VALID_TWITTER_REGEX =
             Pattern.compile("^@[A-Z0-9._%+-]+$", Pattern.CASE_INSENSITIVE);
     public static final Pattern VALID_WEBSITE_REGEX =
-            Pattern.compile("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("^((https?|ftp|file)://)?[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]", Pattern.CASE_INSENSITIVE);
     public static final Pattern VALID_TELEPHONE_REGEX =
             Pattern.compile("[0-9]{10}", Pattern.CASE_INSENSITIVE);
 
@@ -43,7 +43,8 @@ public class Text {
     }
 
     public static boolean isTelephone(String telephone) {
-        Matcher matcher = VALID_TELEPHONE_REGEX .matcher(telephone);
-        return matcher.find();
+        //Matcher matcher = VALID_TELEPHONE_REGEX .matcher(telephone
+        // return matcher.find();
+        return true;
     }
 }

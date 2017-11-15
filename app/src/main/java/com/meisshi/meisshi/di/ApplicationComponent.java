@@ -1,6 +1,7 @@
 package com.meisshi.meisshi.di;
 
 import com.meisshi.meisshi.presenter.BasePresenter;
+import com.meisshi.meisshi.services.MyFirebaseInstanceIDService;
 import com.meisshi.meisshi.ui.activity.BaseActivity;
 import com.meisshi.meisshi.ui.fragment.BaseFragment;
 
@@ -19,4 +20,5 @@ public interface ApplicationComponent {
     void inject(BaseActivity activity);
     void inject(BaseFragment fragment);
     void inject(BasePresenter presenter);
+    void inject(MyFirebaseInstanceIDService service);
 }
