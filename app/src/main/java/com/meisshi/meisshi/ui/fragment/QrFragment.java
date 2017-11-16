@@ -7,14 +7,15 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.meisshi.meisshi.MeisshiApp;
 import com.meisshi.meisshi.R;
@@ -29,14 +30,19 @@ import github.nisrulz.qreader.QREader;
  */
 public class QrFragment extends BaseFragment {
 
+    public static final int REQUEST_CODE_CAMERA_PERMISSION = 123;
+
     private SurfaceView mSvCamera;
     private QREader mQrReader;
+
+    private TextView textView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qr, null);
 
         mSvCamera = (SurfaceView) view.findViewById(R.id.camera_view);
+        textView = new TextView(getActivity());
 
         /*
 
@@ -49,8 +55,10 @@ public class QrFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        mQrReader.stop();
-        mQrReader.releaseAndCleanup();
+        if (mQrReader != null) {
+            mQrReader.stop();
+            mQrReader.releaseAndCleanup();
+        }
         //mQrReader.releaseAndCleanup();
     }
 
@@ -71,16 +79,26 @@ public class QrFragment extends BaseFragment {
                 mQrReader.stop();
 
                 if (data.contains(MeisshiApp.MEISSHI_API_END_POINT)) {
-                    Uri profileUrl = Uri.parse(data);
-                    Log.d("QREader", "OPEN Meisshi Profile: " + profileUrl.getLastPathSegment());
+                    textView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Uri profileUrl = Uri.parse(data);
+                            Log.d("QREader", "OPEN Meisshi Profile: " + profileUrl.getLastPathSegment());
 
-                    User user = new User();
-                    user.setId(profileUrl.getLastPathSegment());
+                            User user = new User();
+                            user.setId(profileUrl.getLastPathSegment());
 
-                    showProfile(user);
+                            showProfile(user);
+                        }
+                    });
                 } else {
-                    Log.d("QREader", "EERRORR ASDASDASDASD!");
-                    showMessageError("Error", "Error");
+                    textView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d("QREader", "EERRORR ASDASDASDASD!");
+                            showMessageError("Error", "Error");
+                        }
+                    });
                 }
 
             }
@@ -105,7 +123,7 @@ public class QrFragment extends BaseFragment {
     public void askForPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_CAMERA_PERMISSION);
             } else {
                 loadCamera();
             }

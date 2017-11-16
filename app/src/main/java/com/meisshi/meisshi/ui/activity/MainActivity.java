@@ -1,14 +1,17 @@
 package com.meisshi.meisshi.ui.activity;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -27,6 +30,8 @@ import com.meisshi.meisshi.ui.fragment.SearchFragment;
 import com.meisshi.meisshi.util.FontManager;
 import com.meisshi.meisshi.view.IMainView;
 
+import static com.meisshi.meisshi.ui.fragment.QrFragment.REQUEST_CODE_CAMERA_PERMISSION;
+
 /**
  * Created by DevAg on 02/09/2017.
  */
@@ -36,6 +41,7 @@ public class MainActivity extends BaseActivity
 
     private BottomNavigationView mNavigationView;
     private int mCurrentAction;
+    private Fragment mFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -207,6 +213,8 @@ public class MainActivity extends BaseActivity
         if (fragment == null)
             return;
 
+        mFragment = fragment;
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager != null) {
             FragmentTransaction ft = fragmentManager.beginTransaction();
@@ -226,6 +234,16 @@ public class MainActivity extends BaseActivity
             unlockToolbar();
         }
     }
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_CAMERA_PERMISSION) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                if (mFragment instanceof QrFragment) {
+                    ((QrFragment) mFragment).loadCamera();
+                }
+            }
+        }
+    }
 
 }

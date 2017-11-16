@@ -26,7 +26,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String message = remoteMessage.getData().get("alert");
             String userId = remoteMessage.getData().get("user_id");
             showNotification(
-                    remoteMessage.getNotification().getTitle(),
+                    "Meisshi",
                     message,
                     userId
             );
@@ -41,7 +41,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         NotificationCompat.Builder notBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_stat_icon_notification)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)

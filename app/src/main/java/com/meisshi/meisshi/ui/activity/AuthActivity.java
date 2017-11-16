@@ -3,6 +3,7 @@ package com.meisshi.meisshi.ui.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.ui.fragment.BaseFragment;
@@ -41,4 +42,16 @@ public class AuthActivity extends AppCompatActivity {
                 .commit();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            close();
+            return true;
+        }
+        return false;// super.onOptionsItemSelected(menuItem);
+    }
+
+    private void close() {
+        finish();
+    }
 }
