@@ -52,6 +52,8 @@ public class User implements Serializable {
         this.cardId = user.cardId;
         this.followingCount = user.followingCount;
         this.followersCount = user.followersCount;
+
+        this.website = user.website;
         this.facebook = user.facebook;
         this.twitter = user.twitter;
         this.instagram = user.instagram;

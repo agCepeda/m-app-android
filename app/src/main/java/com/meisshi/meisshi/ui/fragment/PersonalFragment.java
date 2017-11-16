@@ -299,10 +299,10 @@ public class PersonalFragment extends BaseFragment {
             params.put("profession", mUser.getProfessionId());
 
         // PROFESSION
-        params.put("work_name", mEtWorkEmail.getText().toString());
+        params.put("work_email", mEtWorkEmail.getText().toString());
         params.put("website", mEtWebsite.getText().toString());
         params.put("facebook", mEtFacebook.getText().toString());
-        params.put("twitter_name", mEtTwitter.getText().toString());
+        params.put("twitter", mEtTwitter.getText().toString());
         params.put("instagram", mEtInstagram.getText().toString());
         params.put("bio", mEtBio.getText().toString());
 
