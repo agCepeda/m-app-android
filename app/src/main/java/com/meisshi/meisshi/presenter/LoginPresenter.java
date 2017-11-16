@@ -80,7 +80,9 @@ public class LoginPresenter extends BasePresenter {
     }
 
     private void updateDeviceToken() {
+        Log.d("FIREBASE Token", "");
         if (FirebaseInstanceId.getInstance() != null && FirebaseInstanceId.getInstance().getToken() != null) {
+            Log.d("FIREBASE Token", FirebaseInstanceId.getInstance().getToken());
             mApi.updateDeviceToken(FirebaseInstanceId.getInstance().getToken())
                     .enqueue(new Callback<Void>() {
                         @Override
