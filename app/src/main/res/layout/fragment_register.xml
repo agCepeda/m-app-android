@@ -13,17 +13,23 @@
             android:text="@string/login_enter"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <Button
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btn_log_in_facebook"
             android:text="@string/login_facebook"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"/>
         <TextView
             android:textColor="#fff"
             android:text="@string/login_or"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp" />
 
         <EditText
             android:maxLines="1"
@@ -71,9 +77,9 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="8dp"
             android:background="@drawable/border_shape"
-            android:theme="@style/EditTextBorder" />
+            android:theme="@style/EditTextBorder"
+            android:layout_marginBottom="20dp"/>
         <Button
             android:id="@+id/btn_register"
             android:text="@string/register_sign_in"

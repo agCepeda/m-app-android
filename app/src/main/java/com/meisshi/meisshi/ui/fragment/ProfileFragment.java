@@ -25,6 +25,7 @@ import com.meisshi.meisshi.model.User;
 import com.meisshi.meisshi.presenter.ProfilePresenter;
 import com.meisshi.meisshi.ui.activity.EditProfileActivity;
 import com.meisshi.meisshi.ui.activity.FollowersActivity;
+import com.meisshi.meisshi.ui.activity.ProfileActivity;
 import com.meisshi.meisshi.ui.activity.ReviewFormActivity;
 import com.meisshi.meisshi.ui.view.MeisshiCard;
 import com.meisshi.meisshi.util.FontManager;
@@ -359,6 +360,12 @@ public class ProfileFragment extends BaseFragment
 
     @Override
     public void setUser(User user) {
+        if (getActivity() instanceof ProfileActivity) {
+            ((ProfileActivity) getActivity())
+                    .getSupportActionBar()
+                    .setTitle(user.getShowName());
+        }
+
         mUser = user;
 
         mMcCard.setCardData(user.getCard(), user);

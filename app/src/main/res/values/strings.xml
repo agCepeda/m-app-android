@@ -30,9 +30,6 @@
     <string name="professions_dialog_title">Select a profession</string>
     <string name="login_sign_up">Sign up</string>
     <string name="login_forgot_password">Forgot your password?</string>
-
-    <string name="facebook_app_id">578549502325215</string>
-    <string name="fb_login_protocol_scheme">fb578549502325215</string>
     <string name="register_title">Sign up</string>
     <string name="review_form_title">Review</string>
     <string name="notifications_title">Notifications</string>
@@ -51,4 +48,8 @@
     <string name="register_error_server_title">Error</string>
     <string name="followers_title">Followers</string>
     <string name="followed_title">Followed</string>
+
+    <string name="facebook_app_id">578549502325215</string>
+    <string name="fb_login_protocol_scheme">fb578549502325215</string>
+
 </resources>

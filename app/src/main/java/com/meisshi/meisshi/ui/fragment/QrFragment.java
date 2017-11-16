@@ -24,23 +24,29 @@ import com.meisshi.meisshi.ui.activity.ProfileActivity;
 
 import github.nisrulz.qreader.QRDataListener;
 import github.nisrulz.qreader.QREader;
+import me.dm7.barcodescanner.zbar.Result;
+import me.dm7.barcodescanner.zbar.ZBarScannerView;
 
 /**
  * Created by DevAg on 05/09/2017.
  */
-public class QrFragment extends BaseFragment {
+public class QrFragment extends BaseFragment
+    implements ZBarScannerView.ResultHandler {
 
     public static final int REQUEST_CODE_CAMERA_PERMISSION = 123;
 
+    /*
     private SurfaceView mSvCamera;
     private QREader mQrReader;
 
     private TextView textView;
+    */
+    private ZBarScannerView mScannerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_qr, null);
-
+        /// View view = inflater.inflate(R.layout.fragment_qr, null);
+/*
         mSvCamera = (SurfaceView) view.findViewById(R.id.camera_view);
         textView = new TextView(getActivity());
 
@@ -48,18 +54,24 @@ public class QrFragment extends BaseFragment {
 
 
         */
+        mScannerView = new ZBarScannerView(getActivity());
 
-        return view;
+        return mScannerView;
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        if (mScannerView.isActivated()) {
+            mScannerView.stopCamera();
+        }
+        /*
         if (mQrReader != null) {
             mQrReader.stop();
             mQrReader.releaseAndCleanup();
         }
         //mQrReader.releaseAndCleanup();
+        */
     }
 
     @Override
@@ -70,7 +82,11 @@ public class QrFragment extends BaseFragment {
     }
 
     public void loadCamera() {
+        mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
+        mScannerView.startCamera();          // Start camera on resume
+        /*
         mQrReader = new QREader.Builder(this.getContext(), mSvCamera, new QRDataListener() {
+
             @Override
             public void onDetected(final String data) {
                 Log.d("QREader", "Value : " + data);
@@ -109,7 +125,7 @@ public class QrFragment extends BaseFragment {
                 .build();
 
         mQrReader.initAndStart(mSvCamera);
-        mQrReader.start();
+        mQrReader.start();*/
     }
 
     private void showMessageError(String title, String message) {
@@ -139,5 +155,27 @@ public class QrFragment extends BaseFragment {
         i.putExtras(args);
 
         startActivity(i);
+    }
+
+    @Override
+    public void handleResult(Result result) {
+        Log.d("QREader", "Value : " + result.getContents());
+        Log.d("QREader", "Value : " + MeisshiApp.MEISSHI_API_END_POINT);
+
+        String data = result.getContents();
+
+        if (data.contains(MeisshiApp.MEISSHI_API_END_POINT)) {
+
+            Uri profileUrl = Uri.parse(data);
+            Log.d("QREader", "OPEN Meisshi Profile: " + profileUrl.getLastPathSegment());
+
+            User user = new User();
+            user.setId(profileUrl.getLastPathSegment());
+
+            showProfile(user);
+        } else {
+            Log.d("QREader", "EERRORR ASDASDASDASD!");
+            mScannerView.resumeCameraPreview(this);
+        }
     }
 }
