@@ -87,11 +87,6 @@ public class SearchFragment extends BaseFragment
         mPresenter = new SearchPresenter(this);
         mApplicationComponent.inject(mPresenter);
 
-        mListUsers = new ArrayList<>();
-        mAdapter = new UserCardAdapter(mListUsers, this.getContext());
-
-        mLvCards.setAdapter(mAdapter);
-
         mPresenter.search();
     }
 
@@ -111,7 +106,9 @@ public class SearchFragment extends BaseFragment
 
     @Override
     public void addUsers(User[] users) {
-        mListUsers.addAll(Arrays.asList(users));
-        mAdapter.notifyDataSetChanged();
+        mListUsers = Arrays.asList(users);
+        mAdapter = new UserCardAdapter(mListUsers, this.getContext());
+
+        mLvCards.setAdapter(mAdapter);
     }
 }

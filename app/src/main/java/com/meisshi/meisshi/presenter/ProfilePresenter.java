@@ -71,6 +71,7 @@ public class ProfilePresenter extends BasePresenter {
                     mView.setToolText(
                             R.string.profile_remove_contact
                     );
+                    mView.getUser().setContact(true);
                 }
                 mView.unlockAddRemove();
             }
@@ -95,6 +96,7 @@ public class ProfilePresenter extends BasePresenter {
                     mView.setToolText(
                             R.string.profile_add_contact
                     );
+                    mView.getUser().setContact(false);
                 }
                 mView.unlockAddRemove();
             }

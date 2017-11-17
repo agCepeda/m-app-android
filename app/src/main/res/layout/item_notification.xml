@@ -6,11 +6,10 @@
     android:orientation="horizontal"
     android:padding="8dp">
 
-    <com.mikhaellopez.circularimageview.CircularImageView
+    <ImageView
         android:id="@+id/imvProfile"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:civ_border="false"
         android:contentDescription="" />
 
     <LinearLayout

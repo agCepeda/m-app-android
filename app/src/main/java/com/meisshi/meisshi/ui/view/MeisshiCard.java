@@ -263,6 +263,25 @@ public class MeisshiCard extends RelativeLayout {
         this.mUser = user;
         if (card != null) {
             buildCard();
+        } else {
+            clearCard();
         }
+    }
+
+    private void clearCard() {
+        mTvShowName.setText("");
+        mTvWorkEmail.setText("");
+        mTvProfession.setText("");
+        mTvCompany.setText("");
+        mTvAddress.setText("");
+        mTvTelephone1.setText("");
+        mTvTelephone2.setText("");
+        mTvFacebook.setText("");
+        mTvWebsite.setText("");
+        mTvTwitter.setText("");
+
+        mIvLogo.setImageResource(0);
+        mIvQr.setImageResource(0);
+        mIvCard.setImageResource(0);
     }
 }
