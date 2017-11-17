@@ -4,6 +4,8 @@ import com.meisshi.meisshi.model.Pagination;
 import com.meisshi.meisshi.model.User;
 import com.meisshi.meisshi.view.ISearchView;
 
+import java.util.HashMap;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +34,12 @@ public class SearchPresenter extends BasePresenter {
     }
 
     public void loadUsers() {
+        HashMap<String, Object> params = new HashMap<>();
+
+        params.put("q", mQuery);
+        params.put("size", mSize);
+        params.put("page", mPage);
+
         mApi.search(mQuery, mSize, mPage).enqueue(new Callback<Pagination<User>>() {
             @Override
             public void onResponse(Call<Pagination<User>> call, Response<Pagination<User>> response) {

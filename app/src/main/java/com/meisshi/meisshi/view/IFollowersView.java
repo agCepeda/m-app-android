@@ -11,4 +11,6 @@ public interface IFollowersView extends IView {
     void setUsers(ArrayList<User> body);
 
     boolean isForFollowers();
+
+    User getUser();
 }

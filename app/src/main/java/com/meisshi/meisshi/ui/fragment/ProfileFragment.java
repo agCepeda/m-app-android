@@ -414,6 +414,7 @@ public class ProfileFragment extends BaseFragment
 
         Bundle args = new Bundle();
         args.putString(FollowersActivity.OPTION_FOLLOW_TYPE, FollowersActivity.FOLLOW_TYPE_FOLLOWER);
+        args.putSerializable(FollowersActivity.OPTION_USER, mUser);
 
         i.putExtras(args);
 
@@ -426,6 +427,7 @@ public class ProfileFragment extends BaseFragment
 
         Bundle args = new Bundle();
         args.putString(FollowersActivity.OPTION_FOLLOW_TYPE, FollowersActivity.FOLLOW_TYPE_FOLLOWED);
+        args.putSerializable(FollowersActivity.OPTION_USER, mUser);
 
         i.putExtras(args);
 

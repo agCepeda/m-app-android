@@ -10,6 +10,7 @@ import com.meisshi.meisshi.model.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -23,6 +24,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public interface MeisshiApi {
 
@@ -50,6 +52,11 @@ public interface MeisshiApi {
             @Query("q") String q,
             @Query("size") int size,
             @Query("page") int page
+    );
+
+    @GET("user")
+    Call<Pagination<User>> search(
+            @QueryMap Map<String, String> params
     );
 
     @GET("user/{user_id}/follower")

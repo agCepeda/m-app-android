@@ -23,10 +23,12 @@ public class FollowersActivity extends BaseActivity
     public static final String OPTION_FOLLOW_TYPE = "FOLLOW_TYPE";
     public static final String FOLLOW_TYPE_FOLLOWER = "FOLLOW_TYPE_FOLLOWER";
     public static final String FOLLOW_TYPE_FOLLOWED = "FOLLOW_TYPE_FOLLOWED";
+    public static final String OPTION_USER = "USER";
 
     private ListView mLvUsers;
     private FollowersPresenter mPresenter;
     private boolean isForFollowers;
+    private User mUser;
 
 
     @Override
@@ -46,6 +48,8 @@ public class FollowersActivity extends BaseActivity
 
         isForFollowers = args.getString(OPTION_FOLLOW_TYPE, FOLLOW_TYPE_FOLLOWER)
                 .equals(FOLLOW_TYPE_FOLLOWER);
+
+        mUser = (User) args.getSerializable(OPTION_USER);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(
@@ -69,6 +73,11 @@ public class FollowersActivity extends BaseActivity
     @Override
     public boolean isForFollowers() {
         return isForFollowers;
+    }
+
+    @Override
+    public User getUser() {
+        return mUser;
     }
 
     @Override

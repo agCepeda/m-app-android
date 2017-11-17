@@ -30,7 +30,7 @@ public class FollowersPresenter extends BasePresenter {
     }
 
     private void loadFollowers() {
-        User user = mApplication.getUser();
+        User user = mView.getUser();
         mApi.getFollowers(user.getId()).enqueue(new Callback<ArrayList<User>>() {
             @Override
             public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
@@ -47,7 +47,7 @@ public class FollowersPresenter extends BasePresenter {
     }
 
     private void loadFollowed() {
-        User user = mApplication.getUser();
+        User user = mView.getUser();
         mApi.getFollowed(user.getId()).enqueue(new Callback<ArrayList<User>>() {
             @Override
             public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {

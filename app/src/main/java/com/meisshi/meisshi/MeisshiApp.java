@@ -10,8 +10,8 @@ import com.meisshi.meisshi.model.User;
 
 public class MeisshiApp extends Application {
 
-    //public static final String MEISSHI_API_END_POINT = "http://localhost/MeisshiApi/";
-    public static final String MEISSHI_API_END_POINT = "http://meisshi.com/api4/";
+    public static final String MEISSHI_API_END_POINT = "http://192.168.1.71/MeisshiApi/";
+    //public static final String MEISSHI_API_END_POINT = "http://meisshi.com/api4/";
     public static final String PREFERENCE_DEVICE_TOKEN = "DEVICE_TOKEN";
 
     private ApplicationComponent mAppComponent;
