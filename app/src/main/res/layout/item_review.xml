@@ -10,23 +10,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp">
+        <com.github.maxwell.nc.library.StarRatingView
+            android:id="@+id/srScore"
+            app:star_size="15dp"
+            app:star_count="5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </com.github.maxwell.nc.library.StarRatingView>
         <TextView
             android:id="@+id/tvUsername"
             android:text="Jonh Doe"
             android:textStyle="bold"
             android:textSize="15sp"
 
-            android:textColor="#0056bf"
+            android:textColor="#00890b"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
-        <com.github.maxwell.nc.library.StarRatingView
-            android:id="@+id/srScore"
-            app:star_size="15dp"
-            app:star_count="5"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-        </com.github.maxwell.nc.library.StarRatingView>
     </LinearLayout>
     <TextView
         android:id="@+id/tvComment"

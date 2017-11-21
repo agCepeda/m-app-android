@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <application
         android:name=".MeisshiApp"
         android:allowBackup="true"
@@ -16,24 +17,45 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.activity.SplashActivity"
-            android:theme="@style/AppThemeNoActionBar">
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
                 <category android:name="android.intent.category.LAUNCHER"></category>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.MainActivity"
-            android:theme="@style/AppThemeNoActionBar">
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:theme="@style/AppThemeNoActionBar"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.activity.AuthActivity"></activity>
-        <activity android:name=".ui.activity.ProfileActivity"></activity>
-        <activity android:name=".ui.activity.FollowersActivity"></activity>
-        <activity android:name=".ui.activity.ReviewFormActivity"
-            android:windowSoftInputMode="adjustResize"></activity>
-        <activity android:name=".ui.activity.NotificationsActivity"></activity>
+        <activity
+            android:name=".ui.activity.AuthActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.activity.ProfileActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.activity.FollowersActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.activity.ReviewFormActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.activity.NotificationsActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".ui.activity.EditProfileActivity"
-            android:label="@string/title_edit_profile">
+            android:label="@string/title_edit_profile"
+            android:screenOrientation="portrait">
         </activity>
         <service
             android:name=".services.MyFirebaseMessagingService">

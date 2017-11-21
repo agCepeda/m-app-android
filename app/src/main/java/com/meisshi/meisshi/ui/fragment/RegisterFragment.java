@@ -2,12 +2,14 @@ package com.meisshi.meisshi.ui.fragment;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.meisshi.meisshi.R;
@@ -29,6 +31,7 @@ public class RegisterFragment extends BaseFragment
 
     RegisterPresenter mPresenter;
     private ProgressDialog mPdLogin;
+    private View mContainer;
 
     @Override
     public View onCreateView(
@@ -48,10 +51,18 @@ public class RegisterFragment extends BaseFragment
 
     @Override
     public void setup() {
+        mContainer = getView().findViewById(R.id.container);
         mEtEmail = (EditText) getView().findViewById(R.id.et_email);
         mEtPassword = (EditText) getView().findViewById(R.id.et_password);
         mEtName = (EditText) getView().findViewById(R.id.et_name);
         mEtLastName = (EditText) getView().findViewById(R.id.et_last_name);
+
+        mContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dissmissKeyboard();
+            }
+        });
 
         mPresenter = new RegisterPresenter(this);
 
@@ -155,4 +166,13 @@ public class RegisterFragment extends BaseFragment
                 .create()
                 .show();
     }
+
+    private void dissmissKeyboard() {
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
 }

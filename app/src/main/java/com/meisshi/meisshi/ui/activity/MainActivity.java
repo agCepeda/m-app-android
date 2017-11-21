@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,7 +22,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.meisshi.meisshi.R;
-import com.meisshi.meisshi.model.Session;
 import com.meisshi.meisshi.ui.fragment.CardHolderFragment;
 import com.meisshi.meisshi.ui.fragment.MyCardFragment;
 import com.meisshi.meisshi.ui.fragment.ProfileFragment;
@@ -39,6 +39,7 @@ import static com.meisshi.meisshi.ui.fragment.QrFragment.REQUEST_CODE_CAMERA_PER
 public class MainActivity extends BaseActivity
     implements IMainView {
 
+    private static final int REQUEST_CODE_GEOLOCATION = 201;
     private BottomNavigationView mNavigationView;
     private int mCurrentAction;
     private Fragment mFragment;
@@ -93,6 +94,8 @@ public class MainActivity extends BaseActivity
 
             showMyCardView();
         }
+
+        askForGeolocalizationPermission();
     }
 
     private void showOptions() {
@@ -228,11 +231,7 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        if (mApplication.getUser().getCard() == null) {
-            lockToolbar();
-        } else {
-            unlockToolbar();
-        }
+        checkUser();
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -243,7 +242,38 @@ public class MainActivity extends BaseActivity
                     ((QrFragment) mFragment).loadCamera();
                 }
             }
+        } else if (requestCode == REQUEST_CODE_GEOLOCATION) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                loadGeolocation();
+            }
         }
     }
 
+    private void askForGeolocalizationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_GEOLOCATION);
+            } else {
+                loadGeolocation();
+            }
+        }
+    }
+
+    private void loadGeolocation() {
+
+    }
+
+    public void checkUser() {
+        if (mApplication.getUser().getCard() == null) {
+            showEditProfileView();
+            lockToolbar();
+        } else {
+            unlockToolbar();
+        }
+    }
+
+    private void showEditProfileView() {
+        Intent i = new Intent(this, EditProfileActivity.class);
+        startActivity(i);
+    }
 }

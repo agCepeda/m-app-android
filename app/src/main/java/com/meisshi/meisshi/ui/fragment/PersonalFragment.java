@@ -1,5 +1,6 @@
 package com.meisshi.meisshi.ui.fragment;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -71,6 +73,7 @@ public class PersonalFragment extends BaseFragment {
     private User mUser;
     private ArrayList<String> mProfessionIds;
     private ArrayList<String> mProfessionNames;
+    private View mContainer;
 
     @Nullable
     @Override
@@ -78,6 +81,8 @@ public class PersonalFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_personal, null);
 
         setHasOptionsMenu(true);
+
+        mContainer = view.findViewById(R.id.container);
 
         mImvProfile = (ImageView) view.findViewById(R.id.imvProfile);
         mImvLogo = (ImageView) view.findViewById(R.id.imvLogo);
@@ -99,6 +104,13 @@ public class PersonalFragment extends BaseFragment {
         mEtNeighborhood = (EditText) view.findViewById(R.id.etNeighborhood);
         mEtCity = (EditText) view.findViewById(R.id.etCity);
         mEtZipCode = (EditText) view.findViewById(R.id.etZipCode);
+
+        mContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dissmissKeyboard();
+            }
+        });
 
         mImvLogo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +135,14 @@ public class PersonalFragment extends BaseFragment {
         mEtTelephone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
         return view;
+    }
+
+    private void dissmissKeyboard() {
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     private void showSelectProfession() {
