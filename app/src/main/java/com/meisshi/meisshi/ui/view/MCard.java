@@ -4,11 +4,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +19,8 @@ import com.meisshi.meisshi.model.Card;
 import com.meisshi.meisshi.model.CardField;
 import com.meisshi.meisshi.model.User;
 import com.squareup.picasso.Picasso;
+
+import static android.content.Context.WINDOW_SERVICE;
 
 /**
  * Created by DevAg on 02/09/2017.
@@ -27,6 +31,9 @@ public class MCard extends RelativeLayout {
     private static final int REAL_CARD_WIDTH = 300;
     private static final int REAL_CARD_HEIGHT = 169;
     private static final int CARD_PADDING = 10;
+
+    private double mDpi = 0;
+    private double mScaleFactor = 1;
 
     private TextView mTvShowName;
     private TextView mTvWorkEmail;
@@ -46,7 +53,6 @@ public class MCard extends RelativeLayout {
     private User mUser;
     private Picasso mPiInstance;
     private ViewGroup mViewCard;
-    private double mScaleFactor = 1;
 
     public MCard(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -92,9 +98,13 @@ public class MCard extends RelativeLayout {
     }
 
     public void initPosition() {
-        mScaleFactor = (getResources().getDisplayMetrics().widthPixels - CARD_PADDING) / REAL_CARD_WIDTH;
+        DisplayMetrics dm = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) getContext().getSystemService(WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(dm);
 
-        int xCard = (int) ((getResources().getDisplayMetrics().widthPixels) - (REAL_CARD_WIDTH * mScaleFactor)) / 2;
+        mScaleFactor = (dm.widthPixels - CARD_PADDING) / REAL_CARD_WIDTH;
+
+        int xCard = (int) ((dm.widthPixels) - (REAL_CARD_WIDTH * mScaleFactor)) / 2;
 
         int widthFlip = (int) ((REAL_CARD_WIDTH / 8) * mScaleFactor);
 
