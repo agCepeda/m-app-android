@@ -24,9 +24,9 @@ import com.squareup.picasso.Picasso;
 
 public class MCard extends RelativeLayout {
 
-    private static final int REAL_CARD_WIDTH = 300;
-    private static final int REAL_CARD_HEIGHT = 169;
-    private static final int CARD_PADDING = 10;
+    private static final double REAL_CARD_WIDTH = 300;
+    private static final double REAL_CARD_HEIGHT = 169;
+    private static double CARD_PADDING = 30;
 
     private TextView mTvShowName;
     private TextView mTvWorkEmail;
@@ -92,6 +92,7 @@ public class MCard extends RelativeLayout {
     }
 
     public void initPosition() {
+        CARD_PADDING = getResources().getDisplayMetrics().widthPixels * 0.15;
         mScaleFactor = (getResources().getDisplayMetrics().widthPixels - CARD_PADDING) / REAL_CARD_WIDTH;
 
         int xCard = (int) ((getResources().getDisplayMetrics().widthPixels) - (REAL_CARD_WIDTH * mScaleFactor)) / 2;

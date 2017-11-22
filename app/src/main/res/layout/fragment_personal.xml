@@ -133,10 +133,11 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="8dp"
                     app:srcCompat="@drawable/profesion" />
-                <TextView
-                    android:id="@+id/tvProfession"
+                <EditText
+                    android:id="@+id/etProfession"
+                    android:lines="1"
                     android:layout_weight="1"
-                    android:text="Profession"
+                    android:hint="Profession"
                     android:theme="@style/EditTextLine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

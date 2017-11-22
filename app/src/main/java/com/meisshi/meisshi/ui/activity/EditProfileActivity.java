@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -36,6 +37,11 @@ import retrofit2.Response;
 
 public class EditProfileActivity extends BaseActivity {
 
+    public static final String ARG_SECTION = "ARG_SECTION";
+
+    public static final String SECTION_SELECT_CARD = "SELECT_CARD";
+    public static final String SECTION_PERSONAL = "PERSONAL";
+
     private PersonalFragment mPersonalFragment;
     private SelectCardFragment mSelectfragment;
     private ProgressDialog mProgressDialog;
@@ -49,6 +55,16 @@ public class EditProfileActivity extends BaseActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        String section = getIntent().getStringExtra(ARG_SECTION);
+
+        if (section != null && section.equals(SECTION_SELECT_CARD)) {
+            showSelectCard();
+        } else {
+            showPersonal();
+        }
+    }
+
+    private void showPersonal() {
         mPersonalFragment = new PersonalFragment();
 
         getSupportFragmentManager()
@@ -81,11 +97,18 @@ public class EditProfileActivity extends BaseActivity {
             showErrorMessage("Error", "You must select a card to continue.");
         } else {
             showProgress();
-            final HashMap<String, Object> params = mPersonalFragment.getEdited();
+            final HashMap<String, Object> params = mPersonalFragment != null ?
+                    mPersonalFragment.getEdited() : new HashMap<String, Object>();
             params.put("card", card.getId());
 
-            final MultipartBody.Part logoPart = partFromImage(mPersonalFragment.getUriLogo(), "logo");
-            final MultipartBody.Part profilePart = partFromImage(mPersonalFragment.getUriProfile(), "profile_picture");
+            final MultipartBody.Part logoPart = partFromImage(
+                    mPersonalFragment != null ?
+                            mPersonalFragment.getUriLogo() : null,
+                    "logo");
+            final MultipartBody.Part profilePart = partFromImage(
+                    mPersonalFragment != null ?
+                            mPersonalFragment.getUriProfile() : null,
+                    "profile_picture");
 
             Thread t = new Thread(new Runnable() {
                 @Override
@@ -154,13 +177,19 @@ public class EditProfileActivity extends BaseActivity {
 
     private void close() {
         Log.i("EditProfile", "Close");
-        if (!getSupportFragmentManager().popBackStackImmediate()) {
+        if (! getSupportFragmentManager().popBackStackImmediate()) {
             finish();
+        }
+
+        if (mPersonalFragment == null) {
+            showPersonal();
         }
     }
 
     private void showSelectCard() {
-        List<String> errors = mPersonalFragment.validate();
+        List<String> errors = mPersonalFragment != null ?
+                mPersonalFragment.validate() : new ArrayList<String>();
+
         if (! errors.isEmpty()) {
             StringBuilder builder = new StringBuilder();
             for (String s : errors) {
@@ -172,7 +201,12 @@ public class EditProfileActivity extends BaseActivity {
 
             Bundle args = new Bundle();
 
-            args.putSerializable(SelectCardFragment.ARG_USER, mPersonalFragment.getEditedUser());
+            args.putSerializable(
+                    SelectCardFragment.ARG_USER,
+                    mPersonalFragment != null ?
+                            mPersonalFragment.getEditedUser() :
+                            mApplication.getUser()
+            );
 
             mSelectfragment.setArguments(args);
 
