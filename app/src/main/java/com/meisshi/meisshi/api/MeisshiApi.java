@@ -119,4 +119,11 @@ public interface MeisshiApi {
     @FormUrlEncoded
     @POST("auth/update-device-token")
     Call<Void> updateDeviceToken(@Field("device_token") String token);
+
+    @FormUrlEncoded
+    @POST("auth/update-location")
+    Call<Void> updateLocation(
+            @Field("latitude") double latitude,
+            @Field("longitude") double longitude
+    );
 }

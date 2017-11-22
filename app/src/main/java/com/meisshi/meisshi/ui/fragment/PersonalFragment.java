@@ -58,7 +58,6 @@ public class PersonalFragment extends BaseFragment {
     private EditText mEtTelephone;
     private EditText mEtFirstName;
     private EditText mEtLastName;
-    private TextView mBtnProfession;
     private EditText mEtWorkEmail;
     private EditText mEtWebsite;
     private EditText mEtFacebook;
@@ -74,6 +73,7 @@ public class PersonalFragment extends BaseFragment {
     private ArrayList<String> mProfessionIds;
     private ArrayList<String> mProfessionNames;
     private View mContainer;
+    private EditText mEtProfession;
 
     @Nullable
     @Override
@@ -90,7 +90,7 @@ public class PersonalFragment extends BaseFragment {
         mEtFirstName = (EditText) view.findViewById(R.id.etFirstName);
         mEtLastName = (EditText) view.findViewById(R.id.etLastName);
         mEtTelephone = (EditText) view.findViewById(R.id.etTelephone);
-        mBtnProfession = (TextView) view.findViewById(R.id.tvProfession);
+        mEtProfession = (EditText) view.findViewById(R.id.etProfession);
         mEtWorkEmail = (EditText) view.findViewById(R.id.etWorkEmail);
 
         mEtWebsite = (EditText) view.findViewById(R.id.etWebsite);
@@ -123,12 +123,6 @@ public class PersonalFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 selectProfileImage();
-            }
-        });
-        mBtnProfession.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showSelectProfession();
             }
         });
 
@@ -170,8 +164,6 @@ public class PersonalFragment extends BaseFragment {
     private void setProfessionByIndex(int i) {
         mUser.setProfession(mProfessionNames.get(i));
         mUser.setProfessionId(mProfessionIds.get(i));
-
-        mBtnProfession.setText(mUser.getProfession());
     }
 
     @Override
@@ -260,7 +252,7 @@ public class PersonalFragment extends BaseFragment {
         mEtFirstName.setText(mUser.getFirstName());
         mEtLastName.setText(mUser.getLastName());
         mEtTelephone.setText(mUser.getTelephone1());
-        mBtnProfession.setText(mUser.getProfession());
+        mEtProfession.setText(mUser.getProfession());
         //mSpnProfession.setText(mUser.getProfession());
         mEtWorkEmail.setText(mUser.getWorkEmail());
 
@@ -338,10 +330,11 @@ public class PersonalFragment extends BaseFragment {
     public List<String> validate() {
         List<String> errors = new ArrayList<>();
 
-
+        /*
         if (mUser.getProfessionId() == null) {
             errors.add("Select a profession please.");
         }
+        */
 
         String email =  mEtWorkEmail.getText().toString();
 

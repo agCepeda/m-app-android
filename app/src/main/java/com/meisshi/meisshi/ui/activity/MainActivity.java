@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,7 +40,7 @@ import static com.meisshi.meisshi.ui.fragment.QrFragment.REQUEST_CODE_CAMERA_PER
  */
 
 public class MainActivity extends BaseActivity
-    implements IMainView {
+    implements IMainView, LocationListener {
 
     private static final int REQUEST_CODE_GEOLOCATION = 201;
     private BottomNavigationView mNavigationView;
@@ -260,7 +263,11 @@ public class MainActivity extends BaseActivity
     }
 
     private void loadGeolocation() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
+        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,0, this);
+
+        mApi.updateLocation(1d,1d);
     }
 
     public void checkUser() {
@@ -274,6 +281,32 @@ public class MainActivity extends BaseActivity
 
     private void showEditProfileView() {
         Intent i = new Intent(this, EditProfileActivity.class);
+
+        Bundle args = new Bundle();
+        args.putString(EditProfileActivity.ARG_SECTION, EditProfileActivity.SECTION_SELECT_CARD);
+
+        i.putExtras(args);
+
         startActivity(i);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
     }
 }
