@@ -114,7 +114,12 @@ public interface MeisshiApi {
     );
 
     @GET("notification")
-    Call<ArrayList<Notification>> getNotifications();
+    Call<Pagination<Notification>> getNotifications();
+
+    @POST("notification/{notificationId}")
+    Call<ArrayList<Notification>> seeNotification(
+            @Path("notificationId") String notificationId
+    );
 
     @FormUrlEncoded
     @POST("auth/update-device-token")
