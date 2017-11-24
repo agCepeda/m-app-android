@@ -117,7 +117,7 @@ public interface MeisshiApi {
     Call<Pagination<Notification>> getNotifications();
 
     @POST("notification/{notificationId}")
-    Call<ArrayList<Notification>> seeNotification(
+    Call<Void> seeNotification(
             @Path("notificationId") String notificationId
     );
 

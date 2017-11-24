@@ -74,6 +74,8 @@ public class MCard extends RelativeLayout {
         mIvCard = new ImageView(this.getContext());
         mIvLogo = new ImageView(this.getContext());
 
+        mIvCard.setScaleType(ImageView.ScaleType.FIT_XY);
+
         mViewCard.addView(mIvCard);
         mViewCard.addView(mTvShowName);
         mViewCard.addView(mTvWorkEmail);

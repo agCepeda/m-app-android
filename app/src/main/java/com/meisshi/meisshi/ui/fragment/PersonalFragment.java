@@ -224,25 +224,6 @@ public class PersonalFragment extends BaseFragment {
         }
 
         loadUserData();
-
-        mApi.getProfessions().enqueue(new Callback<ArrayList<HashMap<String, Object>>>() {
-            @Override
-            public void onResponse(Call<ArrayList<HashMap<String, Object>>> call, Response<ArrayList<HashMap<String, Object>>> response) {
-                if (response.isSuccessful()) {
-                    mProfessionIds = new ArrayList<String>();
-                    mProfessionNames = new ArrayList<String>();
-                    for (HashMap<String, Object> obj:response.body()) {
-                        mProfessionIds.add(obj.get("id").toString());
-                        mProfessionNames.add(obj.get("name").toString());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<HashMap<String, Object>>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
     }
 
     private void loadUserData() {
@@ -281,8 +262,8 @@ public class PersonalFragment extends BaseFragment {
         mUser.setLastName(mEtLastName.getText().toString());
         mUser.setTelephone1(mEtTelephone.getText().toString());
 
-        if (mUser.getProfessionId() != null)
-            mUser.setProfessionId(mUser.getProfessionId());
+        mUser.setProfession(mEtProfession.getText().toString());
+
         // PROFESSION
         mUser.setWorkEmail(mEtWorkEmail.getText().toString());
         mUser.setWebsite(mEtWebsite.getText().toString());
@@ -307,8 +288,7 @@ public class PersonalFragment extends BaseFragment {
         params.put("last_name", mEtLastName.getText().toString());
         params.put("telephone1", mEtTelephone.getText().toString());
 
-        if (mUser.getProfessionId() != null)
-            params.put("profession", mUser.getProfessionId());
+        params.put("profession", mUser.getProfession());
 
         // PROFESSION
         params.put("work_email", mEtWorkEmail.getText().toString());

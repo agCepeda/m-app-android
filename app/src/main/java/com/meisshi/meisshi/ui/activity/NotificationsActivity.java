@@ -1,13 +1,17 @@
 package com.meisshi.meisshi.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.model.Notification;
 import com.meisshi.meisshi.model.Pagination;
+import com.meisshi.meisshi.model.User;
 import com.meisshi.meisshi.ui.adapter.NotificationsAdapter;
 
 import java.util.ArrayList;
@@ -33,7 +37,41 @@ public class NotificationsActivity extends BaseActivity {
 
         mLvNotifications = (ListView) findViewById(R.id.lv_notifications);
 
+        mLvNotifications.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                updateNotification(mListNotifications.get(i));
+            }
+        });
+
         setup();
+    }
+
+    private void updateNotification(final Notification notification) {
+        mApi.seeNotification(notification.getId()).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    showProfile(notification.getAttachment());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void showProfile(User user) {
+        Intent i = new Intent(this, ProfileActivity.class);
+
+        Bundle args = new Bundle();
+        args.putSerializable(ProfileActivity.ARG_USER, user);
+
+        i.putExtras(args);
+
+        startActivity(i);
     }
 
     private void setup() {

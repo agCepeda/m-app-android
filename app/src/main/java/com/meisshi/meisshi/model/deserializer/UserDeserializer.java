@@ -63,20 +63,11 @@ public class UserDeserializer
         if (jsonObject.has("contact")) {
             user.setContact(jsonObject.get("contact").getAsBoolean());
         }
-        if (jsonObject.has("profession") && jsonObject.get("profession").isJsonObject()) {
+        if (jsonObject.has("profession") && ! jsonObject.get("profession").isJsonNull()) {
             user.setProfession(
                     jsonObject
                             .get("profession")
-                            .getAsJsonObject()
-                            .get("name")
                             .getAsString()
-            );
-            user.setProfessionId(
-                    jsonObject
-                        .get("profession")
-                        .getAsJsonObject()
-                        .get("id")
-                        .getAsString()
             );
         }
         if (jsonObject.has("degree") && ! jsonObject.get("degree").isJsonNull()) {
