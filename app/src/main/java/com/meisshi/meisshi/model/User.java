@@ -299,6 +299,12 @@ public class User implements Serializable {
             if (number != null) {
                 fullAddress = fullAddress + " " + number;
             }
+            if (number != null) {
+                fullAddress = fullAddress + " " + number;
+            }
+            if (neighborhood != null) {
+                fullAddress = fullAddress + " " + neighborhood;
+            }
             if (city != null) {
                 fullAddress = fullAddress + " " + city;
             }

@@ -2,6 +2,7 @@ package com.meisshi.meisshi.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -62,6 +63,8 @@ public class SelectCardFragment extends BaseFragment {
     }
 
     private void setup() {
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.select_card_title);
+
         mUser = (User) getArguments().getSerializable(ARG_USER);
 
         mApplicationComponent.inject(this);

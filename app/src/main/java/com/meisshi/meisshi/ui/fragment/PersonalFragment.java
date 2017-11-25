@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -214,6 +215,8 @@ public class PersonalFragment extends BaseFragment {
     }
 
     public void setup() {
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.profile_info_title);
+
         mImageLoader = Picasso.with(getContext());
         mApplicationComponent.inject(this);
 

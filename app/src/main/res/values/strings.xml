@@ -51,5 +51,7 @@
 
     <string name="facebook_app_id">578549502325215</string>
     <string name="fb_login_protocol_scheme">fb578549502325215</string>
+    <string name="select_card_title">Select your card</string>
+    <string name="profile_info_title">Info</string>
 
 </resources>

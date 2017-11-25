@@ -27,9 +27,13 @@
             android:layout_width="45dp"
             android:layout_height="45dp" />
     </LinearLayout>
-    <ListView
-        android:id="@+id/lv_cards"
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </ListView>
+        <ListView
+            android:id="@+id/lv_cards"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
