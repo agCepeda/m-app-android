@@ -4,10 +4,12 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.meisshi.meisshi.R;
+import com.meisshi.meisshi.model.Error;
 import com.meisshi.meisshi.model.Session;
 import com.meisshi.meisshi.util.Text;
 import com.meisshi.meisshi.view.IRegisterView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,11 +51,77 @@ public class RegisterPresenter extends BasePresenter {
 
                         editor.commit();
 
-                        mApplication.setUser(session.getUser());
+                        mApplication.setSession(session);
 
                         mView.showMainView();
                     } else {
-                        mView.showErrorMessage(R.string.register_error_register_title, R.string.register_error_register_message);
+                        try {
+                            Error error = mGson.fromJson(
+                                    response.errorBody().string(),
+                                    Error.class
+                            );
+                            mView.showErrorMessage(
+                                    "Error",
+                                    error.getError()
+                            );
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Session> call, Throwable t) {
+                    mView.unlockRegister();
+                    mView.showErrorMessage(R.string.register_error_server_title, R.string.register_error_server_message);
+                }
+            });
+        } else {
+            StringBuilder builder = new StringBuilder();
+            for (String s: errors) {
+                builder.append(s).append("\n");
+            }
+            mView.showErrorMessage("Error", builder.toString());
+        }
+    }
+
+    public void loginFacebook(String email, String name, String lastName) {
+        Log.d("RegisterPresenter", "Sign Up");
+        List<String> errors = validate();
+        if (errors.isEmpty()) {
+            mView.lockRegister();
+            mApi.loginWithFacebook(
+                    email,
+                    name,
+                    lastName
+            ).enqueue(new Callback<Session>() {
+                @Override
+                public void onResponse(Call<Session> call, Response<Session> response) {
+                    mView.unlockRegister();
+                    if (response.isSuccessful()) {
+                        Session session = response.body();
+
+                        SharedPreferences.Editor editor = mSharedPreferences.edit();
+                        editor.putString("SESSION_TOKEN", session.getToken());
+
+                        editor.commit();
+
+                        mApplication.setSession(session);
+
+                        mView.showMainView();
+                    } else {
+                        try {
+                            Error error = mGson.fromJson(
+                                    response.errorBody().string(),
+                                    Error.class
+                            );
+                            mView.showErrorMessage(
+                                    "Error",
+                                    error.getError()
+                            );
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
 

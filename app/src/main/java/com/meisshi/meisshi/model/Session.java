@@ -8,6 +8,8 @@ public class Session {
     private String token;
     private User user;
 
+    private boolean locationAsked;
+
     public String getToken() {
         return token;
     }
@@ -22,5 +24,13 @@ public class Session {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isLocationAsked() {
+        return locationAsked;
+    }
+
+    public void setLocationAsked(boolean locationAsked) {
+        this.locationAsked = locationAsked;
     }
 }

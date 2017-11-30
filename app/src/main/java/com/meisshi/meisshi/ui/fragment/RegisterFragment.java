@@ -6,16 +6,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.facebook.share.Sharer;
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.presenter.RegisterPresenter;
 import com.meisshi.meisshi.ui.activity.MainActivity;
 import com.meisshi.meisshi.view.IRegisterView;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by DevAg on 21/08/2017.
@@ -32,6 +43,8 @@ public class RegisterFragment extends BaseFragment
     RegisterPresenter mPresenter;
     private ProgressDialog mPdLogin;
     private View mContainer;
+    private LoginButton mBtnFacebook;
+    private CallbackManager mCallbackManager;
 
     @Override
     public View onCreateView(
@@ -40,7 +53,47 @@ public class RegisterFragment extends BaseFragment
             Bundle savedInstanceState
     ) {
         View view  = inflater.inflate(R.layout.fragment_register, null);
+        mContainer = view.findViewById(R.id.container);
+        mEtEmail = (EditText) view.findViewById(R.id.et_email);
+        mEtPassword = (EditText) view.findViewById(R.id.et_password);
+        mEtName = (EditText) view.findViewById(R.id.et_name);
+        mEtLastName = (EditText) view.findViewById(R.id.et_last_name);
+        mBtnFacebook = (LoginButton) view.findViewById(R.id.btn_log_in_facebook);
+
+        mBtnFacebook.setFragment(this);
+        mCallbackManager = CallbackManager.Factory.create();
+        // Callback registration
+        mBtnFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+            }
+
+            private void showAlert() {
+            }
+
+        });
+
+        mContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dissmissKeyboard();
+            }
+        });
         return view;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
     }
 
     @Override
@@ -51,18 +104,6 @@ public class RegisterFragment extends BaseFragment
 
     @Override
     public void setup() {
-        mContainer = getView().findViewById(R.id.container);
-        mEtEmail = (EditText) getView().findViewById(R.id.et_email);
-        mEtPassword = (EditText) getView().findViewById(R.id.et_password);
-        mEtName = (EditText) getView().findViewById(R.id.et_name);
-        mEtLastName = (EditText) getView().findViewById(R.id.et_last_name);
-
-        mContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dissmissKeyboard();
-            }
-        });
 
         mPresenter = new RegisterPresenter(this);
 

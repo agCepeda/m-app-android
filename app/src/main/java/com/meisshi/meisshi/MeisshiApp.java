@@ -6,16 +6,17 @@ import com.meisshi.meisshi.di.ApplicationComponent;
 import com.meisshi.meisshi.di.ApplicationModule;
 import com.meisshi.meisshi.di .DaggerApplicationComponent;
 import com.meisshi.meisshi.di.NetworkModule;
+import com.meisshi.meisshi.model.Session;
 import com.meisshi.meisshi.model.User;
 
 public class MeisshiApp extends Application {
 
-    //public static final String MEISSHI_API_END_POINT = "http://192.168.1.71/MeisshiApi/";
+    //public static final String MEISSHI_API_END_POINT = "http://192.168.199.2/m-app-api/";
     public static final String MEISSHI_API_END_POINT = "http://meisshi.com/api_v2/";
     public static final String PREFERENCE_DEVICE_TOKEN = "DEVICE_TOKEN";
 
     private ApplicationComponent mAppComponent;
-    private User user;
+    private Session session;
 
     @Override public void onCreate() {
         super.onCreate();
@@ -29,11 +30,16 @@ public class MeisshiApp extends Application {
         return this.mAppComponent;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public User getUser() {
+        return session != null ? session.getUser() : null;
     }
 
-    public User getUser() {
-        return user;
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public Session getSession()
+    {
+        return this.session;
     }
 }

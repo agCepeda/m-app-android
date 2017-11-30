@@ -25,6 +25,8 @@ public class UserCardAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private Picasso mImageLoader;
 
+    private OnScrollEndListener mScrollEndListener;
+
     public UserCardAdapter(List<User> userList, Context context) {
         mUserList = userList;
         mInflater = LayoutInflater.from(context);
@@ -65,7 +67,27 @@ public class UserCardAdapter extends BaseAdapter {
         mImageLoader.load(user.getProfilePicture()).into(viewHolder.mImvProfile);
         viewHolder.mCard.setCardData(user.getCard(), user);
 
+        if (reachedEndOfList(i)) loadMoreData();
+
         return view;
+    }
+
+    private boolean reachedEndOfList(int position) {
+        // can check if close or exactly at the end
+        return position == mUserList.size() - 1;
+    }
+
+    private void loadMoreData() {
+        if (mScrollEndListener != null)
+            mScrollEndListener.onEndReached();
+    }
+
+    public OnScrollEndListener getScrollEndListener() {
+        return mScrollEndListener;
+    }
+
+    public void setScrollEndListener(OnScrollEndListener mScrollEndListener) {
+        this.mScrollEndListener = mScrollEndListener;
     }
 
     private class ViewHolder {
@@ -80,5 +102,10 @@ public class UserCardAdapter extends BaseAdapter {
             mImvProfile = (ImageView) view.findViewById(R.id.imvProfile);
             mCard = (MeisshiCard) view.findViewById(R.id.meisshiCard);
         }
+    }
+
+    public interface OnScrollEndListener
+    {
+        void onEndReached();
     }
 }

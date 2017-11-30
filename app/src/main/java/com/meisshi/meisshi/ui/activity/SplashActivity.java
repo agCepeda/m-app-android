@@ -12,11 +12,20 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.presenter.LoginPresenter;
 import com.meisshi.meisshi.presenter.SplashPresenter;
 import com.meisshi.meisshi.view.ILoginView;
 import com.meisshi.meisshi.view.ISplashView;
+
+import java.util.Arrays;
 
 public class SplashActivity extends BaseActivity
     implements ISplashView, ILoginView {
@@ -30,6 +39,8 @@ public class SplashActivity extends BaseActivity
     private ProgressDialog mPdLogin;
     private View mLogoContainer;
     private Button mBtnSignUp;
+    private LoginButton mLoginButton;
+    private CallbackManager mCallbackManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -171,6 +182,36 @@ public class SplashActivity extends BaseActivity
             }
         });
 
+        mLoginButton = (LoginButton) findViewById(R.id.btn_log_in_facebook);
+        mLoginButton.setReadPermissions("email");
+        // If using in a fragment
+        // mLoginButton.setFragment(this);
+
+        // Other app specific specialization
+
+        // Callback registration
+
+        mCallbackManager = CallbackManager.Factory.create();
+
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                return;
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+                return;
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+            }
+        });
 
         mSplashPresenter.checkSession();
     }
@@ -190,5 +231,10 @@ public class SplashActivity extends BaseActivity
                 .setMessage(messageRes)
                 .create()
                 .show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

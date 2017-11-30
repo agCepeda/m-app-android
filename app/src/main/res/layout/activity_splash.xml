@@ -31,7 +31,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:src="@drawable/logo"/>
+                android:src="@drawable/icon_meisshi_splash"/>
         </LinearLayout>
 
         <LinearLayout

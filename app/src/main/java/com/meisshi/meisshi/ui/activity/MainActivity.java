@@ -98,7 +98,9 @@ public class MainActivity extends BaseActivity
             showMyCardView();
         }
 
-        askForGeolocalizationPermission();
+        if (! mApplication.getSession().isLocationAsked()) {
+            askForGeolocalizationPermission();
+        }
     }
 
     private void showOptions() {
@@ -120,7 +122,7 @@ public class MainActivity extends BaseActivity
 
         editor.commit();
 
-        mApplication.setUser(null);
+        mApplication.setSession(null);
 
         showSplashView();
         finish();

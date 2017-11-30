@@ -1,8 +1,11 @@
 package com.meisshi.meisshi.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.meisshi.meisshi.R;
@@ -12,6 +15,7 @@ import com.meisshi.meisshi.ui.adapter.FollowersAdapter;
 import com.meisshi.meisshi.view.IFollowersView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by DevAg on 01/11/2017.
@@ -29,14 +33,34 @@ public class FollowersActivity extends BaseActivity
     private FollowersPresenter mPresenter;
     private boolean isForFollowers;
     private User mUser;
+    private boolean mEnabled;
+    private List<User> mListUsers;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_followers);
+
         mLvUsers = (ListView) findViewById(R.id.lvFollowers);
+        mLvUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                showProfile(mListUsers.get(i));
+            }
+        });
         setup();
+    }
+
+    private void showProfile(User user) {
+        Intent i = new Intent(this, ProfileActivity.class);
+
+        Bundle args = new Bundle();
+        args.putSerializable(ProfileActivity.ARG_USER, user);
+
+        i.putExtras(args);
+
+        startActivity(i);
     }
 
     @Override
@@ -66,6 +90,7 @@ public class FollowersActivity extends BaseActivity
 
     @Override
     public void setUsers(ArrayList<User> listUsers) {
+        mListUsers = listUsers;
         FollowersAdapter adapter = new FollowersAdapter(listUsers, this);
         mLvUsers.setAdapter(adapter);
     }

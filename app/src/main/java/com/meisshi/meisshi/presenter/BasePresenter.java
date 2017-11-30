@@ -2,6 +2,7 @@ package com.meisshi.meisshi.presenter;
 
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
 import com.meisshi.meisshi.MeisshiApp;
 import com.meisshi.meisshi.api.MeisshiApi;
 
@@ -18,4 +19,6 @@ public class BasePresenter {
     SharedPreferences mSharedPreferences;
     @Inject
     MeisshiApp mApplication;
+    @Inject
+    Gson mGson;
 }

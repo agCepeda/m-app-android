@@ -24,6 +24,27 @@ public class Pagination<Z> {
     @SerializedName("current_page")
     private int page;
 
+    @SerializedName("next_page_url")
+    private String nextPage;
+
+    @SerializedName("prev_page_url")
+    private String prevPage;
+
+    public String getNextPage() {
+        return nextPage;
+    }
+
+    public void setNextPage(String nextPage) {
+        this.nextPage = nextPage;
+    }
+
+    public String getPrevPage() {
+        return prevPage;
+    }
+
+    public void setPrevPage(String prevPage) {
+        this.prevPage = prevPage;
+    }
 
     public Z[] getItems() {
         return items;

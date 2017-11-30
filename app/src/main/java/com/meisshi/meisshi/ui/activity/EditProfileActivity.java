@@ -117,13 +117,13 @@ public class EditProfileActivity extends BaseActivity {
                         Response<User> result = mApi.saveProfile(params).execute();
 
                         if (result.isSuccessful()) {
-                            mApplication.setUser(result.body());
+                            mApplication.getSession().setUser(result.body());
                         }
 
                         if (logoPart != null || profilePart != null) {
                             result = mApi.saveProfile(profilePart, logoPart).execute();
                             if (result.isSuccessful()) {
-                                mApplication.setUser(result.body());
+                                mApplication.getSession().setUser(result.body());
                             }
                         }
                     } catch (IOException e) {

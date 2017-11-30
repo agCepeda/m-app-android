@@ -22,6 +22,16 @@
         <item name="android:lines">1</item>
         <item name="android:singleLine">true</item>
     </style>
+    <style name="EditTextLineBlack" parent="Widget.AppCompat.EditText">
+        <item name="colorControlActivated">#000</item>
+        <item name="colorControlNormal">#000</item>
+        <item name="android:colorControlHighlight">#000</item>
+        <item name="android:textColorHint">#222</item>
+        <item name="android:editTextColor">#000</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:lines">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
     <style name="EditTextBorder" parent="Widget.AppCompat.EditText">
         <item name="colorControlActivated">#fff</item>
         <item name="colorControlNormal">#fff</item>

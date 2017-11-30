@@ -54,7 +54,6 @@ public class ProfilePresenter extends BasePresenter {
 
             @Override
             public void onFailure(Call<Pagination<Review>> call, Throwable t) {
-
                 t.printStackTrace();
                 //mView.showErrorMessage("", );
             }

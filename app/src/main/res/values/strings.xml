@@ -48,7 +48,6 @@
     <string name="register_error_server_title">Error</string>
     <string name="followers_title">Followers</string>
     <string name="followed_title">Followed</string>
-
     <string name="facebook_app_id">578549502325215</string>
     <string name="fb_login_protocol_scheme">fb578549502325215</string>
     <string name="select_card_title">Select your card</string>

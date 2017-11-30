@@ -32,6 +32,12 @@ public class SessionDeserializer
                     .deserialize(jsonObject.getAsJsonObject("user"), User.class);
             session.setUser(user);
         }
+        if (jsonObject.has("location_asked") &&
+                jsonObject.get("location_asked").isJsonPrimitive()) {
+            session.setLocationAsked(
+                    jsonObject.get("location_asked").getAsInt() > 0
+            );
+        }
 
         return session;
     }

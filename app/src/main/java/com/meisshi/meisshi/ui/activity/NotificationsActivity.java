@@ -100,7 +100,7 @@ public class NotificationsActivity extends BaseActivity {
             close();
             return true;
         }
-        return false;// super.onOptionsItemSelected(menuItem);
+        return false;
     }
 
     private void close() {

@@ -1,12 +1,16 @@
 package com.meisshi.meisshi.ui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,9 +38,10 @@ public class SearchFragment extends BaseFragment
     private EditText mEtSearch;
 
     private SearchPresenter mPresenter;
-    private List<User> mListUsers;
+    private List<User> mListUsers = new ArrayList<>();
     private UserCardAdapter mAdapter;
     private ImageButton mBtnSearch;
+    private SwipeRefreshLayout mSwrUsers;
 
     @Nullable
     @Override
@@ -46,6 +51,7 @@ public class SearchFragment extends BaseFragment
         mLvCards = (ListView) view.findViewById(R.id.lv_cards);
         mEtSearch = (EditText) view.findViewById(R.id.et_search);
         mBtnSearch = (ImageButton) view.findViewById(R.id.btnSearch);
+        mSwrUsers = (SwipeRefreshLayout) view.findViewById(R.id.swrUsers);
 
         mBtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +64,25 @@ public class SearchFragment extends BaseFragment
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 showProfile(mListUsers.get(i));
+            }
+        });
+
+        mLvCards.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+                dissmissKeyboard();
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+
+            }
+        });
+
+        mSwrUsers.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.search();
             }
         });
 
@@ -87,6 +112,16 @@ public class SearchFragment extends BaseFragment
         mPresenter = new SearchPresenter(this);
         mApplicationComponent.inject(mPresenter);
 
+        mAdapter = new UserCardAdapter(mListUsers, this.getContext());
+        mAdapter.setScrollEndListener(new UserCardAdapter.OnScrollEndListener() {
+            @Override
+            public void onEndReached() {
+                mPresenter.loadUsers();
+            }
+        });
+
+        mLvCards.setAdapter(mAdapter);
+
         mPresenter.search();
     }
 
@@ -106,9 +141,23 @@ public class SearchFragment extends BaseFragment
 
     @Override
     public void addUsers(User[] users) {
-        mListUsers = Arrays.asList(users);
-        mAdapter = new UserCardAdapter(mListUsers, this.getContext());
+        mListUsers.addAll(Arrays.asList(users));
+        mAdapter.notifyDataSetChanged();
 
-        mLvCards.setAdapter(mAdapter);
+        mSwrUsers.setRefreshing(false);
+    }
+
+    @Override
+    public void clearUsers() {
+        mListUsers.clear();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void dissmissKeyboard() {
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

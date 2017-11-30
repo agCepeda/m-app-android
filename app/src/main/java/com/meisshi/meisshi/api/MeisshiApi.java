@@ -35,8 +35,16 @@ public interface MeisshiApi {
             @Field("password") String password
     );
 
+    @FormUrlEncoded
+    @POST("auth/fb-login")
+    Call<Session> loginWithFacebook(
+            @Field("email") String username,
+            @Field("name") String name,
+            @Field("last_name") String password
+    );
+
     @GET("auth/check-session")
-    Call<User> checkSession();
+    Call<Session> checkSession();
 
     @FormUrlEncoded
     @POST("auth/sign-up")
@@ -131,4 +139,8 @@ public interface MeisshiApi {
             @Field("latitude") double latitude,
             @Field("longitude") double longitude
     );
+
+    @FormUrlEncoded
+    @POST("auth/update-location-asked")
+    Call<Void> updateLocationAsked();
 }

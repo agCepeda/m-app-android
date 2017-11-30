@@ -25,12 +25,12 @@ public class SplashPresenter extends BasePresenter {
     }
 
     public void checkSession() {
-        this.mApi.checkSession().enqueue(new Callback<User>() {
+        this.mApi.checkSession().enqueue(new Callback<Session>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<Session> call, Response<Session> response) {
                 if (response.isSuccessful()) {
-                    User user = response.body();
-                    mApplication.setUser(user);
+                    Session session = response.body();
+                    mApplication.setSession(session);
 
                     updateDeviceToken();
                 } else {
@@ -39,11 +39,7 @@ public class SplashPresenter extends BasePresenter {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                // mSplas
-                //
-                //
-                // hView.showError(R.string.app_name);
+            public void onFailure(Call<Session> call, Throwable t) {
                 Log.d("SplashPresenter", t.getMessage(), t);
             }
         });
