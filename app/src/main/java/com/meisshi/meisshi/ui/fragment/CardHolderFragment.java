@@ -16,6 +16,7 @@ import com.meisshi.meisshi.ui.activity.ProfileActivity;
 import com.meisshi.meisshi.ui.adapter.UserCardAdapter;
 import com.meisshi.meisshi.view.ICardHolderView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,13 +28,21 @@ public class CardHolderFragment extends BaseFragment
 
     private ListView mLvContacts;
     private CardHolderPresenter mPresenter;
-    private List<User> mListContacts;
+    private List<User> mListContacts = new ArrayList<>();
+    private boolean mIsEnabled;
+    private UserCardAdapter mAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_card_holder, null);
 
+        setupUI(view);
+
+        return view;
+    }
+
+    private void setupUI(View view) {
         mLvContacts = (ListView) view.findViewById(R.id.lvContacts);
         mLvContacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -42,7 +51,29 @@ public class CardHolderFragment extends BaseFragment
             }
         });
 
-        return view;
+
+        mAdapter = new UserCardAdapter(mListContacts, getContext());
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mIsEnabled = true;
+    }
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        setup();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mIsEnabled = false;
     }
 
     private void showProfile(User user) {
@@ -54,12 +85,6 @@ public class CardHolderFragment extends BaseFragment
         i.putExtras(args);
 
         startActivity(i);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        setup();
     }
 
     @Override
@@ -77,8 +102,10 @@ public class CardHolderFragment extends BaseFragment
 
     @Override
     public void setContacts(List<User> contacts) {
-        mListContacts = contacts;
-        UserCardAdapter adapter = new UserCardAdapter(contacts, getContext());
-        mLvContacts.setAdapter(adapter);
+        mListContacts.clear();
+        mListContacts.addAll(contacts);
+        if (mIsEnabled) {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }

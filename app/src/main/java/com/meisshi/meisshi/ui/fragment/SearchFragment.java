@@ -42,51 +42,28 @@ public class SearchFragment extends BaseFragment
     private UserCardAdapter mAdapter;
     private ImageButton mBtnSearch;
     private SwipeRefreshLayout mSwrUsers;
+    private boolean mIsEnabled;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, null);
 
-        mLvCards = (ListView) view.findViewById(R.id.lv_cards);
-        mEtSearch = (EditText) view.findViewById(R.id.et_search);
-        mBtnSearch = (ImageButton) view.findViewById(R.id.btnSearch);
-        mSwrUsers = (SwipeRefreshLayout) view.findViewById(R.id.swrUsers);
-
-        mBtnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.search();
-            }
-        });
-
-        mLvCards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showProfile(mListUsers.get(i));
-            }
-        });
-
-        mLvCards.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView absListView, int i) {
-                dissmissKeyboard();
-            }
-
-            @Override
-            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-
-            }
-        });
-
-        mSwrUsers.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mPresenter.search();
-            }
-        });
+        setupUI(view);
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mIsEnabled = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mIsEnabled = false;
     }
 
     private void showProfile(User user) {
@@ -142,15 +119,18 @@ public class SearchFragment extends BaseFragment
     @Override
     public void addUsers(User[] users) {
         mListUsers.addAll(Arrays.asList(users));
-        mAdapter.notifyDataSetChanged();
-
-        mSwrUsers.setRefreshing(false);
+        if (mIsEnabled) {
+            mAdapter.notifyDataSetChanged();
+            mSwrUsers.setRefreshing(false);
+        }
     }
 
     @Override
     public void clearUsers() {
         mListUsers.clear();
-        mAdapter.notifyDataSetChanged();
+        if (mIsEnabled) {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     private void dissmissKeyboard() {
@@ -159,5 +139,45 @@ public class SearchFragment extends BaseFragment
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    public void setupUI(View view) {
+        mLvCards = (ListView) view.findViewById(R.id.lv_cards);
+        mEtSearch = (EditText) view.findViewById(R.id.et_search);
+        mBtnSearch = (ImageButton) view.findViewById(R.id.btnSearch);
+        mSwrUsers = (SwipeRefreshLayout) view.findViewById(R.id.swrUsers);
+
+        mBtnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.search();
+            }
+        });
+
+        mLvCards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                showProfile(mListUsers.get(i));
+            }
+        });
+
+        mLvCards.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+                dissmissKeyboard();
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+
+            }
+        });
+
+        mSwrUsers.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.search();
+            }
+        });
     }
 }

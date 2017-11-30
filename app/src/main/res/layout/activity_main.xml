@@ -21,11 +21,12 @@
 
             <ImageButton
                 android:id="@+id/btn_notifications"
-                android:src="@drawable/notificacion_icon"
+                android:src="@drawable/ic_action_notifications"
+                android:tint="@color/white"
+                android:scaleType="centerInside"
                 android:background="?attr/actionBarItemBackground"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="match_parent"
-                android:scaleType="centerInside"
                 android:padding="8dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"/>
@@ -42,11 +43,12 @@
                 android:id="@+id/tvToolbarTitle" />
             <ImageButton
                 android:id="@+id/btn_options"
-                android:src="@drawable/settings_icon"
+                android:src="@drawable/ic_action_settings"
+                android:tint="@color/white"
+                android:scaleType="centerInside"
                 android:background="?attr/actionBarItemBackground"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="match_parent"
-                android:scaleType="centerInside"
                 android:padding="8dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"/>

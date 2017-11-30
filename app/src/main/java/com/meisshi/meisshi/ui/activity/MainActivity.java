@@ -40,7 +40,7 @@ import static com.meisshi.meisshi.ui.fragment.QrFragment.REQUEST_CODE_CAMERA_PER
  */
 
 public class MainActivity extends BaseActivity
-    implements IMainView, LocationListener {
+    implements IMainView {
 
     private static final int REQUEST_CODE_GEOLOCATION = 201;
     private BottomNavigationView mNavigationView;
@@ -51,52 +51,19 @@ public class MainActivity extends BaseActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupUI();
         setup();
     }
 
     @Override
     public void setup() {
         mApplicationComponent.inject(this);
-        mNavigationView = (BottomNavigationView)
-                findViewById(R.id.bottom_navigation_view);
+        mNavigationView
+                .getMenu()
+                .findItem(R.id.action_my_card)
+                .setChecked(true);
 
-        TextView tvToolbarTitle =  (TextView) findViewById(R.id.tvToolbarTitle);
-        Typeface font = FontManager.getTypeface(getApplicationContext(), FontManager.MEISSHI_FONT);
-        tvToolbarTitle.setTypeface(font, Typeface.NORMAL);
-
-        ImageButton btnOptions = (ImageButton) findViewById(R.id.btn_options);
-        ImageButton btnNotifications = (ImageButton) findViewById(R.id.btn_notifications);
-
-        btnOptions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showOptions();
-            }
-        });
-        btnNotifications.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showNotificationsView();
-            }
-        });
-
-        if (mNavigationView != null) {
-            mNavigationView.setOnNavigationItemSelectedListener(
-                    new BottomNavigationView.OnNavigationItemSelectedListener() {
-                        @Override
-                        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                            onSelectMenuItem(item);
-                            return false;
-                        }
-                    });
-
-            mNavigationView
-                    .getMenu()
-                    .findItem(R.id.action_my_card)
-                    .setChecked(true);
-
-            showMyCardView();
-        }
+        showMyCardView();
 
         if (! mApplication.getSession().isLocationAsked()) {
             askForGeolocalizationPermission();
@@ -238,6 +205,7 @@ public class MainActivity extends BaseActivity
         super.onResume();
         checkUser();
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -292,23 +260,37 @@ public class MainActivity extends BaseActivity
         startActivity(i);
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
+    public void setupUI() {
+        mNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation_view);
 
-    }
+        TextView tvToolbarTitle =  (TextView) findViewById(R.id.tvToolbarTitle);
+        Typeface font = FontManager.getTypeface(getApplicationContext(), FontManager.MEISSHI_FONT);
+        tvToolbarTitle.setTypeface(font, Typeface.NORMAL);
 
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
+        ImageButton btnOptions = (ImageButton) findViewById(R.id.btn_options);
+        ImageButton btnNotifications = (ImageButton) findViewById(R.id.btn_notifications);
 
-    }
+        btnOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showOptions();
+            }
+        });
+        btnNotifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showNotificationsView();
+            }
+        });
 
-    @Override
-    public void onProviderEnabled(String s) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
-
+        mNavigationView.setOnNavigationItemSelectedListener(
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    onSelectMenuItem(item);
+                    return false;
+                }
+            });
     }
 }

@@ -85,6 +85,7 @@ public class ProfileFragment extends BaseFragment
     private Picasso mImgLoader;
     private Button mBtnTool;
     private Button mBtnReview;
+    private boolean mIsEnabled;
 
     @Nullable
     @Override
@@ -230,6 +231,25 @@ public class ProfileFragment extends BaseFragment
         }
 
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        mIsEnabled = true;
+    }
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        setup();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mIsEnabled = false;
+    }
 
 
     private void showMapAddress() {
@@ -300,12 +320,6 @@ public class ProfileFragment extends BaseFragment
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        setup();
-    }
-
-    @Override
     public void setup() {
         mUser  = (User) getArguments().getSerializable(ARG_USER);
         mIsOwn = getArguments().getBoolean(ARG_IS_OWN);
@@ -333,20 +347,23 @@ public class ProfileFragment extends BaseFragment
     @Override
     public void addReviews(Review[] items) {
         mListReviews = Arrays.asList(items);
-        mLvReviews.removeAllViews();
 
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        for(Review r : items) {
-            View view = inflater.inflate(R.layout.item_review, null);
-            TextView tvUsername = (TextView) view.findViewById(R.id.tvUsername);
-            TextView tvComment  = (TextView) view.findViewById(R.id.tvComment);
-            StarRatingView srScore  = (StarRatingView) view.findViewById(R.id.srScore);
+        if (mIsEnabled) {
+            mLvReviews.removeAllViews();
 
-            tvComment.setText(r.getComment());
-            tvUsername.setText(r.getReviewer().getShowName());
-            srScore.rate(r.getScore());
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            for (Review r : items) {
+                View view = inflater.inflate(R.layout.item_review, null);
+                TextView tvUsername = (TextView) view.findViewById(R.id.tvUsername);
+                TextView tvComment = (TextView) view.findViewById(R.id.tvComment);
+                StarRatingView srScore = (StarRatingView) view.findViewById(R.id.srScore);
 
-            mLvReviews.addView(view);
+                tvComment.setText(r.getComment());
+                tvUsername.setText(r.getReviewer().getShowName());
+                srScore.rate(r.getScore());
+
+                mLvReviews.addView(view);
+            }
         }
     }
 
@@ -360,46 +377,48 @@ public class ProfileFragment extends BaseFragment
 
     @Override
     public void setUser(User user) {
-        if (getActivity() instanceof ProfileActivity) {
-            ((ProfileActivity) getActivity())
-                    .getSupportActionBar()
-                    .setTitle(user.getShowName());
-        }
 
         mUser = user;
+        if (mIsEnabled) {
+            if (getActivity() instanceof ProfileActivity) {
+                ((ProfileActivity) getActivity())
+                        .getSupportActionBar()
+                        .setTitle(user.getShowName());
+            }
 
-        mMcCard.setCardData(user.getCard(), user);
-        mImgLoader.load(user.getProfilePicture()).into(mImvProfile);
+            mMcCard.setCardData(user.getCard(), user);
+            mImgLoader.load(user.getProfilePicture()).into(mImvProfile);
 
-        mTvUsername.setText(user.getShowName());
-        mTvProfession.setText(user.getProfession());
+            mTvUsername.setText(user.getShowName());
+            mTvProfession.setText(user.getProfession());
 
-        mTvBio.setText(user.getBio());
+            mTvBio.setText(user.getBio());
 
-        Typeface font = FontManager.getTypeface(getContext(), FontManager.FONTAWESOME);
+            Typeface font = FontManager.getTypeface(getContext(), FontManager.FONTAWESOME);
 
-        mTvIconPhone.setTypeface(font, Typeface.BOLD);
-        mTvPhone.setText(user.getTelephone1());
+            mTvIconPhone.setTypeface(font, Typeface.BOLD);
+            mTvPhone.setText(user.getTelephone1());
 
-        mTvIconAddress.setTypeface(font, Typeface.BOLD);
-        mTvAddress.setText(user.getAddress());
+            mTvIconAddress.setTypeface(font, Typeface.BOLD);
+            mTvAddress.setText(user.getAddress());
 
-        mTvIconWebsite.setTypeface(font, Typeface.BOLD);
-        mTvWebsite.setText(user.getWebsite());
+            mTvIconWebsite.setTypeface(font, Typeface.BOLD);
+            mTvWebsite.setText(user.getWebsite());
 
-        mTvIconEmail.setTypeface(font, Typeface.BOLD);
-        mTvEmail.setText(user.getWorkEmail());
+            mTvIconEmail.setTypeface(font, Typeface.BOLD);
+            mTvEmail.setText(user.getWorkEmail());
 
-        mBtnFollowed.setText(user.getFollowingCount() + "\nFollowed");
-        mBtnFollowers.setText(user.getFollowersCount() + "\nFollowers");
+            mBtnFollowed.setText(user.getFollowingCount() + "\nFollowed");
+            mBtnFollowers.setText(user.getFollowersCount() + "\nFollowers");
 
-        if (mIsOwn) {
-            mBtnReview.setVisibility(View.GONE);
-            mBtnTool.setText(R.string.profile_tool_edit);
-        } else if (mUser.isContact()) {
-            mBtnTool.setText(R.string.profile_remove_contact);
-        } else {
-            mBtnTool.setText(R.string.profile_add_contact);
+            if (mIsOwn) {
+                mBtnReview.setVisibility(View.GONE);
+                mBtnTool.setText(R.string.profile_tool_edit);
+            } else if (mUser.isContact()) {
+                mBtnTool.setText(R.string.profile_remove_contact);
+            } else {
+                mBtnTool.setText(R.string.profile_add_contact);
+            }
         }
     }
 
