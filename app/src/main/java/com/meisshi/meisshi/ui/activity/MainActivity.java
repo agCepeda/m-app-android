@@ -46,6 +46,11 @@ public class MainActivity extends BaseActivity
     private BottomNavigationView mNavigationView;
     private int mCurrentAction;
     private Fragment mFragment;
+    private QrFragment mQrFragment;
+    private SearchFragment mSearchFragment;
+    private MyCardFragment mMyCardFragment;
+    private CardHolderFragment mCardHolderFragment;
+    private ProfileFragment mProfileFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -153,35 +158,44 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void showQrView() {
-        pushFragment(new QrFragment());
+        if (mQrFragment == null)
+            mQrFragment = new QrFragment();
+        pushFragment(mQrFragment);
     }
 
     @Override
     public void showSearchView() {
-        pushFragment(new SearchFragment());
+        if (mSearchFragment == null)
+            mSearchFragment = new SearchFragment();
+        pushFragment(mSearchFragment);
     }
 
     @Override
     public void showMyCardView() {
-        pushFragment(new MyCardFragment());
+        if (mMyCardFragment == null)
+            mMyCardFragment = new MyCardFragment();
+        pushFragment(mMyCardFragment);
     }
 
     @Override
     public void showCardHolderView() {
-        pushFragment(new CardHolderFragment());
+        if (mCardHolderFragment == null)
+            mCardHolderFragment = new CardHolderFragment();
+        pushFragment(mCardHolderFragment);
     }
 
     @Override
     public void showProfileView() {
-        Bundle args = new Bundle();
+        if (mProfileFragment == null) {
+            Bundle args = new Bundle();
 
-        args.putBoolean(ProfileFragment.ARG_IS_OWN, true);
-        args.putSerializable(ProfileFragment.ARG_USER, mApplication.getUser());
+            args.putBoolean(ProfileFragment.ARG_IS_OWN, true);
+            args.putSerializable(ProfileFragment.ARG_USER, mApplication.getUser());
 
-        Fragment fragment = new ProfileFragment();
-        fragment.setArguments(args);
-
-        pushFragment(fragment);
+            mProfileFragment = new ProfileFragment();
+            mProfileFragment.setArguments(args);
+        }
+        pushFragment(mProfileFragment);
     }
 
     protected void pushFragment(Fragment fragment) {
