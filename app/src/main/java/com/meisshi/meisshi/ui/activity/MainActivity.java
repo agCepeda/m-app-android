@@ -2,6 +2,7 @@ package com.meisshi.meisshi.ui.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,7 +41,7 @@ import static com.meisshi.meisshi.ui.fragment.QrFragment.REQUEST_CODE_CAMERA_PER
  */
 
 public class MainActivity extends BaseActivity
-    implements IMainView {
+        implements IMainView {
 
     private static final int REQUEST_CODE_GEOLOCATION = 201;
     private BottomNavigationView mNavigationView;
@@ -70,13 +71,13 @@ public class MainActivity extends BaseActivity
 
         showMyCardView();
 
-        if (! mApplication.getSession().isLocationAsked()) {
+        if (!mApplication.getSession().isLocationAsked()) {
             askForGeolocalizationPermission();
         }
     }
 
     private void showOptions() {
-        CharSequence options[] = new CharSequence[] {"Logout"};
+        CharSequence options[] = new CharSequence[]{"Logout"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Select option");
         builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -113,13 +114,14 @@ public class MainActivity extends BaseActivity
     private void lockToolbar() {
         int i = 0;
         while (i < mNavigationView.getMenu().size()) {
-            mNavigationView.getMenu().getItem(i ++).setEnabled(false);
+            mNavigationView.getMenu().getItem(i++).setEnabled(false);
         }
     }
+
     private void unlockToolbar() {
         int i = 0;
         while (i < mNavigationView.getMenu().size()) {
-            mNavigationView.getMenu().getItem(i ++).setEnabled(true);
+            mNavigationView.getMenu().getItem(i++).setEnabled(true);
         }
     }
 
@@ -247,11 +249,33 @@ public class MainActivity extends BaseActivity
     }
 
     private void loadGeolocation() {
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        final LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                locationManager.removeUpdates(this);
+                mApi.updateLocation(location.getLatitude(),location.getLongitude());
+            }
 
-        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,0, this);
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
 
-        mApi.updateLocation(1d,1d);
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+
+            }
+        });
+
     }
 
     public void checkUser() {

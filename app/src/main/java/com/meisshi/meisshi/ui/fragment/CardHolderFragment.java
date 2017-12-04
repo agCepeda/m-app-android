@@ -53,6 +53,7 @@ public class CardHolderFragment extends BaseFragment
 
 
         mAdapter = new UserCardAdapter(mListContacts, getContext());
+        mLvContacts.setAdapter(mAdapter);
     }
 
 

@@ -69,15 +69,8 @@ public class SplashActivity extends BaseActivity
 
     @Override
     public void showRegisterView() {
-        Log.d("Splash", "Register Click");
-        Intent i = new Intent(this, AuthActivity.class);
-
-        Bundle args = new Bundle();
-        args.putInt(AuthActivity.VIEW_OPTION, AuthActivity.VIEW_OPTION_REGISTER);
-
-        i.putExtras(args);
-        startActivity(i, args);
-
+        Intent i = new Intent(this, RegisterActivity.class);
+        startActivity(i);
     }
 
     @Override
