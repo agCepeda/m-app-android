@@ -258,9 +258,7 @@ public class SplashActivity extends BaseActivity
                             String email = object.getString("email");
                             String firstName = object.getString("first_name");
                             String lastName = object.getString("last_name");
-                            Log.i("Login-Facebook:", email);
-                            Log.i("Login-Facebook:", firstName);
-                            Log.i("Login-Facebook:", lastName);
+                            mLoginPresenter.loginFacebook(email, firstName, lastName);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
