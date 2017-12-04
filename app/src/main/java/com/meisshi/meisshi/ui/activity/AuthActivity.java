@@ -1,5 +1,6 @@
 package com.meisshi.meisshi.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class AuthActivity extends AppCompatActivity {
 
     public static final int VIEW_OPTION_REGISTER = 1;
     public static final int VIEW_OPTION_LOGIN = 2;
+    private RegisterFragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +30,17 @@ public class AuthActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.register_title);
 
-        Fragment fragment = null;
-
+        mFragment = new RegisterFragment();
+/*
         if (getIntent().getIntExtra(VIEW_OPTION, VIEW_OPTION_LOGIN) == VIEW_OPTION_LOGIN ) {
             fragment = new LoginFragment();
         } else {
-            fragment = new RegisterFragment();
         }
+        */
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
+                .replace(R.id.fragment_container, mFragment)
                 .commit();
     }
 
@@ -53,5 +55,11 @@ public class AuthActivity extends AppCompatActivity {
 
     private void close() {
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mFragment.mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }

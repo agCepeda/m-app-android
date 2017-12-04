@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.Sharer;
@@ -25,6 +27,8 @@ import com.meisshi.meisshi.R;
 import com.meisshi.meisshi.presenter.RegisterPresenter;
 import com.meisshi.meisshi.ui.activity.MainActivity;
 import com.meisshi.meisshi.view.IRegisterView;
+
+import java.util.Arrays;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -43,8 +47,8 @@ public class RegisterFragment extends BaseFragment
     RegisterPresenter mPresenter;
     private ProgressDialog mPdLogin;
     private View mContainer;
-    private LoginButton mBtnFacebook;
-    private CallbackManager mCallbackManager;
+    private Button mBtnFacebook;
+    public CallbackManager mCallbackManager;
 
     @Override
     public View onCreateView(
@@ -58,27 +62,13 @@ public class RegisterFragment extends BaseFragment
         mEtPassword = (EditText) view.findViewById(R.id.et_password);
         mEtName = (EditText) view.findViewById(R.id.et_name);
         mEtLastName = (EditText) view.findViewById(R.id.et_last_name);
-        mBtnFacebook = (LoginButton) view.findViewById(R.id.btn_log_in_facebook);
+        mBtnFacebook = (Button) view.findViewById(R.id.btn_log_in_facebook);
 
-        mBtnFacebook.setFragment(this);
-        mCallbackManager = CallbackManager.Factory.create();
-        // Callback registration
-        mBtnFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+        mBtnFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
+            public void onClick(View view) {
+                loginWithFacebook();
             }
-
-            @Override
-            public void onCancel() {
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-            }
-
-            private void showAlert() {
-            }
-
         });
 
         mContainer.setOnClickListener(new View.OnClickListener() {
@@ -90,10 +80,37 @@ public class RegisterFragment extends BaseFragment
         return view;
     }
 
+    private void loginWithFacebook() {
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        mCallbackManager = CallbackManager.Factory.create();
+        LoginManager
+                .getInstance()
+                .registerCallback(
+                        mCallbackManager,
+                        new FacebookCallback<LoginResult>() {
+
+                            @Override
+                            public void onSuccess(LoginResult loginResult) {
+
+                            }
+
+                            @Override
+                            public void onCancel() {
+
+                            }
+
+                            @Override
+                            public void onError(FacebookException error) {
+
+                            }
+                        });
+
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
     }
 
     @Override

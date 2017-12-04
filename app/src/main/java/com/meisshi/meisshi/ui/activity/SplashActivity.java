@@ -12,10 +12,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -24,6 +27,9 @@ import com.meisshi.meisshi.presenter.LoginPresenter;
 import com.meisshi.meisshi.presenter.SplashPresenter;
 import com.meisshi.meisshi.view.ILoginView;
 import com.meisshi.meisshi.view.ISplashView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -39,7 +45,7 @@ public class SplashActivity extends BaseActivity
     private ProgressDialog mPdLogin;
     private View mLogoContainer;
     private Button mBtnSignUp;
-    private LoginButton mLoginButton;
+    private Button mLoginButton;
     private CallbackManager mCallbackManager;
 
     @Override
@@ -182,34 +188,12 @@ public class SplashActivity extends BaseActivity
             }
         });
 
-        mLoginButton = (LoginButton) findViewById(R.id.btn_log_in_facebook);
-        mLoginButton.setReadPermissions("email");
-        // If using in a fragment
-        // mLoginButton.setFragment(this);
+        mLoginButton = (Button) findViewById(R.id.btn_log_in_facebook);
 
-        // Other app specific specialization
-
-        // Callback registration
-
-        mCallbackManager = CallbackManager.Factory.create();
-
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
-        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-                return;
-            }
-
-            @Override
-            public void onCancel() {
-                // App code
-                return;
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                // App code
+            public void onClick(View view) {
+                loginWithFacebook();
             }
         });
 
@@ -236,5 +220,55 @@ public class SplashActivity extends BaseActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void loginWithFacebook()
+    {
+        mCallbackManager = CallbackManager.Factory.create();
+
+        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                getFacebookProfileData(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+                return;
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+                return;
+            }
+        });
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+    }
+
+    private void getFacebookProfileData(AccessToken accessToken) {
+        GraphRequest request = GraphRequest.newMeRequest(
+                accessToken,
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        try {
+                            String email = object.getString("email");
+                            String firstName = object.getString("first_name");
+                            String lastName = object.getString("last_name");
+                            Log.i("Login-Facebook:", email);
+                            Log.i("Login-Facebook:", firstName);
+                            Log.i("Login-Facebook:", lastName);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "email,first_name,last_name");
+        request.setParameters(parameters);
+        request.executeAsync();
     }
 }
