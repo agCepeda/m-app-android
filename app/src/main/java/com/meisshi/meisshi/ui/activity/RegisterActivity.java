@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -50,9 +51,12 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
         setContentView(R.layout.fragment_register);
 
         setupUI();
+        setup();
     }
 
     private void setupUI() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.register_title);
 
         mContainer = findViewById(R.id.container);
         mEtEmail = (EditText) findViewById(R.id.et_email);
@@ -83,6 +87,19 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
                 });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            close();
+            return true;
+        }
+        return false;// super.onOptionsItemSelected(menuItem);
+    }
+
+    private void close() {
+        finish();
+    }
+
     private void dissmissKeyboard() {
         View view = getCurrentFocus();
         if (view != null) {
@@ -93,7 +110,8 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
 
     @Override
     public void setup() {
-
+        mPresenter = new RegisterPresenter(this);
+        mApplicationComponent.inject(mPresenter);
     }
 
     @Override

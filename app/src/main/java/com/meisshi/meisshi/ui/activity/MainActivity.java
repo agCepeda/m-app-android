@@ -44,6 +44,7 @@ public class MainActivity extends BaseActivity
         implements IMainView {
 
     private static final int REQUEST_CODE_GEOLOCATION = 201;
+    public static final String ARG_OPEN_PROFILE = "ARG_OPEN_PROFILE";
     private BottomNavigationView mNavigationView;
     private int mCurrentAction;
     private Fragment mFragment;

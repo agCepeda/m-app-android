@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -47,11 +48,15 @@ public class SplashActivity extends BaseActivity
     private Button mBtnSignUp;
     private Button mLoginButton;
     private CallbackManager mCallbackManager;
+    private Uri mUriProfileOpen;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        mUriProfileOpen = getIntent().getData();
+
         setup();
     }
 
@@ -91,7 +96,14 @@ public class SplashActivity extends BaseActivity
     @Override
     public void showMainView() {
         Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
+
+        Bundle args = new Bundle();
+
+        if (mUriProfileOpen != null) {
+            args.putString(MainActivity.ARG_OPEN_PROFILE, mUriProfileOpen.getQueryParameter("profile"));
+        }
+
+        startActivity(i, args);
 
         finish();
     }

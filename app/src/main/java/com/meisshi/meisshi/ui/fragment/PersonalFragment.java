@@ -287,7 +287,7 @@ public class PersonalFragment extends BaseFragment {
     public HashMap<String, Object> getEdited() {
         HashMap<String, Object> params = new HashMap<>();
 
-        params.put("first_name", mEtFirstName.getText().toString());
+        params.put("name", mEtFirstName.getText().toString());
         params.put("last_name", mEtLastName.getText().toString());
         params.put("telephone1", mEtTelephone.getText().toString());
 

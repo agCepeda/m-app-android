@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
+    android:versionCode="2"
+    android:versionName="2.0"
     package="com.meisshi.meisshi">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -24,6 +26,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
                 <category android:name="android.intent.category.LAUNCHER"></category>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="meisshi" />
             </intent-filter>
         </activity>
         <activity
